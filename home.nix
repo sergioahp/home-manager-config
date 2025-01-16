@@ -145,6 +145,7 @@
   services.hyprpaper = {
     enable = false;
   };
+  services.ssh-agent.enable = true;
 
   services.flameshot.enable = true;
   services.xremap = {
@@ -246,7 +247,10 @@
         "extensions.autoUpdate" = false;
       };
     };
-    ssh.enable = true;
+    ssh = {
+      enable = true;
+      addKeysToAgent =  "yes";
+    };
     chromium.enable = true;
     home-manager.enable = true;
     sagemath.enable = true;
