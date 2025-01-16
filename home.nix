@@ -99,14 +99,8 @@
      wl-clipboard
      pass # for protonbridge
      protonmail-bridge
+     socat
      # jupyter-all # COLLITION
-
-    # # You can also create simple shell scripts directly inside your
-    # # configuration. For example, this adds a command 'my-hello' to your
-    # # environment:
-    # (writeShellScriptBin "my-hello" ''
-    #   echo "Hello, ${config.home.username}!"
-    # '')
   ];
 
   fonts.fontconfig = {
@@ -129,28 +123,57 @@
      XDDD = "echo";
   };
 
-  # wayland.windowManager.hyprland = {
-  #   enable = true;
-  #   settings = {
-  #   };
-  # };
+  wayland.windowManager.hyprland = {
+    enable = true;
+    settings = {
+      "$mod" = "SUPER";
+      input = {
+        kb_layout = "us";
+        kb_variant = "altgr-intl";
+        kb_options = "caps:swapescape";
+        follow_mouse = 1;
+        sensitivity = 0; # -1.0 - 1.0, 0 means no modification.
+        touchpad = {
+            natural_scroll = true;
+        };
+      };
+      bind = [
+      "$mod, Q, exit"
+      ];
+    };
+  };
+  services.hyprpaper = {
+    enable = false;
+  };
 
   services.flameshot.enable = true;
   services.xremap = {
-    # withGnome = true;
     withHypr = true;
     config = {
       keymap = [
       {
         name = "main remaps";
         remap = {
-          super-y = {
-            launch = ["firefox"];
-          };
-        };
-        remap = {
           super-m = {
-            launch = ["ranger"];
+            remap = {
+                super-k = {
+                  launch = [ "${pkgs.alacritty}/bin/alacritty" ];
+              };
+                super-f = {
+                  launch = [ "${pkgs.firefox}/bin/firefox" ];
+              };
+                super-e = {
+                  launch = [ "${pkgs.alacritty}/bin/alacritty" "-e"
+                  "${pkgs.ranger}/bin/ranger" ];
+              };
+                super-o = {
+                  launch = [ "${pkgs.alacritty}/bin/alacritty" "-e"
+                  "${pkgs.btop}/bin/btop" ];
+              };
+                super-m = {
+                  launch = [ "${pkgs.wofi}/bin/wofi" "--show" "drun" ];
+              };
+            };
           };
         };
       }
@@ -168,15 +191,18 @@
   };
 
   programs = {
+    gh = {
+      enable = true;
+    };
     git = {
       enable = true;
       userName = "sergioahp";
       userEmail = "sergioahp@proton.me";
       extraConfig = {
         merge.tool = "vimdiff";
-	mergetool.vimdiff.cmd = "${pkgs.neovim}/bin/nvim -d $LOCAL $REMOTE $MERGED -c '$wincmd w' -c 'wincmd J'";
-	diff.tool = "vimdiff";
-	difftool.vimdiff.cmd = "${pkgs.neovim}/bin/nvim -d $LOCAL $REMOTE";
+        mergetool.vimdiff.cmd = "${pkgs.neovim}/bin/nvim -d $LOCAL $REMOTE $MERGED -c '$wincmd w' -c 'wincmd J'";
+        diff.tool = "vimdiff";
+        difftool.vimdiff.cmd = "${pkgs.neovim}/bin/nvim -d $LOCAL $REMOTE";
       };
     };
     alacritty = {
