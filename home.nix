@@ -188,15 +188,23 @@
               launch = [ "${pkgs.hyprland}/bin/hyprctl" "dispatch"
               "cyclenext" ];
           };
-            super-k = {
+          super-k = {
               launch = [ "${pkgs.hyprland}/bin/hyprctl" "dispatch"
               "cyclenext" "prev" ];
+          };
+          super-n = {
+              launch = [ "${pkgs.hyprland}/bin/hyprctl" "dispatch"
+              "workspace" "+1"];
+          };
+            super-p = {
+              launch = [ "${pkgs.hyprland}/bin/hyprctl" "dispatch"
+              "workspace" "-1" ];
+            };
           };
           # super-f = {
           #   remap = {
           #   };
           # };
-        };
       }
       {
         name = "other remaps";
