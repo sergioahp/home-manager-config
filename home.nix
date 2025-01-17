@@ -176,6 +176,26 @@
               };
             };
           };
+          super-d = {
+            remap = {
+                super-c = {
+                  launch = [ "${pkgs.hyprland}/bin/hyprctl" "dispatch"
+                  "killactive" ];
+              };
+            };
+          };
+          super-f = {
+            remap = {
+                super-j = {
+                  launch = [ "${pkgs.hyprland}/bin/hyprctl" "dispatch"
+                  "cyclenext" ];
+              };
+                super-k = {
+                  launch = [ "${pkgs.hyprland}/bin/hyprctl" "dispatch"
+                  "cyclenext" "prev" ];
+              };
+            };
+          };
         };
       }
       {
