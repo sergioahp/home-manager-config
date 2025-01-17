@@ -184,18 +184,18 @@
               };
             };
           };
-          super-f = {
-            remap = {
-                super-j = {
-                  launch = [ "${pkgs.hyprland}/bin/hyprctl" "dispatch"
-                  "cyclenext" ];
-              };
-                super-k = {
-                  launch = [ "${pkgs.hyprland}/bin/hyprctl" "dispatch"
-                  "cyclenext" "prev" ];
-              };
-            };
+          super-j = {
+              launch = [ "${pkgs.hyprland}/bin/hyprctl" "dispatch"
+              "cyclenext" ];
           };
+            super-k = {
+              launch = [ "${pkgs.hyprland}/bin/hyprctl" "dispatch"
+              "cyclenext" "prev" ];
+          };
+          # super-f = {
+          #   remap = {
+          #   };
+          # };
         };
       }
       {
