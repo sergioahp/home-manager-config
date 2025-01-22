@@ -394,6 +394,10 @@ in
       userName = "sergioahp";
       userEmail = "sergioahp@proton.me";
       extraConfig = {
+        init.defaultBranch = "master";
+        user.signingkey = "4E3F5ADE5C10EDB6";
+        commit.gpgsign = true;
+        tag.gpgSign = true;
         merge.tool = "vimdiff";
         mergetool.vimdiff.cmd = "${pkgs.neovim}/bin/nvim -d $LOCAL $REMOTE $MERGED -c '$wincmd w' -c 'wincmd J'";
         diff.tool = "vimdiff";
