@@ -108,6 +108,7 @@ in
      pass # for protonbridge
      protonmail-bridge
      socat
+     eza
      # jupyter-all # COLLITION
   ];
 
@@ -499,6 +500,6 @@ in
     };
   };
   home.shellAliases = {
-    ls = "eza";
+    ls = "${pkgs.eza}/bin/eza";
   };
 }
