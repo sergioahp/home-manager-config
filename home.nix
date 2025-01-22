@@ -99,7 +99,6 @@ in
      neovim
      copyq
      du-dust
-     fzf
      ripgrep
      tmux
      whois
@@ -471,32 +470,37 @@ in
       syntaxHighlighting.enable = true;
       initExtra = ''
         bindkey -v '^?' backward-delete-char
-        # fzf configuration
-        if [ -n "''${commands[fzf-share]}" ]; then
-          source "$(fzf-share)/key-bindings.zsh"
-          source "$(fzf-share)/completion.zsh"
-        fi
-
-        # Custom fzf keybindings for vim mode
-        bindkey -M vicmd '/' fzf-history-widget
-        bindkey -M viins '^R' fzf-history-widget
-        bindkey -M vicmd '^T' fzf-file-widget
-        bindkey -M viins '^T' fzf-file-widget
-        bindkey -M vicmd '^P' fzf-cd-widget
-        bindkey -M viins '^P' fzf-cd-widget
-
-        # fzf-tab configuration
         source ${pkgs.zsh-fzf-tab}/share/fzf-tab/fzf-tab.plugin.zsh
-
-        # Additional fzf options
-        export FZF_DEFAULT_OPTS="--height 40% --layout=reverse --border"
-        export FZF_CTRL_T_OPTS="--preview 'bat --style=numbers --color=always --line-range :500 {}'"
-        export FZF_ALT_C_OPTS="--preview 'tree -C {} | head -200'"
+        bindkey ^K fzf-cd-widget
+        bindkey ^J fzf-file-widget
+        autoload -U edit-command-line
+        zle -N edit-command-line
+        bindkey -M vicmd ^F edit-command-line
+        bindkey ^F edit-command-line
+        # Temporary, gnome overides the other var so we overide back
+        export EDITOR=nvim
+        preexec() {
+          local cmd="''${1%% *}"
+          printf "\e]0;%s\a" "$cmd"
+        }
       '';
     };
     fzf = {
       enable = true;
       enableZshIntegration = true;
+      defaultOptions = [
+        "--layout=reverse"
+        "--info=inline"
+      ];
+      historyWidgetOptions = [
+        "--with-nth 2.."
+      ];
+      fileWidgetOptions = [
+        "--preview '${pkgs.bat}/bin/bat --style=plain --color=always --line-range :500 {}'"
+      ];
+      changeDirWidgetOptions = [
+        "--preview '${pkgs.eza}/bin/eza -T --color=always {} | head -200'"
+      ];
     };
   };
   home.shellAliases = {
