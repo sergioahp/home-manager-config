@@ -128,6 +128,7 @@ in
 
   home.sessionVariables = {
      EDITOR = "${pkgs.neovim}/bin/nvim";
+     MANPAGER = "${pkgs.neovim}/bin/nvim +Man!=";
   };
 
   wayland.windowManager.hyprland = {
