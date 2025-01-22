@@ -170,7 +170,7 @@ in
         remap = {
           super-m = {
             remap = {
-                super-k = {
+                super-l = {
                   launch = [ "${pkgs.alacritty}/bin/alacritty" ];
               };
                 super-f = {
