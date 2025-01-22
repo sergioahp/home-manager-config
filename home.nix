@@ -128,7 +128,6 @@ in
 
   home.sessionVariables = {
      EDITOR = "nvim";
-     XDDD = "echo";
   };
 
   wayland.windowManager.hyprland = {
