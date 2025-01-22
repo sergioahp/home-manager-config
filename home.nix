@@ -31,6 +31,10 @@
       notebook
      ]))
      nil
+     tinymist
+     typst
+     typst-live
+     typstfmt
      lua-language-server
      gcc
      gnumake
