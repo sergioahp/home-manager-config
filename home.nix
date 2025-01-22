@@ -472,6 +472,9 @@ in
         append = true;
       };
       syntaxHighlighting.enable = true;
+      autosuggestion = {
+        enable = true;
+      };
       initExtra = ''
         bindkey -v '^?' backward-delete-char
         source ${pkgs.zsh-fzf-tab}/share/fzf-tab/fzf-tab.plugin.zsh
