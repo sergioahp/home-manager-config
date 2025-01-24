@@ -146,6 +146,9 @@
       bind = [
       "$mod, Q, exit"
       ];
+      bindm = [
+        "$mod, mouse:272, movewindow"
+      ];
     };
   };
   services.hyprpaper = {
