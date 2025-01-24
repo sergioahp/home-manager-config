@@ -378,6 +378,10 @@
   };
 
   programs = {
+    eww = {
+      enable = true;
+      configDir = ./eww;
+    };
     gh = {
       enable = true;
     };
