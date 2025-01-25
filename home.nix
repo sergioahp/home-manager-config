@@ -441,6 +441,16 @@
     ssh = {
       enable = true;
       addKeysToAgent =  "yes";
+      matchBlocks."github" = {
+        host = "github.com";
+        user = "git";
+        identityFile = [
+          # TODO: Don't repeat yourself
+          "/home/admin/.ssh/main"
+        ];
+      };
+
+
     };
     chromium.enable = true;
     home-manager.enable = true;
