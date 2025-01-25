@@ -1,13 +1,17 @@
 { config, inputs, pkgs, ... }:
 
+let
+  username = "admin";
+  homeDirectory = "/home/${username}";
+in
 {
 
   imports = [
     inputs.xremap.homeManagerModules.default
   ];
   nixpkgs.config.allowUnfree = true;
-  home.username = "admin";
-  home.homeDirectory = "/home/admin";
+  home.username = username;
+  home.homeDirectory = homeDirectory;
 
   home.stateVersion = "23.11";
 
@@ -445,8 +449,7 @@
         host = "github.com";
         user = "git";
         identityFile = [
-          # TODO: Don't repeat yourself
-          "/home/admin/.ssh/main"
+          "${homeDirectory}/.ssh/main"
         ];
       };
 
