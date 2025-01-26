@@ -101,7 +101,6 @@ in
      copyq
      du-dust
      ripgrep
-     tmux
      whois
      nmap
      wl-clipboard
