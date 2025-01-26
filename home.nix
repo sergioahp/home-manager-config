@@ -96,7 +96,6 @@ in
      xsel
      bat
      fastfetch
-     ranger
      tree
      neovim
      copyq
@@ -387,6 +386,37 @@ in
     eww = {
       enable = true;
       configDir = ./eww;
+    };
+    ranger = {
+      enable = true;
+      rifle = [
+        {
+          condition = "mime ^image, flag f";
+          command = ''${pkgs.nsxiv}/bin/nsxiv -- "$@"'';
+        }
+        {
+          condition = "ext pdf|djvu|epub, flag f";
+          command = ''${pkgs.zathura}/bin/zathura -- "$@"'';
+        }
+        {
+          condition = "mime ^video, flag f";
+          command = ''${pkgs.mpv}/bin/mpv --fs -- "$@"'';
+        }
+        {
+          condition = "mime ^text";
+          command = ''${pkgs.neovim}/bin/nvim "$@"'';
+        }
+      ];
+    };
+    tmux = {
+      enable = true;
+      terminal = "tmux-256color";
+      escapeTime = 0;
+      prefix = "C-a";
+      keyMode = "vi";
+      historyLimit = 5000;
+      extraConfig = ''
+      '';
     };
     gh = {
       enable = true;
