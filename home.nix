@@ -22,6 +22,7 @@ in
      noto-fonts-emoji
     (python3.withPackages (ps: with ps; [
       numpy
+      fabric
       python-lsp-server
       pylsp-mypy
       pandas
@@ -39,6 +40,7 @@ in
      typst
      typst-live
      typstfmt
+     firefox
      lua-language-server
      gcc
      gnumake
