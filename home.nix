@@ -543,6 +543,14 @@ in
     };
   };
   home.shellAliases = {
+
+    sudo = "sudo ";
     ls = "${pkgs.eza}/bin/eza";
+    mv = "mv -i";
+    cp = "cp -i";
+    rm = "rm -I";
+    tree = "${pkgs.eza}/bin/eza -T";
+    cat = "${pkgs.bat}/bin/bat --paging=never --style=plain";
+  };
   };
 }
