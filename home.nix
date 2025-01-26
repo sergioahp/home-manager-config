@@ -552,5 +552,32 @@ in
     tree = "${pkgs.eza}/bin/eza -T";
     cat = "${pkgs.bat}/bin/bat --paging=never --style=plain";
   };
+  xdg.mimeApps = {
+    enable = true;
+    defaultApplications = {
+      #
+      "image/bmp" = [ "nsxiv.desktop" ];
+      "image/gif" = [ "nsxiv.desktop" ];
+      "image/jpeg" = [ "nsxiv.desktop" ];
+      "image/png" = [ "nsxiv.desktop" ];
+      "image/tiff" = [ "nsxiv.desktop" ];
+      "image/x-bmp" = [ "nsxiv.desktop" ];
+      "image/x-portable-bitmap" = [ "nsxiv.desktop" ];
+      "image/x-portable-graymap"  = [ "nsxiv.desktop" ];
+      "image/x-tga"  = [ "nsxiv.desktop" ];
+      "image/x-xpixmap" =  [ "nsxiv.desktop" ];
+      "image/webp"  = [ "nsxiv.desktop" ];
+      "image/heic"  = [ "nsxiv.desktop" ];
+      "image/svg+xml"  = [ "nsxiv.desktop" ];
+      "application/postscript"  = [ "nsxiv.desktop" ];
+      "image/jp2" =  [ "nsxiv.desktop" ];
+      "image/jxl" =  [ "nsxiv.desktop" ];
+      "image/avif"  = [ "nsxiv.desktop" ];
+      "image/heif"  = [ "nsxiv.desktop" ];
+      # firefox
+      "x-scheme-handler/http"  = [ "firefox.desktop" ];
+      "x-scheme-handler/https"  = [ "firefox.desktop" ];
+      "x-scheme-handler/chrome"  = [ "firefox.desktop" ];
+    };
   };
 }
