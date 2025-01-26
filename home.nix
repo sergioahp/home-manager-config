@@ -126,6 +126,15 @@ in
   home.file = {
   };
 
+  gtk.enable = true;
+  home.pointerCursor = {
+    # package = pkgs.vanilla-dmz;
+    package = pkgs.capitaine-cursors;
+    name = "capitaine-cursors";
+    size = 32;
+    gtk.enable = true;
+  };
+
   home.sessionVariables = {
      EDITOR = "${pkgs.neovim}/bin/nvim";
      MANPAGER = "${pkgs.neovim}/bin/nvim +Man!=";
