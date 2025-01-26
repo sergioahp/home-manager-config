@@ -180,10 +180,10 @@ in
           super-m = {
             remap = {
                 super-l = {
-                  launch = [ "${pkgs.alacritty}/bin/alacritty" ];
+                  launch = [ "systemd-run" "--user" "--scope" "${pkgs.alacritty}/bin/alacritty" ];
               };
                 super-f = {
-                  launch = [ "${pkgs.firefox}/bin/firefox" ];
+                  launch = [ "systemd-run" "--user" "--scope" "${pkgs.firefox}/bin/firefox" ];
               };
                 super-e = {
                   launch = [ "${pkgs.alacritty}/bin/alacritty" "-e"
