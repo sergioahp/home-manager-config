@@ -1,4 +1,4 @@
-{ config, inputs, pkgs, ... }:
+{ config, inputs, pkgs, system, ... }:
 
 let
   username = "admin";
@@ -35,6 +35,7 @@ in
       virtualenv
       notebook
      ]))
+     inputs.hyprswitch.packages.${system}.default
      nil
      tinymist
      typst

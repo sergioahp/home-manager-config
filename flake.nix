@@ -9,6 +9,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     xremap.url = "github:xremap/nix-flake";
+    hyprswitch.url = "github:h3rmt/hyprswitch/release";
     # zsh-syntax-highlighting = {
     #   url = "github:zsh-users/zsh-syntax-highlighting";
     #   flake = false;
@@ -32,7 +33,7 @@
         modules = [ ./home.nix ];
 
         # Optionally use extraSpecialArgs
-	extraSpecialArgs = { inherit inputs; };
+	extraSpecialArgs = { inherit inputs; inherit system; };
         # to pass through arguments to home.nix
       };
     };
