@@ -503,7 +503,21 @@ in
     chromium.enable = true;
     home-manager.enable = true;
     sagemath.enable = true;
-    zathura.enable = true;
+    zathura = {
+      enable = true;
+      options = {
+        selection-clipboard = "clipboard";
+        statusbar-home-tilde = true;
+        window-title-basename = true;
+        default-bg = "rgba(31,32,38,0.7)";
+        recolor-lightcolor = "rgba(0,0,0,0)";
+        recolor-keephue = true;
+        recolor = true;
+      };
+      mappings = {
+        i = "recolor";
+      };
+    };
     mpv.enable = true;
     zsh = {
       enable = true;
