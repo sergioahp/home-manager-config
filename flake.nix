@@ -10,14 +10,6 @@
     };
     xremap.url = "github:xremap/nix-flake";
     hyprswitch.url = "github:h3rmt/hyprswitch/release";
-    # zsh-syntax-highlighting = {
-    #   url = "github:zsh-users/zsh-syntax-highlighting";
-    #   flake = false;
-    # };
-    # zsh-autosuggestions = {
-    #   url = "github:zsh-users/zsh-autosuggestions";
-    #   flake = false;
-    # };
   };
 
   outputs = { nixpkgs, home-manager, ... }@inputs:
