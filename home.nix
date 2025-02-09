@@ -172,7 +172,7 @@ in
         };
       };
       bind = [
-      "$mod, Q, exit"
+      "$mod, Q, exec, uwsm stop"
       ];
       bindm = [
         "$mod, mouse:272, movewindow"
