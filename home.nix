@@ -189,7 +189,6 @@ in
   };
   services.ssh-agent.enable = true;
 
-  services.flameshot.enable = true;
   services.xremap = {
     withWlroots = true;
     config = {
