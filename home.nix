@@ -167,8 +167,8 @@ in
         kb_layout = "us";
         kb_variant = "altgr-intl";
         kb_options = "caps:swapescape";
-        repeat_delay = 250;
-        repeat_rate = 50;
+        repeat_delay = 275;
+        repeat_rate = 26;
         follow_mouse = 1;
         sensitivity = 0; # -1.0 - 1.0, 0 means no modification.
         touchpad = {
