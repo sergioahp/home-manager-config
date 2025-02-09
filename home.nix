@@ -146,6 +146,19 @@ in
     systemd.enable = false;
     settings = {
       "$mod" = "SUPER";
+      general = {
+      workspace = [
+        "1, defaultName:u"
+        "2, defaultName:i"
+        "3, defaultName:o"
+        "4, defaultName:p"
+        "5, defaultName:j"
+        "6, defaultName:k"
+        "7, defaultName:l"
+        "8, defaultName:s"
+        "9, defaultName:m"
+        "10, defaultName:c"
+      ];
       input = {
         kb_layout = "us";
         kb_variant = "altgr-intl";
