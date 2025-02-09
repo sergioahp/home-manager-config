@@ -639,7 +639,7 @@ in
         zle -N edit-command-line
         bindkey -M vicmd ^F edit-command-line
         bindkey ^F edit-command-line
-        # Temporary, gnome overides the other var so we overide back
+        # Temporary, gnome overrides the other var so we override back
         export EDITOR=nvim
         preexec() {
           local cmd="''${1%% *}"
