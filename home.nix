@@ -188,219 +188,305 @@ in
   services.xremap = {
     withWlroots = true;
     config = {
+      keypress_delay_ms = 20;
+      modmap = [
+        {
+          name = "main modmaps";
+          remap = {
+            shift_r = "alt_l";
+          };
+        }
+      ];
       keymap = [
-      {
-        name = "main remaps";
-        remap = {
-          super-m = {
-            remap = {
+        {
+          name = "main remaps";
+          remap = {
+            super-m = {
+              remap = {
                 super-l = {
-                  launch = [ "systemd-run" "--user" "--scope" "${pkgs.alacritty}/bin/alacritty" ];
-              };
+                  launch = [
+                    "${pkgs.uwsm}/bin/uwsm" "app" "--"
+                    "${pkgs.hyprland}/bin/hyprctl" "dispatch" "--" "exec"
+                    "${pkgs.alacritty}/bin/alacritty"
+                  ];
+                };
                 super-f = {
-                  launch = [ "systemd-run" "--user" "--scope" "${pkgs.firefox}/bin/firefox" ];
-              };
+                  launch = [
+                    "${pkgs.uwsm}/bin/uwsm" "app" "--"
+                    "${pkgs.hyprland}/bin/hyprctl" "dispatch" "--" "exec"
+                    "${pkgs.firefox}/bin/firefox"
+                  ];
+                };
                 super-e = {
-                  launch = [ "${pkgs.alacritty}/bin/alacritty" "-e"
-                  "${pkgs.ranger}/bin/ranger" ];
-              };
+                  launch = [
+                    "${pkgs.uwsm}/bin/uwsm" "app" "--"
+                    "${pkgs.hyprland}/bin/hyprctl" "dispatch" "--" "exec"
+                    "${pkgs.alacritty}/bin/alacritty" "-e"
+                    "${pkgs.ranger}/bin/ranger"
+                  ];
+                };
                 super-o = {
-                  launch = [ "${pkgs.alacritty}/bin/alacritty" "-e"
-                  "${pkgs.btop}/bin/btop" ];
-              };
+                  launch = [
+                    "${pkgs.uwsm}/bin/uwsm" "app" "--"
+                    "${pkgs.hyprland}/bin/hyprctl" "dispatch" "--" "exec"
+                    "${pkgs.alacritty}/bin/alacritty" "-e"
+                    "${pkgs.btop}/bin/btop"
+                  ];
+                };
                 super-m = {
-                  launch = [ "${pkgs.wofi}/bin/wofi" "--show" "drun" ];
+                  launch = [
+                    "${pkgs.uwsm}/bin/uwsm" "app" "--"
+                    "${pkgs.hyprland}/bin/hyprctl" "dispatch" "--" "exec"
+                    "${pkgs.wofi}/bin/wofi" "--show" "drun"
+                  ];
+                };
               };
             };
-          };
-          super-f = {
-            remap = {
-              super-u = {
-                launch = [ "${pkgs.hyprland}/bin/hyprctl" "dispatch"
-                  "workspace" "1"];
-              };
-              super-i = {
-                launch = [ "${pkgs.hyprland}/bin/hyprctl" "dispatch"
-                  "workspace" "2"];
-              };
-              super-o = {
-                launch = [ "${pkgs.hyprland}/bin/hyprctl" "dispatch"
-                  "workspace" "3"];
-              };
-              super-p = {
-                launch = [ "${pkgs.hyprland}/bin/hyprctl" "dispatch"
-                  "workspace" "4"];
-              };
-              super-j = {
-                launch = [ "${pkgs.hyprland}/bin/hyprctl" "dispatch"
-                  "workspace" "5"];
-              };
-              super-k = {
-                launch = [ "${pkgs.hyprland}/bin/hyprctl" "dispatch"
-                  "workspace" "6"];
-              };
-              super-l = {
-                launch = [ "${pkgs.hyprland}/bin/hyprctl" "dispatch"
-                  "workspace" "7"];
-              };
-              super-semicolon = {
-                launch = [ "${pkgs.hyprland}/bin/hyprctl" "dispatch"
-                  "workspace" "8"];
-              };
-              super-m = {
-                launch = [ "${pkgs.hyprland}/bin/hyprctl" "dispatch"
-                  "workspace" "9"];
-              };
-              super-comma = {
-                launch = [ "${pkgs.hyprland}/bin/hyprctl" "dispatch"
-                  "workspace" "10"];
+            super-u = {
+              remap = {
+                super-f = {
+                  launch = [ "${pkgs.dunst}/bin/dunstctl" "history-pop" ];
+                };
+                super-d = {
+                  launch = [ "${pkgs.dunst}/bin/dunstctl" "close" ];
+                };
+                super-s = {
+                  launch = [ "${pkgs.dunst}/bin/dunstctl" "close-all" ];
+                };
+                super-c = {
+                  launch = [ "${pkgs.dunst}/bin/dunstctl" "action" ];
+                };
+                super-e = {
+                  launch = [ "${pkgs.dunst}/bin/dunstctl" "context" ];
+                };
+                super-t = {
+                  launch = [ "${pkgs.dunst}/bin/dunstctl" "set-paused" "toggle" ];
+                };
+                super-i = {
+                  launch = [ "${pkgs.dunst}/bin/dunstctl" "set-paused" "true" ];
+                };
+                super-o = {
+                  launch = [ "${pkgs.dunst}/bin/dunstctl" "set-paused" "false" ];
+                };
               };
             };
-          };
-          super-e = {
-            remap = {
-              super-u = {
-                launch = [ "${pkgs.hyprland}/bin/hyprctl" "dispatch"
-                  "movetoworkspacesilent" "1"];
-              };
-              super-i = {
-                launch = [ "${pkgs.hyprland}/bin/hyprctl" "dispatch"
-                  "movetoworkspacesilent" "2"];
-              };
-              super-o = {
-                launch = [ "${pkgs.hyprland}/bin/hyprctl" "dispatch"
-                  "movetoworkspacesilent" "3"];
-              };
-              super-p = {
-                launch = [ "${pkgs.hyprland}/bin/hyprctl" "dispatch"
-                  "movetoworkspacesilent" "4"];
-              };
-              super-j = {
-                launch = [ "${pkgs.hyprland}/bin/hyprctl" "dispatch"
-                  "movetoworkspacesilent" "5"];
-              };
-              super-k = {
-                launch = [ "${pkgs.hyprland}/bin/hyprctl" "dispatch"
-                  "movetoworkspacesilent" "6"];
-              };
-              super-l = {
-                launch = [ "${pkgs.hyprland}/bin/hyprctl" "dispatch"
-                  "movetoworkspacesilent" "7"];
-              };
-              super-semicolon = {
-                launch = [ "${pkgs.hyprland}/bin/hyprctl" "dispatch"
-                  "movetoworkspacesilent" "8"];
-              };
-              super-m = {
-                launch = [ "${pkgs.hyprland}/bin/hyprctl" "dispatch"
-                  "movetoworkspacesilent" "9"];
-              };
-              super-comma = {
-                launch = [ "${pkgs.hyprland}/bin/hyprctl" "dispatch"
-                  "movetoworkspacesilent" "10"];
-              };
-            };
-          };
-          super-v = {
-            remap = {
-              super-u = {
-                launch = [ "${pkgs.hyprland}/bin/hyprctl" "dispatch"
-                  "movetoworkspace" "1"];
-              };
-              super-i = {
-                launch = [ "${pkgs.hyprland}/bin/hyprctl" "dispatch"
-                  "movetoworkspace" "2"];
-              };
-              super-o = {
-                launch = [ "${pkgs.hyprland}/bin/hyprctl" "dispatch"
-                  "movetoworkspace" "3"];
-              };
-              super-p = {
-                launch = [ "${pkgs.hyprland}/bin/hyprctl" "dispatch"
-                  "movetoworkspace" "4"];
-              };
-              super-j = {
-                launch = [ "${pkgs.hyprland}/bin/hyprctl" "dispatch"
-                  "movetoworkspace" "5"];
-              };
-              super-k = {
-                launch = [ "${pkgs.hyprland}/bin/hyprctl" "dispatch"
-                  "movetoworkspace" "6"];
-              };
-              super-l = {
-                launch = [ "${pkgs.hyprland}/bin/hyprctl" "dispatch"
-                  "movetoworkspace" "7"];
-              };
-              super-semicolon = {
-                launch = [ "${pkgs.hyprland}/bin/hyprctl" "dispatch"
-                  "movetoworkspace" "8"];
-              };
-              super-m = {
-                launch = [ "${pkgs.hyprland}/bin/hyprctl" "dispatch"
-                  "movetoworkspace" "9"];
-              };
-              super-comma = {
-                launch = [ "${pkgs.hyprland}/bin/hyprctl" "dispatch"
-                  "movetoworkspace" "10"];
+            super-f = {
+              remap = {
+                super-u = {
+                  launch = [ "${pkgs.hyprland}/bin/hyprctl" "dispatch"
+                    "workspace" "1"];
+                };
+                super-i = {
+                  launch = [ "${pkgs.hyprland}/bin/hyprctl" "dispatch"
+                    "workspace" "2"];
+                };
+                super-o = {
+                  launch = [ "${pkgs.hyprland}/bin/hyprctl" "dispatch"
+                    "workspace" "3"];
+                };
+                super-p = {
+                  launch = [ "${pkgs.hyprland}/bin/hyprctl" "dispatch"
+                    "workspace" "4"];
+                };
+                super-j = {
+                  launch = [ "${pkgs.hyprland}/bin/hyprctl" "dispatch"
+                    "workspace" "5"];
+                };
+                super-k = {
+                  launch = [ "${pkgs.hyprland}/bin/hyprctl" "dispatch"
+                    "workspace" "6"];
+                };
+                super-l = {
+                  launch = [ "${pkgs.hyprland}/bin/hyprctl" "dispatch"
+                    "workspace" "7"];
+                };
+                super-semicolon = {
+                  launch = [ "${pkgs.hyprland}/bin/hyprctl" "dispatch"
+                    "workspace" "8"];
+                };
+                super-m = {
+                  launch = [ "${pkgs.hyprland}/bin/hyprctl" "dispatch"
+                    "workspace" "9"];
+                };
+                super-comma = {
+                  launch = [ "${pkgs.hyprland}/bin/hyprctl" "dispatch"
+                    "workspace" "10"];
+                };
               };
             };
-          };
+            super-e = {
+              remap = {
+                super-u = {
+                  launch = [ "${pkgs.hyprland}/bin/hyprctl" "dispatch"
+                    "movetoworkspacesilent" "1"];
+                };
+                super-i = {
+                  launch = [ "${pkgs.hyprland}/bin/hyprctl" "dispatch"
+                    "movetoworkspacesilent" "2"];
+                };
+                super-o = {
+                  launch = [ "${pkgs.hyprland}/bin/hyprctl" "dispatch"
+                    "movetoworkspacesilent" "3"];
+                };
+                super-p = {
+                  launch = [ "${pkgs.hyprland}/bin/hyprctl" "dispatch"
+                    "movetoworkspacesilent" "4"];
+                };
+                super-j = {
+                  launch = [ "${pkgs.hyprland}/bin/hyprctl" "dispatch"
+                    "movetoworkspacesilent" "5"];
+                };
+                super-k = {
+                  launch = [ "${pkgs.hyprland}/bin/hyprctl" "dispatch"
+                    "movetoworkspacesilent" "6"];
+                };
+                super-l = {
+                  launch = [ "${pkgs.hyprland}/bin/hyprctl" "dispatch"
+                    "movetoworkspacesilent" "7"];
+                };
+                super-semicolon = {
+                  launch = [ "${pkgs.hyprland}/bin/hyprctl" "dispatch"
+                    "movetoworkspacesilent" "8"];
+                };
+                super-m = {
+                  launch = [ "${pkgs.hyprland}/bin/hyprctl" "dispatch"
+                    "movetoworkspacesilent" "9"];
+                };
+                super-comma = {
+                  launch = [ "${pkgs.hyprland}/bin/hyprctl" "dispatch"
+                    "movetoworkspacesilent" "10"];
+                };
+              };
+            };
+            super-v = {
+              remap = {
+                super-u = {
+                  launch = [ "${pkgs.hyprland}/bin/hyprctl" "dispatch"
+                    "movetoworkspace" "1"];
+                };
+                super-i = {
+                  launch = [ "${pkgs.hyprland}/bin/hyprctl" "dispatch"
+                    "movetoworkspace" "2"];
+                };
+                super-o = {
+                  launch = [ "${pkgs.hyprland}/bin/hyprctl" "dispatch"
+                    "movetoworkspace" "3"];
+                };
+                super-p = {
+                  launch = [ "${pkgs.hyprland}/bin/hyprctl" "dispatch"
+                    "movetoworkspace" "4"];
+                };
+                super-j = {
+                  launch = [ "${pkgs.hyprland}/bin/hyprctl" "dispatch"
+                    "movetoworkspace" "5"];
+                };
+                super-k = {
+                  launch = [ "${pkgs.hyprland}/bin/hyprctl" "dispatch"
+                    "movetoworkspace" "6"];
+                };
+                super-l = {
+                  launch = [ "${pkgs.hyprland}/bin/hyprctl" "dispatch"
+                    "movetoworkspace" "7"];
+                };
+                super-semicolon = {
+                  launch = [ "${pkgs.hyprland}/bin/hyprctl" "dispatch"
+                    "movetoworkspace" "8"];
+                };
+                super-m = {
+                  launch = [ "${pkgs.hyprland}/bin/hyprctl" "dispatch"
+                    "movetoworkspace" "9"];
+                };
+                super-comma = {
+                  launch = [ "${pkgs.hyprland}/bin/hyprctl" "dispatch"
+                    "movetoworkspace" "10"];
+                };
+              };
+            };
 
-          super-d = {
-            remap = {
-              super-c = {
-                launch = [ "${pkgs.hyprland}/bin/hyprctl" "dispatch"
-                "killactive" ];
+            super-d = {
+              remap = {
+                super-c = {
+                  launch = [ "${pkgs.hyprland}/bin/hyprctl" "dispatch"
+                  "killactive" ];
+                };
+                super-j = {
+                  launch = [ "${pkgs.hyprland}/bin/hyprctl" "dispatch"
+                  "swapnext" ];
+                };
+                super-k = {
+                  launch = [ "${pkgs.hyprland}/bin/hyprctl" "dispatch"
+                  "swapnext" "prev" ];
+                };
+                super-u = {
+                  launch = [ "${pkgs.hyprland}/bin/hyprctl" "dispatch"
+                  "togglefloating" ];
+                };
+                super-f = {
+                  launch = [ "${pkgs.hyprland}/bin/hyprctl" "dispatch"
+                  "fullscreen" ];
+                };
+                super-comma = {
+                  launch = [ "${pkgs.hyprland}/bin/hyprctl" "dispatch"
+                  "fullscreenstate" "1" ];
+                };
               };
-              super-j = {
-                launch = [ "${pkgs.hyprland}/bin/hyprctl" "dispatch"
-                "swapnext" ];
-              };
-              super-k = {
-                launch = [ "${pkgs.hyprland}/bin/hyprctl" "dispatch"
-                "swapnext" "prev" ];
-              };
-              super-u = {
-                launch = [ "${pkgs.hyprland}/bin/hyprctl" "dispatch"
-                "togglefloating" ];
-              };
-              super-f = {
-                launch = [ "${pkgs.hyprland}/bin/hyprctl" "dispatch"
-                "fullscreen" ];
+            };
+            super-j = {
+              launch = [ "${pkgs.hyprland}/bin/hyprctl" "dispatch"
+              "cyclenext" ];
+            };
+            super-k = {
+              launch = [ "${pkgs.hyprland}/bin/hyprctl" "dispatch"
+              "cyclenext" "prev" ];
+            };
+            super-n = {
+              launch = [ "${pkgs.hyprland}/bin/hyprctl" "dispatch"
+              "workspace" "+1"];
+            };
+            super-p = {
+              launch = [ "${pkgs.hyprland}/bin/hyprctl" "dispatch"
+              "workspace" "-1" ];
+            };
+            super-semicolon = {
+              launch = [ "${pkgs.hyprland}/bin/hyprctl" "dispatch"
+              "workspace" "previous" ];
+            };
+            super-y = {
+              remap = {
+                  super-s = {
+                    launch = [ "${pkgs.playerctl}/bin/playerctl" "play-pause" ];
+                };
+                  super-d = {
+                    launch = [ "${pkgs.playerctl}/bin/playerctl" "next" ];
+                };
+                  super-f = {
+                    launch = [ "${pkgs.playerctl}/bin/playerctl" "previous" ];
+                };
+                  super-e = {
+                    launch = [ "${pkgs.pipewire}/bin/wpctl" "set-mute" "@DEFAULT_AUDIO_SINK@"
+                                      "toggle" ];
+                };
+                  super-i = {
+                    launch = [ "${pkgs.pipewire}/bin/wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@"
+                                      "5%+" ];
+                };
+                  super-o = {
+                    launch = [ "${pkgs.pipewire}/bin/wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@"
+                                      "5%-" ];
+                };
               };
             };
           };
-          super-j = {
-            launch = [ "${pkgs.hyprland}/bin/hyprctl" "dispatch"
-            "cyclenext" ];
+        }
+        {
+          name = "other remaps";
+          remap = {
+            super-b = [ "c-l" "shift-5" "space" ];
           };
-          super-k = {
-            launch = [ "${pkgs.hyprland}/bin/hyprctl" "dispatch"
-            "cyclenext" "prev" ];
+          application = {
+            "only" = [ "firefox" ];
           };
-          super-n = {
-            launch = [ "${pkgs.hyprland}/bin/hyprctl" "dispatch"
-            "workspace" "+1"];
-          };
-          super-p = {
-            launch = [ "${pkgs.hyprland}/bin/hyprctl" "dispatch"
-            "workspace" "-1" ];
-          };
-          super-semicolon = {
-            launch = [ "${pkgs.hyprland}/bin/hyprctl" "dispatch"
-            "workspace" "previous" ];
-          };
-        };
-      }
-      {
-        name = "other remaps";
-        remap = {
-          super-g = "a";
-        };
-        application = {
-          "only" = [ "firefox" ];
-        };
-      }
+        }
       ];
     };
   };
