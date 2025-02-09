@@ -186,7 +186,7 @@ in
 
   services.flameshot.enable = true;
   services.xremap = {
-    withHypr = true;
+    withWlroots = true;
     config = {
       keymap = [
       {
