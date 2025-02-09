@@ -112,6 +112,10 @@ in
      # jupyter-all # COLLITION
   ];
 
+  services.podman = {
+    enable = true;
+  };
+
   fonts.fontconfig = {
     enable = true;
     defaultFonts = {
