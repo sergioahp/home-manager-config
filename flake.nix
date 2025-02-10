@@ -27,9 +27,7 @@
         # the path to your home.nix.
         modules = [ ./home.nix ];
 
-        # Optionally use extraSpecialArgs
-	extraSpecialArgs = { inherit inputs; inherit system; };
-        # to pass through arguments to home.nix
+        extraSpecialArgs = { inherit inputs; inherit system; };
       };
     };
 }
