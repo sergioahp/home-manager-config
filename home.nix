@@ -269,9 +269,10 @@ in
                 };
                 super-m = {
                   launch = [
+                    # bug: hyprctl does not work with commands containing semicolons
                     "${pkgs.uwsm}/bin/uwsm" "app" "--"
-                    "${pkgs.hyprland}/bin/hyprctl" "dispatch" "--" "exec"
-                    "${pkgs.wofi}/bin/wofi" "--show" "drun"
+                    "${pkgs.rofi-wayland}/bin/rofi" "-show" "drun"
+                     "-theme-str" "window {width: 20%;}"
                   ];
                 };
               };
@@ -526,6 +527,51 @@ in
   };
 
   programs = {
+    rofi = {
+      enable = true;
+      package = pkgs.rofi-wayland;
+      extraConfig = {
+        show-icons = true;
+        sorting-method = "fzf";
+      };
+      theme = let inherit (config.lib.formats.rasi) mkLiteral;
+      in {
+        "*" = {
+          bg = mkLiteral "rgba(40,44,60,0.7)";
+          fg0 = mkLiteral "#bb8af7";
+          accent-color = mkLiteral "#88C0D0";
+          urgent-color = mkLiteral "#EBCB8B";
+          background-color = mkLiteral "transparent";
+          text-color = mkLiteral "@fg0";
+          margin = 0;
+          padding = 0;
+          spacing = 0;
+        };
+        window = {
+          background-color = mkLiteral "@bg";
+        };
+        inputbar = {
+          spacing = mkLiteral "8px";
+          padding = mkLiteral "8px";
+          background-color = mkLiteral "@bg";
+        };
+        prompt = {
+          text-color = mkLiteral "@accent-color";
+        };
+        "element selected" = {
+          text-color = mkLiteral "@bg";
+        };
+        "element normal active" = {
+          text-color = mkLiteral "@accent-color";
+        };
+        "element selected normal, element selected active" = {
+          background-color = mkLiteral "@accent-color";
+        };
+        "element-text" = {
+            text-color = mkLiteral "inherit";
+        };
+      };
+    };
     eww = {
       enable = true;
       configDir = ./eww;
