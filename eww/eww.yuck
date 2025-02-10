@@ -1,12 +1,21 @@
+(defvar bar_color "rgba(200, 200, 256, 0.6)")
+(defvar current_workspace "Unknown")
+
+(defwidget mybar []
+  (box
+    :orientation "horizontal"
+    :halign "center"
+    :style "background-color: ${bar_color};"
+    (label :text "Current Workspace:")
+    (label :text current_workspace)))
+
 (defwindow example
-           :monitor 0
-           :geometry (geometry :x "0%"
-                               :y "20px"
-                               :width "90%"
-                               :height "30px"
-                               :anchor "top center")
-           :stacking "fg"
-           :reserve (struts :distance "40px" :side "top")
-           :windowtype "dock"
-           :wm-ignore false
-  "example content")
+  :monitor 0
+  :geometry (geometry :x "0px"
+    :y "0px"
+    :width "100%"
+    :height "2%"
+    :anchor "top center")
+  :stacking "bg"
+  :exclusive true
+  (mybar))
