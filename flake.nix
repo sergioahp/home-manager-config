@@ -10,6 +10,9 @@
     };
     xremap.url = "github:xremap/nix-flake";
     hyprswitch.url = "github:h3rmt/hyprswitch/release";
+    nix-rice = {
+      url = "github:bertof/nix-rice";
+    };
   };
 
   outputs = { nixpkgs, home-manager, ... }@inputs:

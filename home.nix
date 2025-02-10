@@ -3,6 +3,11 @@
 let
   username = "admin";
   homeDirectory = "/home/${username}";
+  rice = inputs.nix-rice.lib.nix-rice;
+  colors = rice.palette.tPalette rice.color.hexToRgba {
+    charcoal-blue = "#282c3ccc";
+    charcoal = "#1f202690";
+  };
 in
 {
 
