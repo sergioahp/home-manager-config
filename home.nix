@@ -627,8 +627,15 @@ in
     };
     alacritty = {
       enable = true;
-      settings = {
-        window.opacity = 0.9;
+      settings = let
+        strColors = rice.palette.toRgbHex colors;
+      in {
+        window.opacity = (rice.float.toFloat colors.charcoal-blue.a) / 255.0;
+        colors = {
+          primary = {
+            background = strColors.charcoal-blue;
+          };
+        };
       };
     };
     btop = {
