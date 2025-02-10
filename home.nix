@@ -193,6 +193,9 @@ in
         "9, defaultName:m"
         "10, defaultName:c"
       ];
+        gaps_in = 3;
+        gaps_out = 5;
+      };
       input = {
         kb_layout = "us";
         kb_variant = "altgr-intl";
