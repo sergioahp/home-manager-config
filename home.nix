@@ -136,7 +136,31 @@ in
   home.file = {
   };
 
-  gtk.enable = true;
+  gtk = {
+    enable = true;
+    theme = {
+      name = "Layan-Dark";
+      package = pkgs.layan-gtk-theme;
+    };
+    iconTheme = {
+      name = "Adwaita";
+      package = pkgs.adwaita-icon-theme;
+    };
+  };
+  dconf = {
+    enable = true;
+    settings = {
+      "org/gnome/desktop/interfase" = {
+        color-scheme = "prefer-dark";
+      };
+    };
+  };
+  qt = {
+    enable = true;
+    platformTheme.name = "gtk";
+    style.name = "adwaita-dark";
+
+  };
   home.pointerCursor = {
     # package = pkgs.vanilla-dmz;
     package = pkgs.capitaine-cursors;
@@ -148,6 +172,7 @@ in
   home.sessionVariables = {
      EDITOR = "${pkgs.neovim}/bin/nvim";
      MANPAGER = "${pkgs.neovim}/bin/nvim +Man!=";
+     GTK_THEME = "Layan-Dark";
   };
 
   wayland.windowManager.hyprland = {
