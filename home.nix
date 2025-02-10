@@ -217,6 +217,17 @@ in
   services.hyprpaper = {
     enable = false;
   };
+  services.dunst = {
+    enable = true;
+    settings = {
+      global = {
+        background = let
+          strColors = rice.palette.toRgbHex colors;
+        in
+        strColors.charcoal;
+      };
+    };
+  };
   services.ssh-agent.enable = true;
 
   services.xremap = {
