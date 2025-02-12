@@ -291,6 +291,28 @@ in
                 };
               };
             };
+            super-s = {
+              remap = {
+                super-e = {
+                  launch = [
+                    "${pkgs.bash}/bin/sh" "-c"
+                    ''
+                      ${pkgs.wl-clipboard}/bin/wl-paste --type image/png |
+                      ${pkgs.swappy}/bin/swappy -f -
+                    ''
+                  ];
+                };
+                super-d = {
+                  launch = [
+                    "${pkgs.bash}/bin/sh" "-c"
+                    ''
+                      ${pkgs.grim}/bin/grim -g "$(${pkgs.slurp}/bin/slurp)" - |
+                      ${pkgs.swappy}/bin/swappy -f -
+                    ''
+                  ];
+                };
+              };
+            };
             super-u = {
               remap = {
                 super-f = {
