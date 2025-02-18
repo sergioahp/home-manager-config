@@ -289,6 +289,12 @@ in
                      "-theme-str" "window {width: 20%;}"
                   ];
                 };
+                super-k = {
+                  launch = [
+                    "${pkgs.uwsm}/bin/uwsm" "app" "--"
+                    "${pkgs.rofi-wayland}/bin/rofi" "-show" "window"
+                  ];
+                };
               };
             };
             super-s = {
