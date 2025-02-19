@@ -225,7 +225,7 @@ in
     settings = {
       global = {
         background = let
-          strColors = rice.palette.toRgbHex colors;
+          strColors = rice.palette.toRgbaHex colors;
         in
         strColors.charcoal;
       };
