@@ -738,7 +738,7 @@ in
         selection-clipboard = "clipboard";
         statusbar-home-tilde = true;
         window-title-basename = true;
-        default-bg = "rgba(31,32,38,0.7)";
+        default-bg = "rgba(40,44,60,0.7)";
         recolor-lightcolor = "rgba(0,0,0,0)";
         recolor-keephue = true;
         recolor = true;
