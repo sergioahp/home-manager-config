@@ -506,6 +506,18 @@ in
                   launch = [ "${pkgs.hyprland}/bin/hyprctl" "dispatch"
                   "fullscreenstate" "1" ];
                 };
+                super-leftbrace = {
+                  launch = [ "${pkgs.hyprland}/bin/hyprctl" "dispatch"
+                  "movewindow" "mon:l" ];
+                };
+                super-rightbrace = {
+                  launch = [ "${pkgs.hyprland}/bin/hyprctl" "dispatch"
+                  "movewindow" "mon:r" ];
+                };
+                super-s = {
+                  launch = [ "${pkgs.hyprland}/bin/hyprctl" "dispatch"
+                  "swapactiveworkspaces" "0" "1" ];
+                };
               };
             };
             super-j = {
