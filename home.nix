@@ -614,6 +614,10 @@ in
         };
       };
     };
+    starship = {
+      enable = true;
+      enableZshIntegration = true;
+    };
     eww = {
       enable = true;
       configDir = ./eww;
