@@ -228,6 +228,7 @@ in
           strColors = rice.palette.toRgbaHex colors;
         in
         strColors.charcoal;
+        dmenu = "${pkgs.rofi-wayland}/bin/rofi -dmenu -p dunst";
       };
     };
   };
