@@ -194,8 +194,25 @@ in
         "9, defaultName:m"
         "10, defaultName:c"
       ];
+
         gaps_in = 3;
-        gaps_out = 5;
+        gaps_out = 6;
+        "col.active_border" = "0xff6d80c9";
+      };
+      decoration = {
+        blur = {
+          passes = 2;
+          size = 3;
+          noise = 0.055;
+          # vibrancy = 0.4;
+          vibrancy_darkness = 0.4;
+        };
+        shadow = {
+          range = 4;
+          render_power = 2;
+          color = "0xee6d80c9";
+          color_inactive = "0x001a1a1a";
+        };
       };
       input = {
         kb_layout = "us";
@@ -215,6 +232,10 @@ in
       bindm = [
         "$mod, mouse:272, movewindow"
         "$mod, mouse:273, resizewindow"
+      ];
+      layerrule = [
+        "blur, rofi"
+        "blur, notifications"
       ];
     };
   };
