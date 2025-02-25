@@ -40,6 +40,7 @@ in
       virtualenv
       notebook
      ]))
+     ltex-ls-plus
      inputs.hyprswitch.packages.${system}.default
      nil
      tinymist
