@@ -5,9 +5,53 @@ let
   homeDirectory = "/home/${username}";
   rice = inputs.nix-rice.lib.nix-rice;
   colors = rice.palette.tPalette rice.color.hexToRgba {
-    charcoal-blue = "#282c3ccc";
-    charcoal = "#1f202690";
+    bg = "#282c3ccc";
+    charcoal = "#1f202660";
+    bg2 = "#1e2030";
+    fg2 = "#c8d3f5";
+    highlight = "#2d3f7699";
+    highlight-active = "#ff966c99";
+    bg-dark = "#16161e";
+    bg-dark1 = "#0C0E14";
+    bg-highlight = "#292e42";
+    electric-blue = "#82aaff";
+    electric-blue2 = "#828bb8";
+    blue = "#7aa2f7";
+    blue0 = "#3d59a1";
+    blue1 = "#2ac3de";
+    blue2 = "#0db9d7";
+    blue5 = "#89ddff";
+    blue6 = "#b4f9f8";
+    blue7 = "#394b70";
+    comment = "#565f89";
+    cyan = "#7dcfff";
+    cyan2 = "#65bcff";
+    dark3 = "#545c7e";
+    dark5 = "#737aa2";
+    fg = "#c0caf5";
+    fg-dark = "#a9b1d6";
+    fg-gutter = "#3b4261";
+    green = "#9ece6a";
+    green1 = "#73daca";
+    green2 = "#41a6b5";
+    magenta = "#bb9af7";
+    magenta2 = "#ff007c";
+    orange = "#ff9e64";
+    purple = "#9d7cd8";
+    red = "#f7768e";
+    red1 = "#db4b4b";
+    red2 = "#c53b53";
+    teal = "#1abc9c";
+    terminal-black = "#414868";
+    yellow = "#e0af68";
+    yellow2 = "#ffc777";
   };
+ colorsRgbHex = rice.palette.toRgbHex colors;
+  intToFloat = rice.float.toFloat;
+  # todo: Alpha modifiers
+  colorToRgbaStr  = { r, g, b, a? 255 }:
+    let f = pkgs.lib.strings.floatToString; i = toString; in
+      "rgba(${i(r)},${i(g)},${i(b)},${f((intToFloat a) / 255.0)})";
 in
 {
 
