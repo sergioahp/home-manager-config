@@ -817,11 +817,30 @@ in
     sagemath.enable = true;
     zathura = {
       enable = true;
-      options = {
+      options = let
+        rgba = colorToRgbaStr;
+      in {
         selection-clipboard = "clipboard";
         statusbar-home-tilde = true;
         window-title-basename = true;
-        default-bg = "rgba(40,44,60,0.7)";
+        default-bg = rgba colors.bg;
+        statusbar-bg = rgba colors.bg2;
+        statusbar-fg = rgba colors.electric-blue;
+        # bug: no alpha support on the inputbar-bg
+        inputbar-bg = rgba colors.bg;
+        inputbar-fg = rgba colors.electric-blue2;
+        notification-error-bg = rgba colors.bg;
+        notification-warning-bg = rgba colors.bg;
+        notification-bg = rgba colors.bg;
+        notification-error-fg = rgba colors.red2;
+        notification-warning-fg = rgba colors.yellow2;
+        notification-fg = rgba colors.electric-blue2;
+        highlight-active-color = rgba colors.highlight-active;
+        highlight-color = rgba colors.highlight;
+        completion-bg = rgba colors.bg2;
+        completion-fg = rgba colors.fg2;
+        completion-highlight-bg = rgba colors.highlight;
+        completion-highlight-fg = rgba colors.cyan2;
         recolor-lightcolor = "rgba(0,0,0,0)";
         recolor-keephue = true;
         recolor = true;
