@@ -755,10 +755,10 @@ in
       settings = let
         strColors = rice.palette.toRgbHex colors;
       in {
-        window.opacity = (rice.float.toFloat colors.charcoal-blue.a) / 255.0;
+        window.opacity = (rice.float.toFloat colors.bg.a) / 255.0;
         colors = {
           primary = {
-            background = strColors.charcoal-blue;
+            background = strColors.bg;
           };
         };
       };
