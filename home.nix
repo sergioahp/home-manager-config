@@ -4,6 +4,7 @@ let
   username = "admin";
   homeDirectory = "/home/${username}";
   rice = inputs.nix-rice.lib.nix-rice;
+  # TODO: find better highlighting colors
   colors = rice.palette.tPalette rice.color.hexToRgba {
     bg = "#282c3ccc";
     charcoal = "#1f202660";
@@ -13,6 +14,7 @@ let
     highlight-active = "#ff966c99";
     bg-dark = "#16161e";
     bg-dark1 = "#0C0E14";
+    black = "#15161e";
     bg-highlight = "#292e42";
     electric-blue = "#82aaff";
     electric-blue2 = "#828bb8";
@@ -23,27 +25,33 @@ let
     blue5 = "#89ddff";
     blue6 = "#b4f9f8";
     blue7 = "#394b70";
+    bright-blue = "#8db0ff";
     comment = "#565f89";
     cyan = "#7dcfff";
     cyan2 = "#65bcff";
+    bright-cyan = "#a4daff";
     dark3 = "#545c7e";
     dark5 = "#737aa2";
     fg = "#c0caf5";
     fg-dark = "#a9b1d6";
     fg-gutter = "#3b4261";
     green = "#9ece6a";
+    bright-green = "#9fe044";
     green1 = "#73daca";
     green2 = "#41a6b5";
     magenta = "#bb9af7";
     magenta2 = "#ff007c";
+    bright-magenta = "#c7a9ff";
     orange = "#ff9e64";
     purple = "#9d7cd8";
     red = "#f7768e";
+    bright-red = "#ff899d";
     red1 = "#db4b4b";
     red2 = "#c53b53";
     teal = "#1abc9c";
     terminal-black = "#414868";
     yellow = "#e0af68";
+    bright-yellow = "#faba4a";
     yellow2 = "#ffc777";
   };
  colorsRgbHex = rice.palette.toRgbHex colors;
@@ -759,7 +767,31 @@ in
         colors = {
           primary = {
             background = strColors.bg;
+            foreground = strColors.fg;
           };
+          normal = {
+            red     = strColors.red;
+            green   = strColors.green;
+            yellow  = strColors.yellow;
+            blue    = strColors.blue;
+            magenta = strColors.magenta;
+            cyan    = strColors.cyan;
+            white   = strColors.fg-dark;
+          };
+          bright = {
+            red     = strColors.bright-red;
+            green   = strColors.bright-green;
+            yellow  = strColors.bright-yellow;
+            blue    = strColors.bright-blue;
+            magenta = strColors.bright-magenta;
+            cyan    = strColors.bright-cyan;
+            white   = strColors.fg;
+          };
+          indexed_colors = [
+            # where do they apply?
+            { index = 16; color = strColors.orange; }
+            { index = 17; color = strColors.red1; }
+          ];
         };
       };
     };
