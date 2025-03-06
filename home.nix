@@ -630,14 +630,14 @@ in
                     launch = [ "${pkgs.pipewire}/bin/wpctl" "set-mute" "@DEFAULT_AUDIO_SINK@"
                                       "toggle" ];
                 };
-                  super-i = {
-                    launch = [ "${pkgs.pipewire}/bin/wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@"
-                                      "5%+" ];
-                };
-                  super-o = {
-                    launch = [ "${pkgs.pipewire}/bin/wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@"
-                                      "5%-" ];
-                };
+              };
+              super-i = {
+                launch = [ "${pkgs.pipewire}/bin/wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@"
+                  "5%+" ];
+              };
+              super-o = {
+                launch = [ "${pkgs.pipewire}/bin/wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@"
+                  "5%-" ];
               };
             };
           };
