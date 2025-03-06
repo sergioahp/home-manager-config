@@ -964,6 +964,7 @@ in
       "x-scheme-handler/http"  = [ "firefox.desktop" ];
       "x-scheme-handler/https"  = [ "firefox.desktop" ];
       "x-scheme-handler/chrome"  = [ "firefox.desktop" ];
+      "text/html" = [ "firefox.desktop" ];
     };
   };
 }
