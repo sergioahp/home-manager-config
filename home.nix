@@ -830,30 +830,32 @@ in
     vscode = {
       enable = true;
       mutableExtensionsDir = false;
-      enableUpdateCheck = false;
-      extensions = with pkgs.vscode-extensions; [
-        ms-vscode-remote.remote-ssh
-        ms-vscode-remote.remote-ssh-edit
-        ms-toolsai.jupyter
-        ms-python.python
-        vscodevim.vim
-        myriad-dreamin.tinymist
-      ];
-      userSettings = {
-        "keyboard.dispatch" = "keyCode";
-        "remote.SSH.configFile" = "~/ssh/config";
-        "remote.SSH.defaultExtensions" = [
-          "ms-toolsai.jupyter"
-          "ms-python.python"
+      profiles.default = {
+        enableUpdateCheck = false;
+        extensions = with pkgs.vscode-extensions; [
+          ms-vscode-remote.remote-ssh
+          ms-vscode-remote.remote-ssh-edit
+          ms-toolsai.jupyter
+          ms-python.python
+          vscodevim.vim
+          myriad-dreamin.tinymist
         ];
-        "telemetry.telemetryLevel" = "off";
-        "telemetry.enableTelemetry" = false;
-        "telemetry.enableCrashReporter" = false;
-        "workbench.enableExperiments" = false;
-        "workbench.settings.enableNaturalLanguageSearch" = true;
-        "update.enableWindowsBackgroundUpdates" = false;
-        "extensions.autoCheckUpdates" = false;
-        "extensions.autoUpdate" = false;
+        userSettings = {
+          "keyboard.dispatch" = "keyCode";
+          "remote.SSH.configFile" = "~/ssh/config";
+          "remote.SSH.defaultExtensions" = [
+            "ms-toolsai.jupyter"
+            "ms-python.python"
+          ];
+          "telemetry.telemetryLevel" = "off";
+          "telemetry.enableTelemetry" = false;
+          "telemetry.enableCrashReporter" = false;
+          "workbench.enableExperiments" = false;
+          "workbench.settings.enableNaturalLanguageSearch" = true;
+          "update.enableWindowsBackgroundUpdates" = false;
+          "extensions.autoCheckUpdates" = false;
+          "extensions.autoUpdate" = false;
+        };
       };
     };
     ssh = {
