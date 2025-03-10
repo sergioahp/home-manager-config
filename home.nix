@@ -60,8 +60,33 @@ let
   colorToRgbaStr  = { r, g, b, a? 255 }:
     let f = pkgs.lib.strings.floatToString; i = toString; in
       "rgba(${i(r)},${i(g)},${i(b)},${f((intToFloat a) / 255.0)})";
+  nsxiv-conf = import ./nsxiv-conf-builder.nix { inherit pkgs; conf = {
+    win_fg = {
+      x_resource = "Nsxiv.window.background";
+      value = colorsRgbHex.fg;
+    };
+    win_bg = {
+      x_resource = "Nsxiv.window.background";
+      value = colorsRgbHex.bg;
+    };
+    bar_bg = {
+      x_resource = "Nsxiv.bar.background";
+      value = colorsRgbHex.bg2;
+    };
+    bar_fg = {
+      x_resource = "Nsxiv.bar.foreground";
+      value = colorsRgbHex.electric-blue;
+    };
+  }; };
 in
 {
+  nixpkgs.overlays = [
+    (f: p: {
+      nsxiv = p.nsxiv.override {
+        conf = nsxiv-conf;
+      };
+    })
+  ];
 
   imports = [
     inputs.xremap.homeManagerModules.default
