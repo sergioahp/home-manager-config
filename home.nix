@@ -662,18 +662,18 @@ in
                     launch = [ "${pkgs.playerctl}/bin/playerctl" "previous" ];
                 };
                   super-e = {
-                    launch = [ "${pkgs.pipewire}/bin/wpctl" "set-mute" "@DEFAULT_AUDIO_SINK@"
+                    launch = [ "${pkgs.wireplumber}/bin/wpctl" "set-mute" "@DEFAULT_AUDIO_SINK@"
                                       "toggle" ];
                 };
               };
-              super-i = {
-                launch = [ "${pkgs.pipewire}/bin/wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@"
-                  "5%+" ];
-              };
-              super-o = {
-                launch = [ "${pkgs.pipewire}/bin/wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@"
-                  "5%-" ];
-              };
+            };
+            super-i = {
+              launch = [ "${pkgs.wireplumber}/bin/wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@"
+                "5%-" ];
+            };
+            super-o = {
+              launch = [ "${pkgs.wireplumber}/bin/wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@"
+                "5%+" ];
             };
           };
         }
