@@ -192,6 +192,7 @@ in
      protonmail-bridge
      socat
      eza
+     claude-code
      # jupyter-all # COLLITION
   ];
 
