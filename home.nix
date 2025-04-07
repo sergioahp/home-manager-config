@@ -853,6 +853,7 @@ in
         ];
         userSettings = {
           "keyboard.dispatch" = "keyCode";
+          "editor.rulers" = [80];
           "remote.SSH.configFile" = "~/ssh/config";
           "remote.SSH.defaultExtensions" = [
             "ms-toolsai.jupyter"
