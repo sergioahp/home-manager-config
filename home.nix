@@ -943,6 +943,10 @@ in
         bindkey ^F edit-command-line
         # Temporary, gnome overrides the other var so we override back
         export EDITOR=nvim
+        # Set secret env vars
+        if [ -f ~/.secrets ]; then
+          source ~/.secrets
+        fi
         preexec() {
           local cmd="''${1%% *}"
           printf "\e]0;%s\a" "$cmd"
