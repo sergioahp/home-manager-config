@@ -679,12 +679,36 @@ in
           };
         }
         {
-          name = "other remaps";
+          name = "firefox remaps";
           remap = {
             super-b = [ "c-l" "shift-5" "space" ];
+            super-r = {
+              remap = {
+                super-r = "c-alt-z";
+                super-u = "alt-1";
+                super-i = "alt-2";
+                super-o = "alt-3";
+                super-p = "alt-4";
+                super-leftbrace =  "alt-5";
+                super-j = "alt-6";
+                super-k = "alt-7";
+                super-l = "alt-8";
+                super-semicolon = "alt-9";
+              };
+            };
+            super-c = {
+              remap = {
+                super-n = "alt-right";
+                super-p = "alt-left";
+                super-i = "alt-down";
+                super-o = "alt-up";
+              };
+            };
+            super-z = "c-shift-tab";
+            super-x = "c-tab";
           };
           application = {
-            "only" = [ "firefox" ];
+            "only" = "firefox";
           };
         }
       ];
