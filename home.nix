@@ -330,6 +330,9 @@ in
           color_inactive = "0x001a1a1a";
         };
       };
+      animations = {
+        enabled = false;
+      };
       input = {
         kb_layout = "us";
         kb_variant = "altgr-intl";
