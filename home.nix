@@ -313,6 +313,7 @@ in
         gaps_in = 3;
         gaps_out = 6;
         "col.active_border" = "0xff6d80c9";
+        border_size = 2;
       };
       decoration = {
         blur = {
@@ -323,7 +324,7 @@ in
           vibrancy_darkness = 0.4;
         };
         shadow = {
-          range = 4;
+          range = 10;
           render_power = 2;
           color = "0xee6d80c9";
           color_inactive = "0x001a1a1a";
