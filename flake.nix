@@ -8,6 +8,10 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    sops-nix = {
+      url = "github:Mic92/sops-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     xremap.url = "github:xremap/nix-flake";
     hyprswitch.url = "github:h3rmt/hyprswitch/release";
     nix-rice = {

@@ -3,6 +3,7 @@
 let
   username = "admin";
   homeDirectory = "/home/${username}";
+  ageFile = "${homeDirectory}/.config/sops/age/keys.txt";
   rice = inputs.nix-rice.lib.nix-rice;
   # TODO: find better highlighting colors
   colors = rice.palette.tPalette rice.color.hexToRgba {
@@ -90,10 +91,12 @@ in
 
   imports = [
     inputs.xremap.homeManagerModules.default
+    inputs.sops-nix.homeManagerModules.sops
   ];
   nixpkgs.config.allowUnfree = true;
   home.username = username;
   home.homeDirectory = homeDirectory;
+  systemd.user.startServices = "sd-switch";
 
   home.stateVersion = "23.11";
 
@@ -119,6 +122,13 @@ in
      ]))
      ltex-ls-plus
      inputs.hyprswitch.packages.${system}.default
+     vimPlugins.nvim-dbee
+     cargo
+     rust-analyzer
+     clippy
+     anki-bin
+     playerctl
+     wev
      nil
      tinymist
      typst
@@ -190,11 +200,21 @@ in
      wl-clipboard
      pass # for protonbridge
      protonmail-bridge
+     thunderbird
      socat
      eza
+     hunspell
+     hunspellDicts.es-mx
      claude-code
+     codex
      # jupyter-all # COLLITION
   ];
+
+  sops = {
+    age.keyFile = ageFile;
+    defaultSopsFile = ./secrets.yaml;
+    secrets."avante/anthropic" = { };
+  };
 
   services.podman = {
     enable = true;
@@ -209,6 +229,23 @@ in
       sansSerif = [ "DejaVu Sans" "noto-fonts-cjk" "emoji" ];
       monospace = [ "DejaVu Sans Mono" "emoji" ];
       emoji = [ "Noto Color Emoji" ];
+    };
+  };
+
+  systemd.user.services.protonbridge = {
+    Unit = {
+      Description = "ProtonMail Bridge Service";
+      After = [ "network.target" ];
+    };
+
+    Service = {
+      ExecStart = "${pkgs.protonmail-bridge}/bin/protonmail-bridge --noninteractive --log-level info";
+      Restart = "on-failure";
+      RestartSec = 30;
+    };
+
+    Install = {
+      WantedBy = [ "default.target" ];
     };
   };
 
@@ -315,6 +352,7 @@ in
         "blur, rofi"
         "blur, notifications"
       ];
+      monitor=",1920x1080@60, 0x0, 1";
     };
   };
   services.hyprpaper = {
@@ -423,7 +461,7 @@ in
                   launch = [
                     "${pkgs.bash}/bin/sh" "-c"
                     ''
-                      ${pkgs.grim}/bin/grim -g "$(${pkgs.slurp}/bin/slurp)" - |
+                      ${pkgs.grim}/bin/grim -g "$(${pkgs.slurp}/bin/slurp -w 0)" - |
                       ${pkgs.swappy}/bin/swappy -f -
                     ''
                   ];
@@ -726,7 +764,7 @@ in
       theme = let inherit (config.lib.formats.rasi) mkLiteral;
       in {
         "*" = {
-          bg = mkLiteral "rgba(40,44,60,0.7)";
+          bg = mkLiteral "rgba(40,44,60,0.6)";
           fg0 = mkLiteral "#bb8af7";
           accent-color = mkLiteral "#88C0D0";
           urgent-color = mkLiteral "#EBCB8B";
@@ -956,7 +994,7 @@ in
       autosuggestion = {
         enable = true;
       };
-      initExtra = ''
+      initContent = ''
         bindkey -v '^?' backward-delete-char
         source ${pkgs.zsh-fzf-tab}/share/fzf-tab/fzf-tab.plugin.zsh
         bindkey ^K fzf-cd-widget
