@@ -1,13 +1,20 @@
 (defvar bar_color "rgba(200, 200, 256, 0.6)")
 (defvar current_workspace "Unknown")
+(defvar time "Unknown")
+(defvar title "Unknown")
+(defvar bt_widget "(box :class \"bt-disconnected\" \"No BT\")")
 
 (defwidget mybar []
-  (box
+  (centerbox
     :orientation "horizontal"
-    :halign "center"
+    :hexpand true
     :style "background-color: ${bar_color};"
-    (label :text "Current Workspace:")
-    (label :text current_workspace)))
+    (label :text time)
+    (label :text current_workspace)
+    (box :orientation "horizontal"
+      (systray)
+      (label :text title)
+      (literal :content bt_widget))))
 
 (defwindow example
   :monitor 0
