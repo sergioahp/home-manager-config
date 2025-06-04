@@ -733,7 +733,7 @@ in
         {
           mode = "normal";
           remap = {
-            h = {
+            shift-h = {
               launch = [
                 "${pkgs.hyprland}/bin/hyprctl"
                 "dispatch"
@@ -741,7 +741,7 @@ in
                 "-100" "0"
               ];
             };
-            j = {
+            shift-j = {
               launch = [
                 "${pkgs.hyprland}/bin/hyprctl"
                 "dispatch"
@@ -749,7 +749,7 @@ in
                 "0" "100"
               ];
             };
-            k = {
+            shift-k = {
               launch = [
                 "${pkgs.hyprland}/bin/hyprctl"
                 "dispatch"
@@ -757,7 +757,7 @@ in
                 "0" "-100"
               ];
             };
-            l = {
+            shift-l = {
               launch = [
                 "${pkgs.hyprland}/bin/hyprctl"
                 "dispatch"
@@ -765,7 +765,7 @@ in
                 "100" "0"
               ];
             };
-            "shift-h" = {
+            h = {
               launch = [
                 "${pkgs.hyprland}/bin/hyprctl"
                 "dispatch"
@@ -773,7 +773,7 @@ in
                 "-100" "0"
               ];
             };
-            "shift-j" = {
+            j = {
               launch = [
                 "${pkgs.hyprland}/bin/hyprctl"
                 "dispatch"
@@ -781,7 +781,7 @@ in
                 "0" "100"
               ];
             };
-            "shift-k" = {
+            k = {
               launch = [
                 "${pkgs.hyprland}/bin/hyprctl"
                 "dispatch"
@@ -789,7 +789,7 @@ in
                 "0" "-100"
               ];
             };
-            "shift-l" = {
+            l = {
               launch = [
                 "${pkgs.hyprland}/bin/hyprctl"
                 "dispatch"
