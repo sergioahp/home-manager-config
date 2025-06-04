@@ -721,6 +721,85 @@ in
           };
         }
         {
+          name = "to normal";
+          remap = { super-space = {set_mode = "normal"; }; };
+          mode = "default";
+        }
+        {
+          name = "to default";
+          remap = { super-space = {set_mode = "default"; }; };
+          mode = "normal";
+        }
+        {
+          mode = "normal";
+          remap = {
+            h = {
+              launch = [
+                "${pkgs.hyprland}/bin/hyprctl"
+                "dispatch"
+                "moveactive"
+                "-100" "0"
+              ];
+            };
+            j = {
+              launch = [
+                "${pkgs.hyprland}/bin/hyprctl"
+                "dispatch"
+                "moveactive"
+                "0" "100"
+              ];
+            };
+            k = {
+              launch = [
+                "${pkgs.hyprland}/bin/hyprctl"
+                "dispatch"
+                "moveactive"
+                "0" "-100"
+              ];
+            };
+            l = {
+              launch = [
+                "${pkgs.hyprland}/bin/hyprctl"
+                "dispatch"
+                "moveactive"
+                "100" "0"
+              ];
+            };
+            "shift-h" = {
+              launch = [
+                "${pkgs.hyprland}/bin/hyprctl"
+                "dispatch"
+                "resizeactive"
+                "-100" "0"
+              ];
+            };
+            "shift-j" = {
+              launch = [
+                "${pkgs.hyprland}/bin/hyprctl"
+                "dispatch"
+                "resizeactive"
+                "0" "100"
+              ];
+            };
+            "shift-k" = {
+              launch = [
+                "${pkgs.hyprland}/bin/hyprctl"
+                "dispatch"
+                "resizeactive"
+                "0" "-100"
+              ];
+            };
+            "shift-l" = {
+              launch = [
+                "${pkgs.hyprland}/bin/hyprctl"
+                "dispatch"
+                "resizeactive"
+                "100" "0"
+              ];
+            };
+          };
+        }
+        {
           name = "firefox remaps";
           remap = {
             super-b = [ "c-l" "shift-5" "space" ];
