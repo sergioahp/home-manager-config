@@ -805,7 +805,7 @@ in
             super-b = [ "c-l" "shift-5" "space" ];
             super-c = {
               remap = {
-                super-r = "c-alt-z";
+                super-c = "c-alt-z";
                 super-u = "alt-1";
                 super-i = "alt-2";
                 super-o = "alt-3";
