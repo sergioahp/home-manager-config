@@ -797,6 +797,50 @@ in
                 "100" "0"
               ];
             };
+            semicolon = {
+              launch = [
+                "${pkgs.brightnessctl}/bin/brightnessctl"
+                "set"
+                "10%+"
+              ];
+            };
+            comma = {
+              launch = [
+                "${pkgs.lua}/bin/lua"
+                "-e"
+                ''
+                  local handle = io.popen("${pkgs.brightnessctl}/bin/brightnessctl get")
+                  local current = tonumber(handle:read("*a"))
+                  handle:close()
+
+                  local handle_max = io.popen("${pkgs.brightnessctl}/bin/brightnessctl max")
+                  local max = tonumber(handle_max:read("*a"))
+                  handle_max:close()
+
+                  local current_percent = (current / max) * 100
+
+                  if current_percent > 15 then
+                    os.execute("${pkgs.brightnessctl}/bin/brightnessctl set 10%-")
+                  elseif current_percent > 10 then
+                    os.execute("${pkgs.brightnessctl}/bin/brightnessctl set 10%")
+                  end
+                ''
+              ];
+            };
+            "shift-semicolon" = {
+              launch = [
+                "${pkgs.brightnessctl}/bin/brightnessctl"
+                "set"
+                "100%"
+              ];
+            };
+            "shift-comma" = {
+              launch = [
+                "${pkgs.brightnessctl}/bin/brightnessctl"
+                "set"
+                "10%"
+              ];
+            };
           };
         }
         {
