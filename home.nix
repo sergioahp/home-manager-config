@@ -803,7 +803,7 @@ in
           name = "firefox remaps";
           remap = {
             super-b = [ "c-l" "shift-5" "space" ];
-            super-r = {
+            super-c = {
               remap = {
                 super-r = "c-alt-z";
                 super-u = "alt-1";
@@ -817,14 +817,15 @@ in
                 super-semicolon = "alt-9";
               };
             };
-            super-c = {
-              remap = {
-                super-n = "alt-right";
-                super-p = "alt-left";
-                super-i = "alt-down";
-                super-o = "alt-up";
-              };
-            };
+            # TODO: move to a move
+            # super-c = {
+            #   remap = {
+            #     super-n = "alt-right";
+            #     super-p = "alt-left";
+            #     super-i = "alt-down";
+            #     super-o = "alt-up";
+            #   };
+            # };
             super-z = "c-shift-tab";
             super-x = "c-tab";
           };
