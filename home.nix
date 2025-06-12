@@ -800,6 +800,13 @@ in
                 "100" "0"
               ];
             };
+            c = {
+              launch = [
+                "${pkgs.hyprland}/bin/hyprctl"
+                "dispatch"
+                "centerwindow"
+              ];
+            };
             semicolon = {
               launch = [
                 "${pkgs.brightnessctl}/bin/brightnessctl"
