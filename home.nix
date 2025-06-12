@@ -311,9 +311,10 @@ in
       ];
 
         gaps_in = 3;
-        gaps_out = 6;
-        "col.active_border" = "0xff6d80c9";
-        border_size = 2;
+        gaps_out = 5;
+        "col.active_border" = "rgba(04b2e888) rgba(a401adff) 10deg";
+        "col.inactive_border" = "rgba(44444433)";
+        border_size = 5;
       };
       decoration = {
         blur = {
@@ -324,10 +325,12 @@ in
           vibrancy_darkness = 0.4;
         };
         shadow = {
-          range = 10;
-          render_power = 2;
-          color = "0xee6d80c9";
-          color_inactive = "0x001a1a1a";
+          enabled = false;
+          range = 15;
+          render_power = 1;
+          # color = "0xee6d80c9";
+          color = "0x001a1a1a";
+          # color_inactive = "0x001a1a1a";
         };
       };
       animations = {
