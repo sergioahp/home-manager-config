@@ -451,6 +451,12 @@ in
                     "${pkgs.rofi-wayland}/bin/rofi" "-show" "window"
                   ];
                 };
+                super-i = {
+                  launch = [
+                    "${pkgs.uwsm}/bin/uwsm" "app" "--"
+                    "${pkgs.bitwarden}/bin/bitwarden"
+                  ];
+                };
               };
             };
             super-s = {
