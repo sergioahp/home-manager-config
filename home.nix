@@ -668,13 +668,11 @@ in
                   launch = [ "${pkgs.hyprland}/bin/hyprctl" "dispatch"
                   "fullscreenstate" "1" ];
                 };
-                super-leftbrace = {
-                  launch = [ "${pkgs.hyprland}/bin/hyprctl" "dispatch"
-                  "movewindow" "mon:l" ];
-                };
-                super-rightbrace = {
-                  launch = [ "${pkgs.hyprland}/bin/hyprctl" "dispatch"
-                  "movewindow" "mon:r" ];
+                super-m = {
+                  launch = [
+                    "${pkgs.hyprland}/bin/hyprctl" "dispatch"
+                    "movewindow" "mon+1"
+                  ];
                 };
                 super-s = {
                   launch = [ "${pkgs.hyprland}/bin/hyprctl" "dispatch"
@@ -682,6 +680,12 @@ in
                 };
               };
             };
+
+            super-comma = {
+              launch = [ "${pkgs.hyprland}/bin/hyprctl" "dispatch"
+              "focusmonitor" "+1" ];
+            };
+
             super-j = {
               launch = [ "${pkgs.hyprland}/bin/hyprctl" "dispatch"
               "cyclenext" ];
@@ -692,15 +696,15 @@ in
             };
             super-n = {
               launch = [ "${pkgs.hyprland}/bin/hyprctl" "dispatch"
-              "workspace" "+1"];
+              "workspace" "r+1"];
             };
             super-p = {
               launch = [ "${pkgs.hyprland}/bin/hyprctl" "dispatch"
-              "workspace" "-1" ];
+              "workspace" "r-1" ];
             };
             super-semicolon = {
               launch = [ "${pkgs.hyprland}/bin/hyprctl" "dispatch"
-              "workspace" "previous" ];
+              "workspace" "previous_per_monitor" ];
             };
             super-y = {
               remap = {
