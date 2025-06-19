@@ -671,7 +671,7 @@ in
                 super-m = {
                   launch = [
                     "${pkgs.hyprland}/bin/hyprctl" "dispatch"
-                    "movewindow" "mon+1"
+                    "movewindow" "mon:+1"
                   ];
                 };
                 super-s = {
@@ -703,6 +703,8 @@ in
               "workspace" "r-1" ];
             };
             super-semicolon = {
+              # Seems this cannot be configured to work with empty workspaces
+              # also
               launch = [ "${pkgs.hyprland}/bin/hyprctl" "dispatch"
               "workspace" "previous_per_monitor" ];
             };
