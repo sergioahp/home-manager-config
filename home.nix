@@ -904,6 +904,13 @@ in
   };
 
   programs = {
+    readline = {
+      enable = true;
+      variables = {
+        editing-mode = "vi";
+        keyseq-timeout = 0;
+      };
+    };
     rofi = {
       enable = true;
       package = pkgs.rofi-wayland;
