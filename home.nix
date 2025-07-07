@@ -1156,7 +1156,7 @@ in
         source ${pkgs.zsh-fzf-tab}/share/fzf-tab/fzf-tab.plugin.zsh
         bindkey ^K fzf-cd-widget
         bindkey ^J fzf-file-widget
-        bindkey ^M autosuggest-accept
+        bindkey ^O autosuggest-accept
         autoload -U edit-command-line
         zle -N edit-command-line
         bindkey -M vicmd ^F edit-command-line
