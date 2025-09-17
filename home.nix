@@ -1002,6 +1002,25 @@ in
       enable = true;
       userName = "sergioahp";
       userEmail = "sergioahp@proton.me";
+      aliases = {
+        a   = "add";
+        s   = "status";
+        f   = "fetch";
+        u   = "pull";
+        l   = "log         -n 15   --oneline --decorate";
+        lg  = "log         --graph --oneline --decorate";
+        lga = "log --all   --graph --oneline --decorate";
+        co  = "checkout";
+        c   = "commit -v";
+        ca  = "commit -v --amend";
+        b   = "branch";
+        d   = "diff                      -M -C -C --color-moved --color-moved-ws=allow-indentation-change";
+        dw  = "diff          --word-diff -M -C -C --color-moved --color-moved-ws=allow-indentation-change";
+        ds  = "diff --staged             -M -C -C --color-moved --color-moved-ws=allow-indentation-change";
+        dsw = "diff --staged --word-diff -M -C -C --color-moved --color-moved-ws=allow-indentation-change";
+        st  = "stash";
+
+      };
       extraConfig = {
         init.defaultBranch = "master";
         user.signingkey = "4E3F5ADE5C10EDB6";
@@ -1200,6 +1219,7 @@ in
   home.shellAliases = {
 
     sudo = "sudo ";
+    g = "git";
     ls = "${pkgs.eza}/bin/eza";
     mv = "mv -i";
     cp = "cp -i";
