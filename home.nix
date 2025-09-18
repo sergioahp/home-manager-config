@@ -985,6 +985,52 @@ in
         }
       ];
     };
+    yazi = {
+      enable = true;
+      enableZshIntegration = true;
+      settings = {
+        opener = {
+          images = [ 
+            {
+              run   = ''${pkgs.nsxiv}/bin/nsxiv "$@"'';
+              orphan = true;
+              desc  = "nsxiv (image viewer)";
+            }
+          ];
+          docs = [
+            {
+              run   = ''${pkgs.zathura}/bin/zathura "$@"'';
+              orphan = true;
+              desc  = "zathura (document viewer)";
+            }
+          ];
+          video = [
+            {
+              run   = ''${pkgs.mpv}/bin/mpv --fs "$@"'';
+              orphan = true;
+              desc  = "mpv (video player)";
+            }
+          ];
+          edit = [
+            {
+              run   = ''${pkgs.neovim}/bin/nvim "$@"'';
+              block = true;
+              desc  = "Neovim (text editor)";
+            }
+          ];
+        };
+        open = {
+          prepend_rules = [
+            { mime = "image/*";  use = "images"; }
+            { name = "*.pdf";    use = "docs";   }
+            { name = "*.djvu";   use = "docs";   }
+            { name = "*.epub";   use = "docs";   }
+            { mime = "video/*";  use = "video";  }
+            { mime = "text/*";   use = "edit";   }
+          ];
+        };
+      };
+    };
     tmux = {
       enable = true;
       terminal = "tmux-256color";
