@@ -383,7 +383,7 @@ in
           strColors = rice.palette.toRgbaHex colors;
         in
         strColors.charcoal;
-        dmenu = "${pkgs.rofi-wayland}/bin/rofi -dmenu -p dunst";
+        dmenu = "${pkgs.rofi}/bin/rofi -dmenu -p dunst";
       };
     };
   };
@@ -441,14 +441,14 @@ in
                   launch = [
                     # bug: hyprctl does not work with commands containing semicolons
                     "${pkgs.uwsm}/bin/uwsm" "app" "--"
-                    "${pkgs.rofi-wayland}/bin/rofi" "-show" "drun"
+                    "${pkgs.rofi}/bin/rofi" "-show" "drun"
                      "-theme-str" "window {width: 20%;}"
                   ];
                 };
                 super-k = {
                   launch = [
                     "${pkgs.uwsm}/bin/uwsm" "app" "--"
-                    "${pkgs.rofi-wayland}/bin/rofi" "-show" "window"
+                    "${pkgs.rofi}/bin/rofi" "-show" "window"
                   ];
                 };
                 super-i = {
@@ -913,7 +913,7 @@ in
     };
     rofi = {
       enable = true;
-      package = pkgs.rofi-wayland;
+      package = pkgs.rofi;
       extraConfig = {
         show-icons = true;
         sorting-method = "fzf";
