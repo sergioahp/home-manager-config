@@ -1245,20 +1245,20 @@ in
         "--layout=reverse"
         "--info=inline"
         "--height=40%"
-        "--bind=\"ctrl-/:toggle-preview\""
+        "--bind='ctrl-/:toggle-preview'"
         "--multi"
       ];
       historyWidgetOptions = [
         "--with-nth 2.."
-        "--bind=\"ctrl-y:execute-silent(echo -n {2..} | ${pkgs.wl-clipboard}/bin/wl-copy)+abort\""
+        "--bind='ctrl-y:execute-silent(echo -n {2..} | ${pkgs.wl-clipboard}/bin/wl-copy)+abort'"
       ];
       fileWidgetOptions = [
         "--walker-skip=.git,node_modules,target"
-        "--preview=${pkgs.bat}/bin/bat --style=plain --color=always --line-range :500 {}"
-        "--bind=ctrl-/:change-preview-window(down|hidden|)"
+        "--preview='${pkgs.bat}/bin/bat --style=plain --color=always --line-range :500 {}'"
+        "--bind='ctrl-/:change-preview-window(down|hidden|)'"
       ];
       changeDirWidgetOptions = [
-        "--preview '${pkgs.eza}/bin/eza -T --color=always {} | head -200'"
+        "--preview='${pkgs.eza}/bin/eza -T --color=always {} | head -200'"
       ];
     };
   };
