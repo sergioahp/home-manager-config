@@ -207,6 +207,8 @@ in
      hunspellDicts.es-mx
      claude-code
      codex
+    # TODO: maybe manage with home manager
+    kitty
      # jupyter-all # COLLITION
   ];
 
@@ -411,7 +413,7 @@ in
                   launch = [
                     "${pkgs.uwsm}/bin/uwsm" "app" "--"
                     "${pkgs.hyprland}/bin/hyprctl" "dispatch" "--" "exec"
-                    "${pkgs.alacritty}/bin/alacritty"
+                    "${pkgs.kitty}/bin/kitty"
                   ];
                 };
                 super-f = {
@@ -425,7 +427,7 @@ in
                   launch = [
                     "${pkgs.uwsm}/bin/uwsm" "app" "--"
                     "${pkgs.hyprland}/bin/hyprctl" "dispatch" "--" "exec"
-                    "${pkgs.alacritty}/bin/alacritty" "-e"
+                    "${pkgs.kitty}/bin/kitty"
                     "${pkgs.ranger}/bin/ranger"
                   ];
                 };
@@ -433,7 +435,7 @@ in
                   launch = [
                     "${pkgs.uwsm}/bin/uwsm" "app" "--"
                     "${pkgs.hyprland}/bin/hyprctl" "dispatch" "--" "exec"
-                    "${pkgs.alacritty}/bin/alacritty" "-e"
+                    "${pkgs.kitty}/bin/kitty"
                     "${pkgs.btop}/bin/btop"
                   ];
                 };
