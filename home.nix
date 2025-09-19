@@ -356,6 +356,8 @@ in
           vibrancy_darkness = 0.4;
           input_methods = true;
           input_methods_ignorealpha = 0.1;
+          popups = true;
+          popups_ignorealpha = 0.3;
         };
         shadow = {
           enabled = false;
@@ -368,6 +370,9 @@ in
       };
       animations = {
         enabled = false;
+      };
+      dwindle = {
+        preserve_split = 1;
       };
       input = {
         kb_layout = "us";
