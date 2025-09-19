@@ -212,6 +212,35 @@ in
      # jupyter-all # COLLITION
   ];
 
+  i18n.inputMethod = {
+    enable = true;
+    type = "fcitx5";
+    # remember to git clone your external config
+    # remember that the theme is also another git repo
+    # todo: consider managing this with home manager(?)
+    # fcitx5.ignoreUserConfig = true;
+    fcitx5.addons = with pkgs; [
+      fcitx5-mozc
+      fcitx5-gtk
+      kdePackages.fcitx5-qt
+    ];
+    fcitx5.waylandFrontend = true;
+
+    # if you want to be able to add/change words on the dictionary, do not
+    # manage this config with hm
+    # fcitx5.settings.inputMethod = {
+    #   GroupOrder."0" = "Default";
+    #   "Groups/0" = {
+    #     Name = "Default";
+    #     "Default Layout" = "us-altgr-intl";
+    #     DefaultIM = "mozc";
+    #   };
+    #
+    #   "Groups/0/Items/0".Name = "us-altgr-intl";
+    #   "Groups/0/Items/1".Name = "mozc";
+    # };
+  };
+
   sops = {
     age.keyFile = ageFile;
     defaultSopsFile = ./secrets.yaml;
@@ -325,6 +354,8 @@ in
           noise = 0.055;
           # vibrancy = 0.4;
           vibrancy_darkness = 0.4;
+          input_methods = true;
+          input_methods_ignorealpha = 0.1;
         };
         shadow = {
           enabled = false;
