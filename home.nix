@@ -674,9 +674,21 @@ in
                     "movewindow" "mon:+1"
                   ];
                 };
-                super-s = {
+                super-p = {
                   launch = [ "${pkgs.hyprland}/bin/hyprctl" "dispatch"
                   "swapactiveworkspaces" "0" "1" ];
+                };
+                super-t = {
+                  launch = [ "${pkgs.hyprland}/bin/hyprctl" "dispatch"
+                  "layoutmsg" "togglesplit" ];
+                };
+                super-g = {
+                  launch = [ "${pkgs.hyprland}/bin/hyprctl" "dispatch"
+                  "focusurgentorlast" ];
+                };
+                super-s = {
+                  launch = [ "${pkgs.hyprland}/bin/hyprctl" "dispatch"
+                  "layoutmsg" "swapsplit" ];
                 };
               };
             };
