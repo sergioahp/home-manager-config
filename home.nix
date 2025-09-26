@@ -94,6 +94,8 @@ in
     inputs.sops-nix.homeManagerModules.sops
     ./modules/hyprland.nix
     ./modules/xremap.nix
+    ./modules/zsh.nix
+    ./modules/fzf.nix
   ];
   nixpkgs.config.allowUnfree = true;
   home.username = username;
@@ -106,6 +108,8 @@ in
   # Enable custom modules
   programs.sergio-hyprland.enable = true;
   programs.sergio-xremap.enable = true;
+  programs.sergio-zsh.enable = true;
+  programs.sergio-fzf.enable = true;
 
   home.packages = with pkgs; [
      nerd-fonts.dejavu-sans-mono
@@ -661,62 +665,6 @@ in
       };
     };
     mpv.enable = true;
-    zsh = {
-      enable = true;
-      defaultKeymap = "viins";
-      enableCompletion = true;
-      history = {
-        append = true;
-      };
-      syntaxHighlighting.enable = true;
-      autosuggestion = {
-        enable = true;
-      };
-      initContent = ''
-        bindkey -v '^?' backward-delete-char
-        source ${pkgs.zsh-fzf-tab}/share/fzf-tab/fzf-tab.plugin.zsh
-        bindkey ^K fzf-cd-widget
-        bindkey ^J fzf-file-widget
-        bindkey ^O autosuggest-accept
-        autoload -U edit-command-line
-        zle -N edit-command-line
-        bindkey -M vicmd ^F edit-command-line
-        bindkey ^F edit-command-line
-        # Temporary, gnome overrides the other var so we override back
-        export EDITOR=nvim
-        # Set secret env vars
-        if [ -f ~/.secrets ]; then
-          source ~/.secrets
-        fi
-        preexec() {
-          local cmd="''${1%% *}"
-          printf "\e]0;%s\a" "$cmd"
-        }
-      '';
-    };
-    fzf = {
-      enable = true;
-      enableZshIntegration = true;
-      defaultOptions = [
-        "--layout=reverse"
-        "--info=inline"
-        "--height=40%"
-        "--bind='ctrl-/:toggle-preview'"
-        "--multi"
-      ];
-      historyWidgetOptions = [
-        "--with-nth 2.."
-        "--bind='ctrl-y:execute-silent(echo -n {2..} | ${pkgs.wl-clipboard}/bin/wl-copy)+abort'"
-      ];
-      fileWidgetOptions = [
-        "--walker-skip=.git,node_modules,target"
-        "--preview='${pkgs.bat}/bin/bat --style=plain --color=always --line-range :500 {}'"
-        "--bind='ctrl-/:change-preview-window(down|hidden|)'"
-      ];
-      changeDirWidgetOptions = [
-        "--preview='${pkgs.eza}/bin/eza -T --color=always {} | head -200'"
-      ];
-    };
   };
   home.shellAliases = {
 
