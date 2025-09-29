@@ -17,6 +17,7 @@
     nix-rice = {
       url = "github:bertof/nix-rice";
     };
+    gtk-status-bar.url = "github:sergioahp/gtk-status-bar";
   };
 
   outputs = { nixpkgs, home-manager, ... }@inputs:
