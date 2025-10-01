@@ -15,7 +15,7 @@ in {
         };
         
         background = [{
-          color = "rgba(25, 20, 20, 1.0)";
+          path = "screenshot";
           blur_passes = 3;
           blur_size = 8;
         }];
@@ -41,17 +41,17 @@ in {
             color = "rgba(200, 200, 200, 1.0)";
             font_size = 55;
             font_family = "DejaVu Sans Mono";
-            position = "0, 160";
+            position = "0, 80";
             halign = "center";
             valign = "center";
           }
           {
             monitor = "";
-            text = "$TIME";
+            text = "$TIME12";
             color = "rgba(200, 200, 200, 1.0)";
             font_size = 90;
             font_family = "DejaVu Sans Mono";
-            position = "0, 230";
+            position = "0, 250";
             halign = "center";
             valign = "center";
           }
