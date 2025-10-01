@@ -2,11 +2,16 @@
 let
   cfg = config.programs.sergio-hyprland;
 in {
-  imports = [];
+  imports = [
+    ./hyprlock.nix
+  ];
   options = {
     programs.sergio-hyprland.enable = lib.mkEnableOption "sergio's hyprland config";
   };
   config = lib.mkIf cfg.enable {
+    # Enable hyprlock module
+    programs.sergio-hyprlock.enable = true;
+    
     home.packages = [ pkgs.figlet ];
     wayland.windowManager.hyprland = {
       enable = true;
