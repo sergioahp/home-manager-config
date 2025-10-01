@@ -96,6 +96,7 @@ in
     ./modules/xremap.nix
     ./modules/zsh.nix
     ./modules/fzf.nix
+    ./modules/kitty.nix
   ];
   nixpkgs.config.allowUnfree = true;
   home.username = username;
@@ -110,6 +111,7 @@ in
   programs.sergio-xremap.enable = true;
   programs.sergio-zsh.enable = true;
   programs.sergio-fzf.enable = true;
+  programs.sergio-kitty.enable = true;
 
   home.packages = with pkgs; [
      nerd-fonts.dejavu-sans-mono
@@ -218,8 +220,6 @@ in
      hunspellDicts.es-mx
      claude-code
      codex
-    # TODO: maybe manage with home manager
-    kitty
      # jupyter-all # COLLITION
   ];
 
