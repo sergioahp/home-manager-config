@@ -12,7 +12,7 @@
       url = "github:Mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    xremap.url = "github:xremap/nix-flake";
+    xremap.url = "github:sergioahp/nix-flake?ref=feature/use-sergio-xremap-fork";
     hyprswitch.url = "github:h3rmt/hyprswitch/release";
     nix-rice = {
       url = "github:bertof/nix-rice";

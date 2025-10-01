@@ -24,7 +24,6 @@ in {
         keymap = [
           {
             name = "main remaps";
-            application = { not = "hyprlock"; };
             remap = {
               super-m = {
                 remap = {
@@ -370,13 +369,11 @@ in {
           }
           {
             name = "to normal";
-            application = { not = "hyprlock"; };
             remap = { super-space = {set_mode = "normal"; }; };
             mode = "default";
           }
           {
             name = "to default";
-            application = { not = "hyprlock"; };
             remap = { super-space = {set_mode = "default"; }; };
             mode = "normal";
           }
