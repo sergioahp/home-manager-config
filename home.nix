@@ -86,6 +86,7 @@ in
       nsxiv = p.nsxiv.override {
         conf = nsxiv-conf;
       };
+      kitty = inputs.kitty-extended-keys.packages.${system}.default;
     })
   ];
 

@@ -18,6 +18,7 @@
       url = "github:bertof/nix-rice";
     };
     gtk-status-bar.url = "github:sergioahp/gtk-status-bar";
+    kitty-extended-keys.url = "github:sergioahp/kitty-extended-keys";
   };
 
   outputs = { nixpkgs, home-manager, ... }@inputs:
