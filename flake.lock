@@ -621,11 +621,11 @@
         "nixpkgs": "nixpkgs_4"
       },
       "locked": {
-        "lastModified": 1759339946,
-        "narHash": "sha256-AvCbTPOyQzLJ6521ZOq2ay5U27Wqns5NaQIpoSs55Y0=",
+        "lastModified": 1759464983,
+        "narHash": "sha256-D6TyvoTZGWsh7Cqs3jsNb4VthplH5L8EC0jhn118ims=",
         "owner": "sergioahp",
         "repo": "kitty-extended-keys",
-        "rev": "af5f437ad295de97c6817bc337a193b338279229",
+        "rev": "12afa658427ac4a1889581066fe98e1ddcfd5257",
         "type": "github"
       },
       "original": {

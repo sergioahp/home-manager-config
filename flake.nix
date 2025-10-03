@@ -33,5 +33,10 @@
 
         extraSpecialArgs = { inherit inputs; inherit system; };
       };
+
+      # Export zsh module for reuse in other flakes
+      homeManagerModules = {
+        sergio-zsh = ./modules/zsh.nix;
+      };
     };
 }
