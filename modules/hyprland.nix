@@ -12,7 +12,6 @@ in {
     # Enable hyprlock module
     programs.sergio-hyprlock.enable = true;
     
-    home.packages = [ pkgs.figlet ];
     wayland.windowManager.hyprland = {
       enable = true;
       systemd.enable = false;
