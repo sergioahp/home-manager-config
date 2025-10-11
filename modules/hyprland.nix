@@ -95,7 +95,6 @@ in {
         misc = {
           focus_on_activate = true;
         };
-        monitor=",1920x1080@60, 0x0, 1";
         exec-once = [
           "${inputs.gtk-status-bar.packages.${pkgs.system}.default}/bin/gtk-status-bar"
         ];

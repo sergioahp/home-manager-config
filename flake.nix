@@ -26,12 +26,28 @@
       system = "x86_64-linux";
       pkgs = nixpkgs.legacyPackages.${system};
     in {
-      homeConfigurations."admin" = home-manager.lib.homeManagerConfiguration {
-        inherit pkgs;
+      homeConfigurations = {
+        nixd = home-manager.lib.homeManagerConfiguration {
+          inherit pkgs;
 
-        modules = [ ./home.nix ];
+          modules = [
+            ./home.nix
+            ./machines/nixd.nix
+          ];
 
-        extraSpecialArgs = { inherit inputs; inherit system; };
+          extraSpecialArgs = { inherit inputs; inherit system; };
+        };
+
+        laptop = home-manager.lib.homeManagerConfiguration {
+          inherit pkgs;
+
+          modules = [
+            ./home.nix
+            ./machines/laptop.nix
+          ];
+
+          extraSpecialArgs = { inherit inputs; inherit system; };
+        };
       };
 
       # Export zsh module for reuse in other flakes

@@ -1,4 +1,4 @@
-{ config, inputs, pkgs, system, ... }:
+{ config, lib, inputs, pkgs, system, ... }:
 
 let
   username = "admin";
