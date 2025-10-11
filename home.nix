@@ -165,7 +165,7 @@ in
      ffmpeg
      bitwarden
      jq
-     awscli2
+     # awscli2
      element-desktop
      discord
      vscodium-fhs
