@@ -79,6 +79,7 @@ in {
         };
         bind = [
           "$mod, Q, exec, uwsm stop"
+          "$mod, F12, exec, systemctl restart --user xremap"
         ];
         bindm = [
           "$mod, mouse:272, movewindow"
