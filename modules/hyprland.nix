@@ -4,14 +4,16 @@ let
 in {
   imports = [
     ./hyprlock.nix
+    ./hypridle.nix
   ];
   options = {
     programs.sergio-hyprland.enable = lib.mkEnableOption "sergio's hyprland config";
   };
   config = lib.mkIf cfg.enable {
-    # Enable hyprlock module
+    # Enable hyprlock and hypridle modules
     programs.sergio-hyprlock.enable = true;
-    
+    programs.sergio-hypridle.enable = true;
+
     wayland.windowManager.hyprland = {
       enable = true;
       systemd.enable = false;
