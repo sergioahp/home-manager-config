@@ -142,6 +142,7 @@ in
      playerctl
      wev
      nil
+     clang-tools
      tinymist
      typst
      typst-live
