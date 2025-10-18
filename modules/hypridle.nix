@@ -21,7 +21,7 @@ in {
 
         exec ${systemdInhibit} --what=handle-lid-switch:sleep --mode=block \
           --who=hyprlock --why="Screen locked" \
-          ${hyprlockBin} "$@"
+          ${hyprlockBin} --grace 10 "$@"
       '';
     in {
       services.hypridle = {
@@ -36,17 +36,13 @@ in {
 
           listener = [
             {
-              timeout = 300; # 5 minutes
+              timeout = 600; # 10 minutes
               on-timeout = "loginctl lock-session";
             }
             {
-              timeout = 330; # 5.5 minutes
+              timeout = 630; # 10.5 minutes
               on-timeout = "hyprctl dispatch dpms off";
               on-resume = "hyprctl dispatch dpms on";
-            }
-            {
-              timeout = 1800; # 30 minutes
-              on-timeout = "systemctl suspend";
             }
           ];
         };
