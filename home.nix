@@ -97,6 +97,7 @@ in
     ./modules/xremap.nix
     ./modules/zsh.nix
     ./modules/fzf.nix
+    ./modules/yazi.nix
   ];
   nixpkgs.config.allowUnfree = true;
   home.username = username;
@@ -111,6 +112,7 @@ in
   programs.sergio-xremap.enable = true;
   programs.sergio-zsh.enable = true;
   programs.sergio-fzf.enable = true;
+  programs.sergio-yazi.enable = true;
 
   home.packages = with pkgs; [
      nerd-fonts.dejavu-sans-mono
@@ -436,60 +438,6 @@ in
           command = ''${pkgs.neovim}/bin/nvim "$@"'';
         }
       ];
-    };
-    yazi = {
-      enable = true;
-      enableZshIntegration = true;
-      settings = {
-        opener = {
-          images = [
-            {
-              run   = ''${pkgs.nsxiv}/bin/nsxiv "$@"'';
-              orphan = true;
-              desc  = "nsxiv (image viewer)";
-            }
-          ];
-          docs = [
-            {
-              run   = ''${pkgs.zathura}/bin/zathura "$@"'';
-              orphan = true;
-              desc  = "zathura (document viewer)";
-            }
-          ];
-          video = [
-            {
-              run   = ''${pkgs.mpv}/bin/mpv --fs "$@"'';
-              orphan = true;
-              desc  = "mpv (video player)";
-            }
-          ];
-          edit = [
-            {
-              run   = ''${pkgs.neovim}/bin/nvim "$@"'';
-              block = true;
-              desc  = "Neovim (text editor)";
-            }
-          ];
-        };
-        open = {
-          prepend_rules = [
-            { mime = "image/*";  use = "images"; }
-            { name = "*.pdf";    use = "docs";   }
-            { name = "*.djvu";   use = "docs";   }
-            { name = "*.epub";   use = "docs";   }
-            { mime = "video/*";  use = "video";  }
-            { mime = "text/*";   use = "edit";   }
-          ];
-        };
-      };
-      keymap = {
-        mgr.prepend_keymap = [
-          {
-            on = "<C-d>";
-            run = ''shell -- ${pkgs.xdragon}/bin/xdragon "$@"'';
-          }
-        ];
-      };
     };
     tmux = {
       enable = true;
