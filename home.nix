@@ -397,13 +397,15 @@ in
           text-color = mkLiteral "@accent-color";
         };
         "element selected" = {
-          text-color = mkLiteral "@bg";
+          text-color = mkLiteral "@fg0";
+          background-color = mkLiteral "rgba(30,32,48,0.9)";
         };
         "element normal active" = {
           text-color = mkLiteral "@accent-color";
         };
         "element selected normal, element selected active" = {
-          background-color = mkLiteral "@accent-color";
+          background-color = mkLiteral "rgba(30,32,48,0.9)";
+          text-color = mkLiteral "@fg0";
         };
         "element-text" = {
             text-color = mkLiteral "inherit";
@@ -564,16 +566,19 @@ in
     };
     ssh = {
       enable = true;
-      addKeysToAgent =  "yes";
-      matchBlocks."github" = {
-        host = "github.com";
-        user = "git";
-        identityFile = [
-          "${homeDirectory}/.ssh/main"
-        ];
+      enableDefaultConfig = false;
+      matchBlocks = {
+        "*" = {
+          addKeysToAgent = "yes";
+        };
+        "github" = {
+          host = "github.com";
+          user = "git";
+          identityFile = [
+            "${homeDirectory}/.ssh/main"
+          ];
+        };
       };
-
-
     };
     chromium.enable = true;
     home-manager.enable = true;
