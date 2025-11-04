@@ -74,7 +74,7 @@ in {
                   super-i = {
                     launch = [
                       "${pkgs.uwsm}/bin/uwsm" "app" "--"
-                      "${pkgs.bitwarden}/bin/bitwarden"
+                      "${pkgs.bitwarden-desktop}/bin/bitwarden"
                     ];
                   };
                 };

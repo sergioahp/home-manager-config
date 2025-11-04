@@ -118,14 +118,14 @@ in
      nerd-fonts.dejavu-sans-mono
      noto-fonts
      noto-fonts-cjk-sans
-     noto-fonts-emoji
+     noto-fonts-color-emoji
     (python3.withPackages (ps: with ps; [
       numpy
       fabric
       python-lsp-server
       pylsp-mypy
       pandas
-      pytorch
+      torch
       torchvision
       matplotlib
       ipykernel
@@ -159,14 +159,14 @@ in
      wget
      wget2
      aria2
-     tor-browser-bundle-bin
+     tor-browser
      tor
      torsocks
      atool
      imagemagick
      img2pdf
      ffmpeg
-     bitwarden
+     bitwarden-desktop
      jq
      # awscli2
      element-desktop
@@ -175,7 +175,7 @@ in
      mullvad-browser
      trash-cli
      brave
-     poppler_utils
+     poppler-utils
      hwinfo
      inxi
      nix-index
@@ -198,7 +198,7 @@ in
      libreoffice
      ghostscript
      gimp
-     xdragon
+     dragon-drop
      pciutils
      usbutils
      speedtest-cli
@@ -208,7 +208,7 @@ in
      tree
      neovim
      copyq
-     du-dust
+     dust
      ripgrep
      whois
      nmap

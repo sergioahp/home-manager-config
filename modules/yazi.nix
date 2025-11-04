@@ -57,7 +57,7 @@ in {
         mgr.prepend_keymap = [
           {
             on = "<C-d>";
-            run = ''shell -- ${pkgs.xdragon}/bin/xdragon "$@"'';
+            run = ''shell -- ${pkgs.dragon-drop}/bin/dragon-drop "$@"'';
             desc = "Dragon drop";
           }
           {
