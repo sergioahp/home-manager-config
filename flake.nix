@@ -19,6 +19,7 @@
     };
     gtk-status-bar.url = "github:sergioahp/gtk-status-bar";
     kitty-extended-keys.url = "github:sergioahp/kitty-extended-keys";
+    rofi-switch-rust.url = "github:sergioahp/rofi-switch-rust";
   };
 
   outputs = { nixpkgs, home-manager, ... }@inputs:

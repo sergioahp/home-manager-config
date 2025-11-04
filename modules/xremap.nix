@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, inputs, system, ... }:
 let
   cfg = config.programs.sergio-xremap;
 in {
@@ -68,7 +68,7 @@ in {
                   super-k = {
                     launch = [
                       "${pkgs.uwsm}/bin/uwsm" "app" "--"
-                      "${pkgs.rofi}/bin/rofi" "-show" "window"
+                      "${inputs.rofi-switch-rust.packages.${system}.default}/bin/quick-start"
                     ];
                   };
                   super-i = {
