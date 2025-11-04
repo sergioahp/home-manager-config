@@ -21,4 +21,7 @@
       on-resume = "hyprctl dispatch dpms on";
     }
   ];
+
+  # nixd-specific dunst configuration - show on monitor 1 (right monitor)
+  services.dunst.settings.global.monitor = 1;
 }

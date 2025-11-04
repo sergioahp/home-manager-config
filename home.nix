@@ -352,6 +352,7 @@ in
         in
         strColors.charcoal;
         dmenu = "${pkgs.rofi}/bin/rofi -dmenu -p dunst";
+        origin = "top-left";
       };
     };
   };
