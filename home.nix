@@ -442,7 +442,7 @@ in
       enableZshIntegration = true;
       settings = {
         opener = {
-          images = [ 
+          images = [
             {
               run   = ''${pkgs.nsxiv}/bin/nsxiv "$@"'';
               orphan = true;
@@ -481,6 +481,14 @@ in
             { mime = "text/*";   use = "edit";   }
           ];
         };
+      };
+      keymap = {
+        mgr.prepend_keymap = [
+          {
+            on = "<C-d>";
+            run = ''shell -- ${pkgs.xdragon}/bin/xdragon "$@"'';
+          }
+        ];
       };
     };
     tmux = {
