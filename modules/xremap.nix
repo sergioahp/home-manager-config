@@ -60,14 +60,14 @@ in {
                   super-m = {
                     launch = [
                       # bug: hyprctl does not work with commands containing semicolons
-                      "${pkgs.uwsm}/bin/uwsm" "app" "--"
+                      # Do not use "${pkgs.uwsm}/bin/uwsm" "app" "--" it makes
+                      # this slow but we need this to be really fast
                       "${pkgs.rofi}/bin/rofi" "-show" "drun"
                        "-theme-str" "window {width: 20%;}"
                     ];
                   };
                   super-k = {
                     launch = [
-                      "${pkgs.uwsm}/bin/uwsm" "app" "--"
                       "${inputs.rofi-switch-rust.packages.${system}.default}/bin/quick-start"
                     ];
                   };
