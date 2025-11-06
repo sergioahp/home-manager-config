@@ -3,6 +3,45 @@ let
   cfg = config.programs.sergio-xremap;
   launcher = import ./rofi-launcher.nix { inherit pkgs lib inputs system; };
 in {
+  # -----------------------------------------------------------------------------
+  # xremap launcher metadata guide
+  #
+  # Dear future assistant (human or chatbot):
+  #
+  # This module is the single source of truth for which key bindings feed the
+  # rofi-based xremap launcher. Each binding is annotated with a comment that
+  # starts with `# rofi-entry`.
+  #
+  # Comment syntax:
+  #   # rofi-entry <decision> [key=value ...]
+  #
+  # Decisions:
+  #   - `include`  → binding should appear in the launcher
+  #   - `skip`     → binding is excluded; provide a `reason=...`
+  #
+  # Attributes (key=value) give presentation hints consumed manually by the
+  # launcher generator. Expected keys:
+  #   * category : logical group (“Applications”, “Window”, “Audio”, …)
+  #   * color    : hex color string matching the rofi palette
+  #   * emoji    : UTF-8 glyph rendered in the first column (avoid VS-16/ZWJ)
+  #
+  # Rules for editing:
+  #   1. Keep every binding comment directly above the binding it describes.
+  #   2. When adding new bindings that should appear in the launcher, add
+  #      `include` metadata with category, color, and emoji. Choose emoji that
+  #      fits the action and prefer simple single-codepoint symbols (no VS-16).
+  #   3. When excluding bindings, use `skip` with a short `reason` (“submap”,
+  #      “workspace-switch”, etc.) so automated tooling or reviewers know why.
+  #   4. Do not remove existing metadata without updating the launcher entries
+  #      inside `modules/rofi-launcher.nix`. The launcher still assembles its
+  #      entry list manually; these comments are guard rails, not automation.
+  #   5. If you change the comment schema, update this guide and the generator.
+  #
+  # The rofi launcher itself is defined in `modules/rofi-launcher.nix`. Any new
+  # binding marked `include` must be mirrored there until we implement a real
+  # parser. Think of these comments as a contract between the configuration and
+  # the launcher script.
+  # -----------------------------------------------------------------------------
   imports = [];
   options = {
     programs.sergio-xremap.enable = lib.mkEnableOption "sergio's xremap configuration";
@@ -29,7 +68,7 @@ in {
               # rofi-entry skip reason=submap
               super-m = {
                 remap = {
-                  # rofi-entry include category=Applications icon=kitty color=#7AA2F7
+                  # rofi-entry include category=Applications color=#7AA2F7 emoji=🖥️
                   super-l = {
                     launch = [
                       "${pkgs.uwsm}/bin/uwsm" "app" "--"
@@ -37,7 +76,7 @@ in {
                       "${pkgs.kitty}/bin/kitty"
                     ];
                   };
-                  # rofi-entry include category=Applications icon=firefox color=#7AA2F7
+                  # rofi-entry include category=Applications color=#7AA2F7 emoji=🦊
                   super-f = {
                     launch = [
                       "${pkgs.uwsm}/bin/uwsm" "app" "--"
@@ -45,7 +84,7 @@ in {
                       "${pkgs.firefox}/bin/firefox"
                     ];
                   };
-                  # rofi-entry include category=Utilities icon=system-file-manager color=#7DCFFF
+                  # rofi-entry include category=Utilities color=#7DCFFF emoji=🗂️
                   super-e = {
                     launch = [
                       "${pkgs.uwsm}/bin/uwsm" "app" "--"
@@ -54,7 +93,7 @@ in {
                       "${pkgs.ranger}/bin/ranger"
                     ];
                   };
-                  # rofi-entry include category=Monitoring icon=utilities-system-monitor color=#9ECE6A
+                  # rofi-entry include category=Monitoring color=#9ECE6A emoji=📊
                   super-o = {
                     launch = [
                       "${pkgs.uwsm}/bin/uwsm" "app" "--"
@@ -63,7 +102,7 @@ in {
                       "${pkgs.btop}/bin/btop"
                     ];
                   };
-                  # rofi-entry include category=Applications icon=system-search color=#7AA2F7
+                  # rofi-entry include category=Applications color=#7AA2F7 emoji=🚀
                   super-m = {
                     launch = [
                       # bug: hyprctl does not work with commands containing semicolons
@@ -73,13 +112,13 @@ in {
                        "-theme-str" "window {width: 20%;}"
                     ];
                   };
-                  # rofi-entry include category=Utilities icon=view-grid-symbolic color=#7DCFFF
+                  # rofi-entry include category=Utilities color=#7DCFFF emoji=⚡
                   super-k = {
                     launch = [
                       "${inputs.rofi-switch-rust.packages.${system}.default}/bin/quick-start"
                     ];
                   };
-                  # rofi-entry include category=Applications icon=bitwarden color=#7AA2F7
+                  # rofi-entry include category=Applications color=#7AA2F7 emoji=🔐
                   super-i = {
                     launch = [
                       "${pkgs.uwsm}/bin/uwsm" "app" "--"
@@ -91,7 +130,7 @@ in {
               # rofi-entry skip reason=submap
               super-s = {
                 remap = {
-                  # rofi-entry include category=Utilities icon=accessories-screenshot color=#7DCFFF
+                  # rofi-entry include category=Utilities color=#7DCFFF emoji=🖼️
                   super-e = {
                     launch = [
                       "${pkgs.bash}/bin/sh" "-c"
@@ -101,7 +140,7 @@ in {
                       ''
                     ];
                   };
-                  # rofi-entry include category=Utilities icon=accessories-screenshot color=#7DCFFF
+                  # rofi-entry include category=Utilities color=#7DCFFF emoji=📸
                   super-d = {
                     launch = [
                       "${pkgs.bash}/bin/sh" "-c"
@@ -116,35 +155,35 @@ in {
               # rofi-entry skip reason=submap
               super-u = {
                 remap = {
-                  # rofi-entry include category=Notifications icon=notification-history color=#F7768E
+                  # rofi-entry include category=Notifications color=#F7768E emoji=🕰️
                   super-f = {
                     launch = [ "${pkgs.dunst}/bin/dunstctl" "history-pop" ];
                   };
-                  # rofi-entry include category=Notifications icon=notification-dismiss color=#F7768E
+                  # rofi-entry include category=Notifications color=#F7768E emoji=❌
                   super-d = {
                     launch = [ "${pkgs.dunst}/bin/dunstctl" "close" ];
                   };
-                  # rofi-entry include category=Notifications icon=notification-clear-all color=#F7768E
+                  # rofi-entry include category=Notifications color=#F7768E emoji=🧹
                   super-s = {
                     launch = [ "${pkgs.dunst}/bin/dunstctl" "close-all" ];
                   };
-                  # rofi-entry include category=Notifications icon=notification-message color=#F7768E
+                  # rofi-entry include category=Notifications color=#F7768E emoji=🎯
                   super-c = {
                     launch = [ "${pkgs.dunst}/bin/dunstctl" "action" ];
                   };
-                  # rofi-entry include category=Notifications icon=notification-settings color=#F7768E
+                  # rofi-entry include category=Notifications color=#F7768E emoji=🛠️
                   super-e = {
                     launch = [ "${pkgs.dunst}/bin/dunstctl" "context" ];
                   };
-                  # rofi-entry include category=Notifications icon=notification-status color=#F7768E
+                  # rofi-entry include category=Notifications color=#F7768E emoji=⏯️
                   super-t = {
                     launch = [ "${pkgs.dunst}/bin/dunstctl" "set-paused" "toggle" ];
                   };
-                  # rofi-entry include category=Notifications icon=notification-paused color=#F7768E
+                  # rofi-entry include category=Notifications color=#F7768E emoji=⏸️
                   super-i = {
                     launch = [ "${pkgs.dunst}/bin/dunstctl" "set-paused" "true" ];
                   };
-                  # rofi-entry include category=Notifications icon=notification-symbolic color=#F7768E
+                  # rofi-entry include category=Notifications color=#F7768E emoji=▶️
                   super-o = {
                     launch = [ "${pkgs.dunst}/bin/dunstctl" "set-paused" "false" ];
                   };
@@ -319,59 +358,59 @@ in {
               # rofi-entry skip reason=submap
               super-d = {
                 remap = {
-                  # rofi-entry include category=Window icon=window-close color=#BB9AF7
+                  # rofi-entry include category=Window color=#BB9AF7 emoji=💀
                   super-c = {
                     launch = [ "${pkgs.hyprland}/bin/hyprctl" "dispatch"
                     "killactive" ];
                   };
-                  # rofi-entry include category=Window icon=view-restore color=#BB9AF7
+                  # rofi-entry include category=Window color=#BB9AF7 emoji=🔁
                   super-j = {
                     launch = [ "${pkgs.hyprland}/bin/hyprctl" "dispatch"
                     "swapnext" ];
                   };
-                  # rofi-entry include category=Window icon=view-restore color=#BB9AF7
+                  # rofi-entry include category=Window color=#BB9AF7 emoji=↩️
                   super-k = {
                     launch = [ "${pkgs.hyprland}/bin/hyprctl" "dispatch"
                     "swapnext" "prev" ];
                   };
-                  # rofi-entry include category=Window icon=view-dual color=#BB9AF7
+                  # rofi-entry include category=Window color=#BB9AF7 emoji=🪟
                   super-u = {
                     launch = [ "${pkgs.hyprland}/bin/hyprctl" "dispatch"
                     "togglefloating" ];
                   };
-                  # rofi-entry include category=Window icon=view-fullscreen color=#BB9AF7
+                  # rofi-entry include category=Window color=#BB9AF7 emoji=🔳
                   super-f = {
                     launch = [ "${pkgs.hyprland}/bin/hyprctl" "dispatch"
                     "fullscreen" ];
                   };
-                  # rofi-entry include category=Window icon=view-fullscreen-symbolic color=#BB9AF7
+                  # rofi-entry include category=Window color=#BB9AF7 emoji=🟥
                   super-comma = {
                     launch = [ "${pkgs.hyprland}/bin/hyprctl" "dispatch"
                     "fullscreenstate" "1" ];
                   };
-                  # rofi-entry include category=Window icon=window-duplicate color=#BB9AF7
+                  # rofi-entry include category=Window color=#BB9AF7 emoji=📺
                   super-m = {
                     launch = [
                       "${pkgs.hyprland}/bin/hyprctl" "dispatch"
                       "movewindow" "mon:+1"
                     ];
                   };
-                  # rofi-entry include category=Window icon=workspace-switcher color=#BB9AF7
+                  # rofi-entry include category=Window color=#BB9AF7 emoji=🔄
                   super-p = {
                     launch = [ "${pkgs.hyprland}/bin/hyprctl" "dispatch"
                     "swapactiveworkspaces" "0" "1" ];
                   };
-                  # rofi-entry include category=Window icon=view-split-left-right color=#BB9AF7
+                  # rofi-entry include category=Window color=#BB9AF7 emoji=🪚
                   super-t = {
                     launch = [ "${pkgs.hyprland}/bin/hyprctl" "dispatch"
                     "layoutmsg" "togglesplit" ];
                   };
-                  # rofi-entry include category=Window icon=dialog-information color=#BB9AF7
+                  # rofi-entry include category=Window color=#BB9AF7 emoji=🚨
                   super-g = {
                     launch = [ "${pkgs.hyprland}/bin/hyprctl" "dispatch"
                     "focusurgentorlast" ];
                   };
-                  # rofi-entry include category=Window icon=view-split-left-right color=#BB9AF7
+                  # rofi-entry include category=Window color=#BB9AF7 emoji=🧱
                   super-s = {
                     launch = [ "${pkgs.hyprland}/bin/hyprctl" "dispatch"
                     "layoutmsg" "swapsplit" ];
@@ -379,18 +418,18 @@ in {
                 };
               };
 
-              # rofi-entry include category=Window icon=preferences-desktop-display color=#BB9AF7
+              # rofi-entry include category=Window color=#BB9AF7 emoji=🪟
               super-comma = {
                 launch = [ "${pkgs.hyprland}/bin/hyprctl" "dispatch"
                 "focusmonitor" "+1" ];
               };
 
-              # rofi-entry include category=Window icon=go-next color=#BB9AF7
+              # rofi-entry include category=Window color=#BB9AF7 emoji=➡️
               super-j = {
                 launch = [ "${pkgs.hyprland}/bin/hyprctl" "dispatch"
                 "cyclenext" ];
               };
-              # rofi-entry include category=Window icon=go-previous color=#BB9AF7
+              # rofi-entry include category=Window color=#BB9AF7 emoji=⬅️
               super-k = {
                 launch = [ "${pkgs.hyprland}/bin/hyprctl" "dispatch"
                 "cyclenext" "prev" ];
@@ -415,31 +454,31 @@ in {
               # rofi-entry skip reason=submap
               super-y = {
                 remap = {
-                    # rofi-entry include category=Media icon=media-playback-start color=#E0AF68
+              # rofi-entry include category=Media color=#E0AF68 emoji=⏯️
                     super-s = {
                       launch = [ "${pkgs.playerctl}/bin/playerctl" "play-pause" ];
                   };
-                    # rofi-entry include category=Media icon=media-playback-next color=#E0AF68
+                    # rofi-entry include category=Media color=#E0AF68 emoji=⏭️
                     super-d = {
                       launch = [ "${pkgs.playerctl}/bin/playerctl" "next" ];
                   };
-                    # rofi-entry include category=Media icon=media-playback-previous color=#E0AF68
+                    # rofi-entry include category=Media color=#E0AF68 emoji=⏮️
                     super-f = {
                       launch = [ "${pkgs.playerctl}/bin/playerctl" "previous" ];
                   };
-                    # rofi-entry include category=Audio icon=audio-volume-muted color=#2AC3DE
+                    # rofi-entry include category=Audio color=#2AC3DE emoji=🔇
                     super-e = {
                       launch = [ "${pkgs.wireplumber}/bin/wpctl" "set-mute" "@DEFAULT_AUDIO_SINK@"
                                         "toggle" ];
                   };
                 };
               };
-              # rofi-entry include category=Audio icon=audio-volume-low color=#2AC3DE
+              # rofi-entry include category=Audio color=#2AC3DE emoji=🔉
               super-i = {
                 launch = [ "${pkgs.wireplumber}/bin/wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@"
                   "5%-" ];
               };
-              # rofi-entry include category=Audio icon=audio-volume-high color=#2AC3DE
+              # rofi-entry include category=Audio color=#2AC3DE emoji=🔊
               super-o = {
                 launch = [ "${pkgs.wireplumber}/bin/wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@"
                   "5%+" ];
@@ -465,7 +504,7 @@ in {
           {
             mode = "normal";
             remap = {
-              # rofi-entry include category=Window icon=go-first color=#BB9AF7
+              # rofi-entry include category=Window color=#BB9AF7 emoji=⬅️
               shift-h = {
                 launch = [
                   "${pkgs.hyprland}/bin/hyprctl"
@@ -474,7 +513,7 @@ in {
                   "-100" "0"
                 ];
               };
-              # rofi-entry include category=Window icon=go-down color=#BB9AF7
+              # rofi-entry include category=Window color=#BB9AF7 emoji=⬇️
               shift-j = {
                 launch = [
                   "${pkgs.hyprland}/bin/hyprctl"
@@ -483,7 +522,7 @@ in {
                   "0" "100"
                 ];
               };
-              # rofi-entry include category=Window icon=go-up color=#BB9AF7
+              # rofi-entry include category=Window color=#BB9AF7 emoji=⬆️
               shift-k = {
                 launch = [
                   "${pkgs.hyprland}/bin/hyprctl"
@@ -492,7 +531,7 @@ in {
                   "0" "-100"
                 ];
               };
-              # rofi-entry include category=Window icon=go-last color=#BB9AF7
+              # rofi-entry include category=Window color=#BB9AF7 emoji=➡️
               shift-l = {
                 launch = [
                   "${pkgs.hyprland}/bin/hyprctl"
@@ -501,7 +540,7 @@ in {
                   "100" "0"
                 ];
               };
-              # rofi-entry include category=Window icon=view-left-right color=#BB9AF7
+              # rofi-entry include category=Window color=#BB9AF7 emoji=↔️
               h = {
                 launch = [
                   "${pkgs.hyprland}/bin/hyprctl"
@@ -510,7 +549,7 @@ in {
                   "-100" "0"
                 ];
               };
-              # rofi-entry include category=Window icon=view-top-bottom color=#BB9AF7
+              # rofi-entry include category=Window color=#BB9AF7 emoji=↕️
               j = {
                 launch = [
                   "${pkgs.hyprland}/bin/hyprctl"
@@ -519,7 +558,7 @@ in {
                   "0" "100"
                 ];
               };
-              # rofi-entry include category=Window icon=view-top-bottom color=#BB9AF7
+              # rofi-entry include category=Window color=#BB9AF7 emoji=↕️
               k = {
                 launch = [
                   "${pkgs.hyprland}/bin/hyprctl"
@@ -528,7 +567,7 @@ in {
                   "0" "-100"
                 ];
               };
-              # rofi-entry include category=Window icon=view-left-right color=#BB9AF7
+              # rofi-entry include category=Window color=#BB9AF7 emoji=↔️
               l = {
                 launch = [
                   "${pkgs.hyprland}/bin/hyprctl"
@@ -537,7 +576,7 @@ in {
                   "100" "0"
                 ];
               };
-              # rofi-entry include category=Window icon=view-restore color=#BB9AF7
+              # rofi-entry include category=Window color=#BB9AF7 emoji=🎯
               c = {
                 launch = [
                   "${pkgs.hyprland}/bin/hyprctl"
@@ -545,7 +584,7 @@ in {
                   "centerwindow"
                 ];
               };
-              # rofi-entry include category=Brightness icon=display-brightness-high color=#E0AF68
+              # rofi-entry include category=Brightness color=#E0AF68 emoji=🔆
               semicolon = {
                 launch = [
                   "${pkgs.brightnessctl}/bin/brightnessctl"
@@ -553,7 +592,7 @@ in {
                   "10%+"
                 ];
               };
-              # rofi-entry include category=Brightness icon=display-brightness-low color=#E0AF68
+              # rofi-entry include category=Brightness color=#E0AF68 emoji=🌗
               comma = {
                 launch = [
                   "${pkgs.lua}/bin/lua"
@@ -577,7 +616,7 @@ in {
                   ''
                 ];
               };
-              # rofi-entry include category=Brightness icon=display-brightness-high color=#E0AF68
+              # rofi-entry include category=Brightness color=#E0AF68 emoji=🔆
               "shift-semicolon" = {
                 launch = [
                   "${pkgs.brightnessctl}/bin/brightnessctl"
@@ -585,7 +624,7 @@ in {
                   "100%"
                 ];
               };
-              # rofi-entry include category=Brightness icon=display-brightness-low color=#E0AF68
+              # rofi-entry include category=Brightness color=#E0AF68 emoji=🔅
               "shift-comma" = {
                 launch = [
                   "${pkgs.brightnessctl}/bin/brightnessctl"

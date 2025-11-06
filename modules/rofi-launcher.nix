@@ -18,7 +18,7 @@ let
       desc = "Terminal (Kitty)";
       category = "Applications";
       color = categoryColors.Applications;
-      icon = "utilities-terminal";
+      glyph = "🖥️";
       args = [
         "${pkgs.uwsm}/bin/uwsm"
         "app"
@@ -35,7 +35,7 @@ let
       desc = "Firefox Browser";
       category = "Applications";
       color = categoryColors.Applications;
-      icon = "firefox";
+      glyph = "🦊";
       args = [
         "${pkgs.uwsm}/bin/uwsm"
         "app"
@@ -52,7 +52,7 @@ let
       desc = "File Manager (Ranger)";
       category = "Utilities";
       color = categoryColors.Utilities;
-      icon = "system-file-manager";
+      glyph = "🗂️";
       args = [
         "${pkgs.uwsm}/bin/uwsm"
         "app"
@@ -70,7 +70,7 @@ let
       desc = "System Monitor (btop)";
       category = "Monitoring";
       color = categoryColors.Monitoring;
-      icon = "utilities-system-monitor";
+      glyph = "📊";
       args = [
         "${pkgs.uwsm}/bin/uwsm"
         "app"
@@ -88,7 +88,7 @@ let
       desc = "Application Launcher (Rofi)";
       category = "Applications";
       color = categoryColors.Applications;
-      icon = "application-x-executable";
+      glyph = "🚀";
       args = [
         "${pkgs.rofi}/bin/rofi"
         "-show"
@@ -102,7 +102,7 @@ let
       desc = "Quick Start Menu";
       category = "Utilities";
       color = categoryColors.Utilities;
-      icon = "view-grid-symbolic";
+      glyph = "⚡";
       args = [
         "${inputs.rofi-switch-rust.packages.${system}.default}/bin/quick-start"
       ];
@@ -112,7 +112,7 @@ let
       desc = "Password Manager (Bitwarden)";
       category = "Applications";
       color = categoryColors.Applications;
-      icon = "dialog-password";
+      glyph = "🔐";
       args = [
         "${pkgs.uwsm}/bin/uwsm"
         "app"
@@ -125,7 +125,7 @@ let
       desc = "Screenshot clipboard → Swappy";
       category = "Utilities";
       color = categoryColors.Utilities;
-      icon = "accessories-screenshot";
+      glyph = "🖼️";
       args = [
         "${pkgs.bash}/bin/sh"
         "-c"
@@ -140,7 +140,7 @@ let
       desc = "Screenshot region → Swappy";
       category = "Utilities";
       color = categoryColors.Utilities;
-      icon = "accessories-screenshot";
+      glyph = "📸";
       args = [
         "${pkgs.bash}/bin/sh"
         "-c"
@@ -155,7 +155,7 @@ let
       desc = "Dunst history pop";
       category = "Notifications";
       color = categoryColors.Notifications;
-      icon = "preferences-system-notifications";
+      glyph = "🕰️";
       args = [
         "${pkgs.dunst}/bin/dunstctl"
         "history-pop"
@@ -166,7 +166,7 @@ let
       desc = "Dunst close notification";
       category = "Notifications";
       color = categoryColors.Notifications;
-      icon = "window-close";
+      glyph = "❌";
       args = [
         "${pkgs.dunst}/bin/dunstctl"
         "close"
@@ -177,7 +177,7 @@ let
       desc = "Dunst close all";
       category = "Notifications";
       color = categoryColors.Notifications;
-      icon = "edit-clear";
+      glyph = "🧹";
       args = [
         "${pkgs.dunst}/bin/dunstctl"
         "close-all"
@@ -188,7 +188,7 @@ let
       desc = "Dunst run action";
       category = "Notifications";
       color = categoryColors.Notifications;
-      icon = "system-run";
+      glyph = "🎯";
       args = [
         "${pkgs.dunst}/bin/dunstctl"
         "action"
@@ -199,7 +199,7 @@ let
       desc = "Dunst open context";
       category = "Notifications";
       color = categoryColors.Notifications;
-      icon = "preferences-system";
+      glyph = "🛠️";
       args = [
         "${pkgs.dunst}/bin/dunstctl"
         "context"
@@ -210,7 +210,7 @@ let
       desc = "Dunst toggle pause";
       category = "Notifications";
       color = categoryColors.Notifications;
-      icon = "media-playback-pause";
+      glyph = "⏯️";
       args = [
         "${pkgs.dunst}/bin/dunstctl"
         "set-paused"
@@ -222,7 +222,7 @@ let
       desc = "Dunst pause notifications";
       category = "Notifications";
       color = categoryColors.Notifications;
-      icon = "media-playback-stop";
+      glyph = "⏸️";
       args = [
         "${pkgs.dunst}/bin/dunstctl"
         "set-paused"
@@ -234,7 +234,7 @@ let
       desc = "Dunst resume notifications";
       category = "Notifications";
       color = categoryColors.Notifications;
-      icon = "media-playback-start";
+      glyph = "▶️";
       args = [
         "${pkgs.dunst}/bin/dunstctl"
         "set-paused"
@@ -246,7 +246,7 @@ let
       desc = "Kill active window";
       category = "Window";
       color = categoryColors.Window;
-      icon = "window-close";
+      glyph = "💀";
       args = [
         "${pkgs.hyprland}/bin/hyprctl"
         "dispatch"
@@ -258,7 +258,7 @@ let
       desc = "Swap with next window";
       category = "Window";
       color = categoryColors.Window;
-      icon = "go-next";
+      glyph = "🔁";
       args = [
         "${pkgs.hyprland}/bin/hyprctl"
         "dispatch"
@@ -270,7 +270,7 @@ let
       desc = "Swap with previous window";
       category = "Window";
       color = categoryColors.Window;
-      icon = "go-previous";
+      glyph = "↩️";
       args = [
         "${pkgs.hyprland}/bin/hyprctl"
         "dispatch"
@@ -283,7 +283,7 @@ let
       desc = "Toggle floating";
       category = "Window";
       color = categoryColors.Window;
-      icon = "preferences-system-windows";
+      glyph = "🪟";
       args = [
         "${pkgs.hyprland}/bin/hyprctl"
         "dispatch"
@@ -295,7 +295,7 @@ let
       desc = "Toggle fullscreen";
       category = "Window";
       color = categoryColors.Window;
-      icon = "view-fullscreen";
+      glyph = "🔳";
       args = [
         "${pkgs.hyprland}/bin/hyprctl"
         "dispatch"
@@ -307,7 +307,7 @@ let
       desc = "Set fullscreen state 1";
       category = "Window";
       color = categoryColors.Window;
-      icon = "view-fullscreen-symbolic";
+      glyph = "🟥";
       args = [
         "${pkgs.hyprland}/bin/hyprctl"
         "dispatch"
@@ -320,7 +320,7 @@ let
       desc = "Move window to next monitor";
       category = "Window";
       color = categoryColors.Window;
-      icon = "video-display";
+      glyph = "📺";
       args = [
         "${pkgs.hyprland}/bin/hyprctl"
         "dispatch"
@@ -333,7 +333,7 @@ let
       desc = "Swap active workspaces";
       category = "Window";
       color = categoryColors.Window;
-      icon = "preferences-desktop-workspaces";
+      glyph = "🔄";
       args = [
         "${pkgs.hyprland}/bin/hyprctl"
         "dispatch"
@@ -347,7 +347,7 @@ let
       desc = "Toggle split layout";
       category = "Window";
       color = categoryColors.Window;
-      icon = "view-list-details";
+      glyph = "🪚";
       args = [
         "${pkgs.hyprland}/bin/hyprctl"
         "dispatch"
@@ -360,7 +360,7 @@ let
       desc = "Focus urgent/last window";
       category = "Window";
       color = categoryColors.Window;
-      icon = "dialog-information";
+      glyph = "🚨";
       args = [
         "${pkgs.hyprland}/bin/hyprctl"
         "dispatch"
@@ -372,7 +372,7 @@ let
       desc = "Swap split panes";
       category = "Window";
       color = categoryColors.Window;
-      icon = "view-list-columns";
+      glyph = "🧱";
       args = [
         "${pkgs.hyprland}/bin/hyprctl"
         "dispatch"
@@ -385,7 +385,7 @@ let
       desc = "Focus next monitor";
       category = "Window";
       color = categoryColors.Window;
-      icon = "video-display";
+      glyph = "🪟";
       args = [
         "${pkgs.hyprland}/bin/hyprctl"
         "dispatch"
@@ -398,7 +398,7 @@ let
       desc = "Focus next window";
       category = "Window";
       color = categoryColors.Window;
-      icon = "go-next";
+      glyph = "➡️";
       args = [
         "${pkgs.hyprland}/bin/hyprctl"
         "dispatch"
@@ -410,7 +410,7 @@ let
       desc = "Focus previous window";
       category = "Window";
       color = categoryColors.Window;
-      icon = "go-previous";
+      glyph = "⬅️";
       args = [
         "${pkgs.hyprland}/bin/hyprctl"
         "dispatch"
@@ -423,7 +423,7 @@ let
       desc = "Media play/pause";
       category = "Media";
       color = categoryColors.Media;
-      icon = "media-playback-start";
+      glyph = "⏯️";
       args = [
         "${pkgs.playerctl}/bin/playerctl"
         "play-pause"
@@ -434,7 +434,7 @@ let
       desc = "Media next track";
       category = "Media";
       color = categoryColors.Media;
-      icon = "media-skip-forward";
+      glyph = "⏭️";
       args = [
         "${pkgs.playerctl}/bin/playerctl"
         "next"
@@ -445,7 +445,7 @@ let
       desc = "Media previous track";
       category = "Media";
       color = categoryColors.Media;
-      icon = "media-skip-backward";
+      glyph = "⏮️";
       args = [
         "${pkgs.playerctl}/bin/playerctl"
         "previous"
@@ -456,7 +456,7 @@ let
       desc = "Toggle audio mute";
       category = "Audio";
       color = categoryColors.Audio;
-      icon = "audio-volume-muted";
+      glyph = "🔇";
       args = [
         "${pkgs.wireplumber}/bin/wpctl"
         "set-mute"
@@ -469,7 +469,7 @@ let
       desc = "Volume down 5%";
       category = "Audio";
       color = categoryColors.Audio;
-      icon = "audio-volume-low";
+      glyph = "🔉";
       args = [
         "${pkgs.wireplumber}/bin/wpctl"
         "set-volume"
@@ -482,7 +482,7 @@ let
       desc = "Volume up 5%";
       category = "Audio";
       color = categoryColors.Audio;
-      icon = "audio-volume-high";
+      glyph = "🔊";
       args = [
         "${pkgs.wireplumber}/bin/wpctl"
         "set-volume"
@@ -496,7 +496,7 @@ let
       desc = "Move active window left";
       category = "Window";
       color = categoryColors.Window;
-      icon = "go-first";
+      glyph = "⬅️";
       args = [
         "${pkgs.hyprland}/bin/hyprctl"
         "dispatch"
@@ -511,7 +511,7 @@ let
       desc = "Move active window down";
       category = "Window";
       color = categoryColors.Window;
-      icon = "go-down";
+      glyph = "⬇️";
       args = [
         "${pkgs.hyprland}/bin/hyprctl"
         "dispatch"
@@ -526,7 +526,7 @@ let
       desc = "Move active window up";
       category = "Window";
       color = categoryColors.Window;
-      icon = "go-up";
+      glyph = "⬆️";
       args = [
         "${pkgs.hyprland}/bin/hyprctl"
         "dispatch"
@@ -541,7 +541,7 @@ let
       desc = "Move active window right";
       category = "Window";
       color = categoryColors.Window;
-      icon = "go-last";
+      glyph = "➡️";
       args = [
         "${pkgs.hyprland}/bin/hyprctl"
         "dispatch"
@@ -556,7 +556,7 @@ let
       desc = "Resize active window wider (left)";
       category = "Window";
       color = categoryColors.Window;
-      icon = "view-size-horizontally";
+      glyph = "↔️";
       args = [
         "${pkgs.hyprland}/bin/hyprctl"
         "dispatch"
@@ -571,7 +571,7 @@ let
       desc = "Resize active window taller";
       category = "Window";
       color = categoryColors.Window;
-      icon = "view-size-vertically";
+      glyph = "↕️";
       args = [
         "${pkgs.hyprland}/bin/hyprctl"
         "dispatch"
@@ -586,7 +586,7 @@ let
       desc = "Resize active window shorter";
       category = "Window";
       color = categoryColors.Window;
-      icon = "view-size-vertically";
+      glyph = "↕️";
       args = [
         "${pkgs.hyprland}/bin/hyprctl"
         "dispatch"
@@ -601,7 +601,7 @@ let
       desc = "Resize active window narrower (right)";
       category = "Window";
       color = categoryColors.Window;
-      icon = "view-size-horizontally";
+      glyph = "↔️";
       args = [
         "${pkgs.hyprland}/bin/hyprctl"
         "dispatch"
@@ -616,7 +616,7 @@ let
       desc = "Center active window";
       category = "Window";
       color = categoryColors.Window;
-      icon = "view-restore";
+      glyph = "🎯";
       args = [
         "${pkgs.hyprland}/bin/hyprctl"
         "dispatch"
@@ -629,7 +629,7 @@ let
       desc = "Increase brightness 10%";
       category = "Brightness";
       color = categoryColors.Brightness;
-      icon = "display-brightness-high";
+      glyph = "🔆";
       args = [
         "${pkgs.brightnessctl}/bin/brightnessctl"
         "set"
@@ -642,7 +642,7 @@ let
       desc = "Adaptive brightness down";
       category = "Brightness";
       color = categoryColors.Brightness;
-      icon = "display-brightness-low";
+      glyph = "🌗";
       args = [
         "${pkgs.lua}/bin/lua"
         "-e"
@@ -671,7 +671,7 @@ let
       desc = "Set brightness 100%";
       category = "Brightness";
       color = categoryColors.Brightness;
-      icon = "display-brightness-high";
+      glyph = "🔆";
       args = [
         "${pkgs.brightnessctl}/bin/brightnessctl"
         "set"
@@ -684,7 +684,7 @@ let
       desc = "Set brightness 10%";
       category = "Brightness";
       color = categoryColors.Brightness;
-      icon = "display-brightness-low";
+      glyph = "🔅";
       args = [
         "${pkgs.brightnessctl}/bin/brightnessctl"
         "set"
@@ -705,7 +705,7 @@ let
           "desc = ${luaString entry.desc},"
           "category = ${luaString entry.category},"
           "color = ${luaString entry.color},"
-          "icon = ${luaString entry.icon},"
+          "glyph = ${luaString entry.glyph},"
           "args = ${luaArgs entry.args},"
         ]
         ++ (lib.optional (entry ? mode) "mode = ${luaString entry.mode},");
@@ -718,7 +718,7 @@ let
   entriesLua = lib.concatStringsSep ",\n  " (map entryToLua entries);
 
   luaScript = ''
-    #!${pkgs.lua}/bin/lua
+    #!${pkgs.lua5_4}/bin/lua
 
     local entries = {
       ${entriesLua}
@@ -737,15 +737,22 @@ let
         :gsub(">", "&gt;")
     end
 
+    local function normalize_for_width(str)
+      return tostring(str or "")
+        :gsub("\239\184\143", "") -- U+FE0F VARIATION SELECTOR-16
+        :gsub("\226\128\141", "") -- U+200D ZERO WIDTH JOINER
+    end
+
     local function str_width(str)
       str = tostring(str or "")
+      local width_str = normalize_for_width(str)
       if has_utf8 and utf8.len then
-        local ok, len = pcall(utf8.len, str)
+        local ok, len = pcall(utf8.len, width_str)
         if ok and len then
           return len
         end
       end
-      local _, count = str:gsub("[^\128-\191]", "")
+      local _, count = width_str:gsub("[^\128-\191]", "")
       return count
     end
 
@@ -759,8 +766,9 @@ let
     end
 
     local function compute_widths(data)
-      local widths = { desc = 0, key = 0, category = 0 }
+      local widths = { glyph = 0, desc = 0, key = 0, category = 0 }
       for _, entry in ipairs(data) do
+        local glyph = entry.glyph or ""
         local desc = entry.desc or ""
         local key = entry.key or ""
         local mode = entry.mode
@@ -768,6 +776,7 @@ let
           key = string.format("%s (%s)", key, mode)
         end
         local category = entry.category or ""
+        widths.glyph = math.max(widths.glyph, str_width(glyph))
         widths.desc = math.max(widths.desc, str_width(desc))
         widths.key = math.max(widths.key, str_width(key))
         widths.category = math.max(widths.category, str_width(category))
@@ -797,8 +806,15 @@ let
 
     local widths = compute_widths(entries)
 
+    local function format_column(str, width)
+      local padded = pad_right(str, width)
+      local escaped = escape_markup(padded)
+      return escaped:gsub(" ", "&#160;")
+    end
+
     local function format_label(entry)
       local color = entry.color or "#c0caf5"
+      local glyph = entry.glyph or ""
       local key = entry.key or ""
       local desc = entry.desc or ""
       local category = entry.category or ""
@@ -806,14 +822,13 @@ let
       if mode and mode ~= "" and mode ~= "default" then
         key = string.format("%s (%s)", key, mode)
       end
-      desc = pad_right(desc, widths.desc)
-      key = pad_right(key, widths.key)
-      category = pad_right(category, widths.category)
-      desc = escape_markup(desc)
-      key = escape_markup(key)
-      category = escape_markup(category)
+      glyph = format_column(glyph, widths.glyph)
+      desc = format_column(desc, widths.desc)
+      key = format_column(key, widths.key)
+      category = format_column(category, widths.category)
       return string.format(
-        "<span color='%s'>%s</span>  <span weight='bold'>%s</span>  <span size='small' color='%s'>[%s]</span>",
+        "%s&#160;&#160;<span color='%s'>%s</span>&#160;&#160;<span weight='bold'>%s</span>&#160;&#160;<span size='small' color='%s'>[%s]</span>",
+        glyph,
         color,
         desc,
         key,
@@ -827,8 +842,7 @@ let
     local total_entries = #entries
     for i, entry in ipairs(entries) do
       local label = format_label(entry)
-      local icon = entry.icon or ""
-      file:write(label .. "\0icon\x1f" .. icon)
+      file:write(label)
       if i < total_entries then
         file:write("\n")
       end
@@ -840,7 +854,7 @@ let
     local unpack = table.unpack or unpack
 
     local rofi_cmd = string.format(
-      "%s -dmenu -i -show-icons -markup-rows -format i -p %s -input %s",
+      "%s -dmenu -i -markup-rows -format i -p %s -input %s",
       shell_escape(rofi_bin),
       shell_escape(prompt),
       shell_escape(tmp_path)
