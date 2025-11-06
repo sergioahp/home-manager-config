@@ -827,12 +827,11 @@ let
       key = format_column(key, widths.key)
       category = format_column(category, widths.category)
       return string.format(
-        "%s&#160;&#160;<span color='%s'>%s</span>&#160;&#160;<span weight='bold'>%s</span>&#160;&#160;<span size='small' color='%s'>[%s]</span>",
+        "%s&#160;&#160;<span color='%s'>%s&#160;&#160;<span weight='bold'>%s</span>&#160;&#160;<span size='small'>[%s]</span></span>",
         glyph,
         color,
         desc,
         key,
-        color,
         category
       )
     end
