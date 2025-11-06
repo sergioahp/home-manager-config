@@ -18,75 +18,61 @@ let
           super-m = {
             remap = {
               super-l = {
-                launch-and-description = {
-                  description = "Terminal";
-                  launch = [
-                    "${pkgs.uwsm}/bin/uwsm" "app" "--"
-                    "${pkgs.hyprland}/bin/hyprctl" "dispatch" "--" "exec"
-                    "${pkgs.kitty}/bin/kitty"
-                  ];
-                };
+                launch = [
+                  "${pkgs.uwsm}/bin/uwsm" "app" "--"
+                  "${pkgs.hyprland}/bin/hyprctl" "dispatch" "--" "exec"
+                  "${pkgs.kitty}/bin/kitty"
+                ];
+                description = "Terminal";
               };
               super-f = {
-                launch-and-description = {
-                  description = "Firefox Browser";
-                  launch = [
-                    "${pkgs.uwsm}/bin/uwsm" "app" "--"
-                    "${pkgs.hyprland}/bin/hyprctl" "dispatch" "--" "exec"
-                    "${pkgs.firefox}/bin/firefox"
-                  ];
-                };
+                launch = [
+                  "${pkgs.uwsm}/bin/uwsm" "app" "--"
+                  "${pkgs.hyprland}/bin/hyprctl" "dispatch" "--" "exec"
+                  "${pkgs.firefox}/bin/firefox"
+                ];
+                description = "Firefox Browser";
               };
               super-e = {
-                launch-and-description = {
-                  description = "File Manager (Ranger)";
-                  launch = [
-                    "${pkgs.uwsm}/bin/uwsm" "app" "--"
-                    "${pkgs.hyprland}/bin/hyprctl" "dispatch" "--" "exec"
-                    "${pkgs.kitty}/bin/kitty"
-                    "${pkgs.ranger}/bin/ranger"
-                  ];
-                };
+                launch = [
+                  "${pkgs.uwsm}/bin/uwsm" "app" "--"
+                  "${pkgs.hyprland}/bin/hyprctl" "dispatch" "--" "exec"
+                  "${pkgs.kitty}/bin/kitty"
+                  "${pkgs.ranger}/bin/ranger"
+                ];
+                description = "File Manager (Ranger)";
               };
               super-o = {
-                launch-and-description = {
-                  description = "System Monitor (btop)";
-                  launch = [
-                    "${pkgs.uwsm}/bin/uwsm" "app" "--"
-                    "${pkgs.hyprland}/bin/hyprctl" "dispatch" "--" "exec"
-                    "${pkgs.kitty}/bin/kitty"
-                    "${pkgs.btop}/bin/btop"
-                  ];
-                };
+                launch = [
+                  "${pkgs.uwsm}/bin/uwsm" "app" "--"
+                  "${pkgs.hyprland}/bin/hyprctl" "dispatch" "--" "exec"
+                  "${pkgs.kitty}/bin/kitty"
+                  "${pkgs.btop}/bin/btop"
+                ];
+                description = "System Monitor (btop)";
               };
               super-m = {
-                launch-and-description = {
-                  description = "Application Launcher (Rofi)";
-                  launch = [
-                    # bug: hyprctl does not work with commands containing semicolons
-                    # Do not use "${pkgs.uwsm}/bin/uwsm" "app" "--" it makes
-                    # this slow but we need this to be really fast
-                    "${pkgs.rofi}/bin/rofi" "-show" "drun"
-                     "-theme-str" "window {width: 20%;}"
-                  ];
-                };
+                # bug: hyprctl does not work with commands containing semicolons
+                # Do not use "${pkgs.uwsm}/bin/uwsm" "app" "--" it makes
+                # this slow but we need this to be really fast
+                launch = [
+                  "${pkgs.rofi}/bin/rofi" "-show" "drun"
+                   "-theme-str" "window {width: 20%;}"
+                ];
+                description = "Application Launcher (Rofi)";
               };
               super-k = {
-                launch-and-description = {
-                  description = "Quick Start Menu";
-                  launch = [
-                    "${inputs.rofi-switch-rust.packages.${system}.default}/bin/quick-start"
-                  ];
-                };
+                launch = [
+                  "${inputs.rofi-switch-rust.packages.${system}.default}/bin/quick-start"
+                ];
+                description = "Quick Start Menu";
               };
               super-i = {
-                launch-and-description = {
-                  description = "Password Manager (Bitwarden)";
-                  launch = [
-                    "${pkgs.uwsm}/bin/uwsm" "app" "--"
-                    "${pkgs.bitwarden-desktop}/bin/bitwarden"
-                  ];
-                };
+                launch = [
+                  "${pkgs.uwsm}/bin/uwsm" "app" "--"
+                  "${pkgs.bitwarden-desktop}/bin/bitwarden"
+                ];
+                description = "Password Manager (Bitwarden)";
               };
             };
           };
@@ -545,58 +531,26 @@ let
     ];
   };
 
-  # Recursively process config to extract launch descriptions and convert to xremap format
-  # Returns: { config = <xremap-compatible-config>; descriptions = [ { key = "..."; description = "..."; } ] }
-  processLaunchDescriptions = keyPath: cfg':
-    let
-      # Check if this is a launch-and-description attribute
-      isLaunchWithDescription = builtins.isAttrs cfg' && cfg' ? launch-and-description;
+  # Import the config splitter
+  configSplitter = import ./xremap-config-splitter.nix { inherit lib; };
 
-      # Process a single attribute set
-      processAttrs = attrs:
-        let
-          processed = lib.mapAttrs (name: value:
-            let newPath = if keyPath == "" then name else "${keyPath} ${name}";
-            in processLaunchDescriptions newPath value
-          ) attrs;
-          configs = lib.mapAttrs (name: value: value.config) processed;
-          descriptions = lib.flatten (lib.mapAttrsToList (name: value: value.descriptions) processed);
-        in { config = configs; descriptions = descriptions; };
-    in
-      if isLaunchWithDescription then
-        # Convert launch-and-description to launch and extract description
-        {
-          config = { launch = cfg'.launch-and-description.launch; };
-          descriptions = [{
-            key = keyPath;
-            description = cfg'.launch-and-description.description;
-          }];
-        }
-      else if builtins.isAttrs cfg' then
-        # Recursively process nested attributes
-        processAttrs cfg'
-      else if builtins.isList cfg' then
-        # Process lists
-        let
-          processed = lib.imap0 (i: value:
-            let newPath = if keyPath == "" then "${builtins.toString i}" else "${keyPath} ${builtins.toString i}";
-            in processLaunchDescriptions newPath value
-          ) cfg';
-          configs = map (x: x.config) processed;
-          descriptions = lib.flatten (map (x: x.descriptions) processed);
-        in { config = configs; descriptions = descriptions; }
-      else
-        # Base case: return as-is
-        { config = cfg'; descriptions = []; };
+  # Import the rofi launcher generator
+  launcherLib = import ./rofi-launcher.nix { inherit lib pkgs; };
 
-  # Process the config to extract descriptions and convert to xremap format
-  processed = processLaunchDescriptions "" xremapCfg;
+  # Split the config into clean config (for xremap) and bindings (for rofi)
+  splitResult = configSplitter.splitConfig xremapCfg;
 
-  # The xremap-compatible config
-  xremapConfig = processed.config;
+  # The xremap-compatible config (descriptions removed)
+  xremapConfig = splitResult.cleanConfig;
 
-  # The descriptions for rofi menu (list of { key, description })
-  launchDescriptions = processed.descriptions;
+  # The bindings with descriptions for rofi menu
+  launchBindings = splitResult.dmenuBindings;
+
+  # Generate the rofi launcher
+  launcher = launcherLib.makeLauncher {
+    config = xremapCfg;
+    name = "xremap-launcher";
+  };
 
 in {
   imports = [];
@@ -604,12 +558,12 @@ in {
     programs.sergio-xremap = {
       enable = lib.mkEnableOption "sergio's xremap configuration";
 
-      # Expose launch descriptions for use in rofi menu
-      launchDescriptions = lib.mkOption {
-        type = lib.types.listOf (lib.types.attrsOf lib.types.str);
+      # Expose bindings with descriptions for use in rofi menu
+      launchBindings = lib.mkOption {
+        type = lib.types.attrs;
         readOnly = true;
-        default = launchDescriptions;
-        description = "List of launch commands with their descriptions for rofi menu generation";
+        default = launchBindings;
+        description = "Bindings with descriptions for rofi menu generation";
       };
     };
   };
@@ -620,6 +574,9 @@ in {
       withWlroots = true;
       config = xremapConfig;
     };
+
+    # Add the launcher script to home packages
+    home.packages = [ launcher.script ];
 
   };
 }
