@@ -2,6 +2,7 @@
 let
   cfg = config.programs.sergio-xremap;
   launcher = import ./rofi-launcher.nix { inherit pkgs lib inputs system; };
+  launcherBin = "${launcher.script}/bin/xremap-launcher";
 in {
   # -----------------------------------------------------------------------------
   # xremap launcher metadata guide
@@ -38,9 +39,10 @@ in {
   #   5. If you change the comment schema, update this guide and the generator.
   #
   # The rofi launcher itself is defined in `modules/rofi-launcher.nix`. Any new
-  # binding marked `include` must be mirrored there until we implement a real
-  # parser. Think of these comments as a contract between the configuration and
-  # the launcher script.
+  # binding marked `include` must be mirrored there manually; we deliberately
+  # choose chatbot-guided upkeep over building a parser for a superset of this
+  # config (been there, tried that, not worth the complexity). Treat these
+  # comments as the contract between the configuration and the launcher script.
   # -----------------------------------------------------------------------------
   imports = [];
   options = {
@@ -433,6 +435,10 @@ in {
               super-k = {
                 launch = [ "${pkgs.hyprland}/bin/hyprctl" "dispatch"
                 "cyclenext" "prev" ];
+              };
+              # rofi-entry skip reason=launcher-self
+              super-slash = {
+                launch = [ launcherBin ];
               };
               # rofi-entry skip reason=workspace-relative
               super-n = {
