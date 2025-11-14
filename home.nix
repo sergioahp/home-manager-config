@@ -392,6 +392,8 @@ in
       extraConfig = {
         show-icons = true;
         sorting-method = "fzf";
+        matching = "fuzzy";
+        case-smart = true;
       };
       theme = let inherit (config.lib.formats.rasi) mkLiteral;
       in {
