@@ -56,6 +56,9 @@ let
     pale-red = "#dca6af";
     accent = "#88C0D0";
     urgent = "#EBCB8B";
+    # Claude's signature colors
+    claude-warm-bg = "#b48a7c";
+    claude-warm-border = "#D97757";
     # Lock screen colors
     lock-input-inner = "#5b6078";
     lock-input-outer = "#181926";

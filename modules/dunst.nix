@@ -29,6 +29,14 @@ in
           background = rice.color.toRgbaHex pale-red-38;
           frame_color = rice.color.toRgbHex colors.pale-red;
         };
+        claude-code = let
+          claude-warm-60 = transparentize colors.claude-warm-bg 0.3764705882352941;  # ~38% opacity (60 hex)
+        in {
+          summary = "Claude Code";
+          appname = "kitty";
+          background = rice.color.toRgbaHex claude-warm-60;
+          frame_color = rice.color.toRgbHex colors.claude-warm-border;
+        };
       };
     };
   };
