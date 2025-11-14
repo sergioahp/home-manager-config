@@ -12,63 +12,11 @@ let
   username = "admin";
   homeDirectory = "/home/${username}";
   ageFile = "${homeDirectory}/.config/sops/age/keys.txt";
-  rice = inputs.nix-rice.lib.nix-rice;
-  # TODO: find better highlighting colors
-  colors = rice.palette.tPalette rice.color.hexToRgba {
-    bg = "#282c3ccc";
-    charcoal = "#1f202660";
-    bg2 = "#1e2030";
-    fg2 = "#c8d3f5";
-    highlight = "#2d3f7699";
-    highlight-active = "#ff966c99";
-    bg-dark = "#16161e";
-    bg-dark1 = "#0C0E14";
-    black = "#15161e";
-    bg-highlight = "#292e42";
-    electric-blue = "#82aaff";
-    electric-blue2 = "#828bb8";
-    blue = "#7aa2f7";
-    blue0 = "#3d59a1";
-    blue1 = "#2ac3de";
-    blue2 = "#0db9d7";
-    blue5 = "#89ddff";
-    blue6 = "#b4f9f8";
-    blue7 = "#394b70";
-    bright-blue = "#8db0ff";
-    comment = "#565f89";
-    cyan = "#7dcfff";
-    cyan2 = "#65bcff";
-    bright-cyan = "#a4daff";
-    dark3 = "#545c7e";
-    dark5 = "#737aa2";
-    fg = "#c0caf5";
-    fg-dark = "#a9b1d6";
-    fg-gutter = "#3b4261";
-    green = "#9ece6a";
-    bright-green = "#9fe044";
-    green1 = "#73daca";
-    green2 = "#41a6b5";
-    magenta = "#bb9af7";
-    magenta2 = "#ff007c";
-    bright-magenta = "#c7a9ff";
-    orange = "#ff9e64";
-    purple = "#9d7cd8";
-    red = "#f7768e";
-    bright-red = "#ff899d";
-    red1 = "#db4b4b";
-    red2 = "#c53b53";
-    teal = "#1abc9c";
-    terminal-black = "#414868";
-    yellow = "#e0af68";
-    bright-yellow = "#faba4a";
-    yellow2 = "#ffc777";
-  };
- colorsRgbHex = rice.palette.toRgbHex colors;
-  intToFloat = rice.float.toFloat;
-  # todo: Alpha modifiers
-  colorToRgbaStr  = { r, g, b, a? 255 }:
-    let f = pkgs.lib.strings.floatToString; i = toString; in
-      "rgba(${i(r)},${i(g)},${i(b)},${f((intToFloat a) / 255.0)})";
+
+  # Import color utilities from the colors module
+  inherit (config.lib.colors) transparentize colorToRgbaStr colorToRgbaLiteral rice intToFloat;
+  colors = config.colorScheme.colors;
+  colorsRgbHex = config.colorScheme.colorsRgbHex;
   nsxiv-conf = import ./nsxiv-conf-builder.nix { inherit pkgs; conf = {
     win_fg = {
       x_resource = "Nsxiv.window.background";
@@ -101,6 +49,9 @@ in
   imports = [
     inputs.xremap.homeManagerModules.default
     inputs.sops-nix.homeManagerModules.sops
+    ./modules/colors.nix
+    ./modules/rofi.nix
+    ./modules/zathura.nix
     ./modules/hyprland.nix
     ./modules/xremap.nix
     ./modules/zsh.nix
@@ -111,6 +62,10 @@ in
   home.username = username;
   home.homeDirectory = homeDirectory;
   systemd.user.startServices = "sd-switch";
+
+  # Enable custom program modules
+  programs.sergio-rofi.enable = true;
+  programs.sergio-zathura.enable = true;
 
   home.stateVersion = "23.11";
 
@@ -357,16 +312,18 @@ in
     settings = {
       global = {
         background = let
-          strColors = rice.palette.toRgbaHex colors;
+          charcoal-38 = transparentize colors.charcoal 0.3764705882352941;  # 38% opacity
         in
-        strColors.charcoal;
+        rice.color.toRgbaHex charcoal-38;
         dmenu = "${pkgs.rofi}/bin/rofi -dmenu -p dunst";
         origin = "top-left";
       };
-      hyprvoice = {
+      hyprvoice = let
+        pale-red-38 = transparentize colors.pale-red 0.3764705882352941;  # 38% opacity, same as charcoal
+      in {
         appname = "Hyprvoice";
-        background = "#dca6af60";  # pale red with same transparency as charcoal
-        frame_color = "#dca6af";   # pale red border
+        background = rice.color.toRgbaHex pale-red-38;
+        frame_color = rice.color.toRgbHex colors.pale-red;
       };
     };
   };
@@ -393,55 +350,6 @@ in
       variables = {
         editing-mode = "vi";
         keyseq-timeout = 0;
-      };
-    };
-    rofi = {
-      enable = true;
-      package = pkgs.rofi;
-      extraConfig = {
-        show-icons = true;
-        sorting-method = "fzf";
-        matching = "fuzzy";
-        case-smart = true;
-      };
-      theme = let inherit (config.lib.formats.rasi) mkLiteral;
-      in {
-        "*" = {
-          bg = mkLiteral "rgba(40,44,60,0.6)";
-          fg0 = mkLiteral "#bb8af7";
-          accent-color = mkLiteral "#88C0D0";
-          urgent-color = mkLiteral "#EBCB8B";
-          background-color = mkLiteral "transparent";
-          text-color = mkLiteral "@fg0";
-          margin = 0;
-          padding = 0;
-          spacing = 0;
-        };
-        window = {
-          background-color = mkLiteral "@bg";
-        };
-        inputbar = {
-          spacing = mkLiteral "8px";
-          padding = mkLiteral "8px";
-          background-color = mkLiteral "@bg";
-        };
-        prompt = {
-          text-color = mkLiteral "@accent-color";
-        };
-        "element selected" = {
-          text-color = mkLiteral "@fg0";
-          background-color = mkLiteral "rgba(30,32,48,0.9)";
-        };
-        "element normal active" = {
-          text-color = mkLiteral "@accent-color";
-        };
-        "element selected normal, element selected active" = {
-          background-color = mkLiteral "rgba(30,32,48,0.9)";
-          text-color = mkLiteral "@fg0";
-        };
-        "element-text" = {
-            text-color = mkLiteral "inherit";
-        };
       };
     };
     starship = {
@@ -523,8 +431,9 @@ in
       enable = true;
       settings = let
         strColors = rice.palette.toRgbHex colors;
+        bg-80 = transparentize colors.bg 0.8;  # 80% opacity
       in {
-        window.opacity = (rice.float.toFloat colors.bg.a) / 255.0;
+        window.opacity = (rice.float.toFloat bg-80.a) / 255.0;
         colors = {
           primary = {
             background = strColors.bg;
@@ -614,40 +523,6 @@ in
     chromium.enable = true;
     home-manager.enable = true;
     sagemath.enable = true;
-    zathura = {
-      enable = true;
-      options = let
-        rgba = colorToRgbaStr;
-      in {
-        selection-clipboard = "clipboard";
-        statusbar-home-tilde = true;
-        window-title-basename = true;
-        default-bg = rgba colors.bg;
-        statusbar-bg = rgba colors.bg2;
-        statusbar-fg = rgba colors.electric-blue;
-        # bug: no alpha support on the inputbar-bg
-        inputbar-bg = rgba colors.bg;
-        inputbar-fg = rgba colors.electric-blue2;
-        notification-error-bg = rgba colors.bg;
-        notification-warning-bg = rgba colors.bg;
-        notification-bg = rgba colors.bg;
-        notification-error-fg = rgba colors.red2;
-        notification-warning-fg = rgba colors.yellow2;
-        notification-fg = rgba colors.electric-blue2;
-        highlight-active-color = rgba colors.highlight-active;
-        highlight-color = rgba colors.highlight;
-        completion-bg = rgba colors.bg2;
-        completion-fg = rgba colors.fg2;
-        completion-highlight-bg = rgba colors.highlight;
-        completion-highlight-fg = rgba colors.cyan2;
-        recolor-lightcolor = "rgba(0,0,0,0)";
-        recolor-keephue = true;
-        recolor = true;
-      };
-      mappings = {
-        i = "recolor";
-      };
-    };
     mpv.enable = true;
   };
   home.shellAliases = {
