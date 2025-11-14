@@ -381,6 +381,19 @@ let
       ];
     }
     {
+      key = "shift-x shift-x";
+      mode = "normal";
+      desc = "Force kill active window";
+      category = "Window";
+      color = categoryColors.Window;
+      glyph = "💣";
+      args = [
+        "${pkgs.hyprland}/bin/hyprctl"
+        "dispatch"
+        "forcekillactive"
+      ];
+    }
+    {
       key = "super-comma";
       desc = "Focus next monitor";
       category = "Window";

@@ -638,6 +638,18 @@ in {
                   "10%"
                 ];
               };
+              # rofi-entry include category=Window color=#BB9AF7 emoji=💣
+              "shift-x" = {
+                remap = {
+                  "shift-x" = {
+                    launch = [
+                      "${pkgs.hyprland}/bin/hyprctl"
+                      "dispatch"
+                      "forcekillactive"
+                    ];
+                  };
+                };
+              };
             };
           }
           {
