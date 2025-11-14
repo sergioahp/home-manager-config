@@ -84,9 +84,10 @@ let
   colorToRgbaLiteral = color:
     let
       f = pkgs.lib.strings.floatToString;
-      i = toString;
+      # Ensure integer conversion without decimals
+      intStr = n: toString (builtins.floor n);
     in
-    "rgba(${i color.r},${i color.g},${i color.b},${f ((intToFloat color.a) / 255.0)})";
+    "rgba(${intStr color.r},${intStr color.g},${intStr color.b},${f ((intToFloat color.a) / 255.0)})";
 
   # Convert color to rgb() string for hyprlock
   colorToRgbStr = color:
