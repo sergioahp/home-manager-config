@@ -683,6 +683,10 @@ in
       "image/jxl" =  [ "nsxiv.desktop" ];
       "image/avif"  = [ "nsxiv.desktop" ];
       "image/heif"  = [ "nsxiv.desktop" ];
+      # documents
+      "image/vnd.djvu" = [ "org.pwmt.zathura.desktop" ];
+      "image/x-djvu" = [ "org.pwmt.zathura.desktop" ];
+      "application/pdf" = [ "org.pwmt.zathura.desktop" ];
       # firefox
       "x-scheme-handler/http"  = [ "firefox.desktop" ];
       "x-scheme-handler/https"  = [ "firefox.desktop" ];
