@@ -107,13 +107,16 @@ in
 
       colorsRgbHex = lib.mkOption {
         type = lib.types.attrs;
-        default = rice.palette.toRgbHex solidColors;
-        description = "Color palette in RGB hex format";
+        readOnly = true;
+        description = "Color palette in RGB hex format (derived from colors)";
       };
     };
   };
 
   config = {
+    # Derive colorsRgbHex from the actual colors value (stays in sync with overrides)
+    colorScheme.colorsRgbHex = rice.palette.toRgbHex config.colorScheme.colors;
+
     # Export color utilities as lib functions for use in home.nix
     lib.colors = {
       inherit transparentize colorToRgbaStr colorToRgbaLiteral colorToRgbStr;
