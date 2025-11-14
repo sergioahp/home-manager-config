@@ -59,6 +59,8 @@ in
     ./modules/zsh.nix
     ./modules/fzf.nix
     ./modules/yazi.nix
+    ./modules/dunst.nix
+    ./modules/git.nix
   ];
   nixpkgs.config.allowUnfree = true;
   home.username = username;
@@ -79,6 +81,8 @@ in
   programs.sergio-zsh.enable = true;
   programs.sergio-fzf.enable = true;
   programs.sergio-yazi.enable = true;
+  programs.sergio-dunst.enable = true;
+  programs.sergio-git.enable = true;
 
   home.packages = with pkgs; [
      nerd-fonts.dejavu-sans-mono
@@ -310,26 +314,6 @@ in
       ipc = "on";
     };
   };
-  services.dunst = {
-    enable = true;
-    settings = {
-      global = {
-        background = let
-          charcoal-38 = transparentize colors.charcoal 0.3764705882352941;  # 38% opacity
-        in
-        rice.color.toRgbaHex charcoal-38;
-        dmenu = "${pkgs.rofi}/bin/rofi -dmenu -p dunst";
-        origin = "top-left";
-      };
-      hyprvoice = let
-        pale-red-38 = transparentize colors.pale-red 0.3764705882352941;  # 38% opacity, same as charcoal
-      in {
-        appname = "Hyprvoice";
-        background = rice.color.toRgbaHex pale-red-38;
-        frame_color = rice.color.toRgbHex colors.pale-red;
-      };
-    };
-  };
   services.ssh-agent.enable = true;
 
   services.hyprvoice = {
@@ -393,42 +377,6 @@ in
       historyLimit = 5000;
       extraConfig = ''
       '';
-    };
-    gh = {
-      enable = true;
-    };
-    git = {
-      enable = true;
-      settings = {
-        user.name = "sergioahp";
-        user.email = "sergioahp@proton.me";
-        user.signingkey = "4E3F5ADE5C10EDB6";
-        init.defaultBranch = "master";
-        commit.gpgsign = true;
-        tag.gpgSign = true;
-        merge.tool = "vimdiff";
-        mergetool.vimdiff.cmd = "${pkgs.neovim}/bin/nvim -d $LOCAL $REMOTE $MERGED -c '$wincmd w' -c 'wincmd J'";
-        diff.tool = "vimdiff";
-        difftool.vimdiff.cmd = "${pkgs.neovim}/bin/nvim -d $LOCAL $REMOTE";
-        alias = {
-          a   = "add";
-          s   = "status";
-          f   = "fetch";
-          u   = "pull";
-          l   = "log         -n 15   --oneline --decorate";
-          lg  = "log         --graph --oneline --decorate";
-          lga = "log --all   --graph --oneline --decorate";
-          co  = "checkout";
-          c   = "commit -v";
-          ca  = "commit -v --amend";
-          b   = "branch";
-          d   = "diff                      -M -C -C --color-moved --color-moved-ws=allow-indentation-change";
-          dw  = "diff          --word-diff -M -C -C --color-moved --color-moved-ws=allow-indentation-change";
-          ds  = "diff --staged             -M -C -C --color-moved --color-moved-ws=allow-indentation-change";
-          dsw = "diff --staged --word-diff -M -C -C --color-moved --color-moved-ws=allow-indentation-change";
-          st  = "stash";
-        };
-      };
     };
     btop = {
       enable = true;
