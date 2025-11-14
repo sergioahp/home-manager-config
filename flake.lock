@@ -1077,11 +1077,11 @@
     "rofi-power-menu": {
       "flake": false,
       "locked": {
-        "lastModified": 1763105675,
-        "narHash": "sha256-mYubzW4o/Gi88KgcUr7pvtQwCIiOTxp27IelBWAp+lM=",
+        "lastModified": 1763107733,
+        "narHash": "sha256-5y0YsVi8u+nO8aqRSjtT433pbCli/EELMJaBWo0vsZQ=",
         "owner": "sergioahp",
         "repo": "rofi-power-menu",
-        "rev": "2d0099d26de412bb8f3f82dee6e8ab1225f44d50",
+        "rev": "1111649e4ab159dfb75e119a4e9d9b12e9e71845",
         "type": "github"
       },
       "original": {
