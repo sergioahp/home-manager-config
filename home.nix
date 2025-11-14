@@ -51,6 +51,7 @@ in
     inputs.sops-nix.homeManagerModules.sops
     ./modules/colors.nix
     ./modules/category-colors.nix
+    ./modules/alacritty.nix
     ./modules/rofi.nix
     ./modules/zathura.nix
     ./modules/hyprland.nix
@@ -65,6 +66,7 @@ in
   systemd.user.startServices = "sd-switch";
 
   # Enable custom program modules
+  programs.sergio-alacritty.enable = true;
   programs.sergio-rofi.enable = true;
   programs.sergio-zathura.enable = true;
 
@@ -425,44 +427,6 @@ in
           ds  = "diff --staged             -M -C -C --color-moved --color-moved-ws=allow-indentation-change";
           dsw = "diff --staged --word-diff -M -C -C --color-moved --color-moved-ws=allow-indentation-change";
           st  = "stash";
-        };
-      };
-    };
-    alacritty = {
-      enable = true;
-      settings = let
-        strColors = rice.palette.toRgbHex colors;
-        bg-80 = transparentize colors.bg 0.8;  # 80% opacity
-      in {
-        window.opacity = (rice.float.toFloat bg-80.a) / 255.0;
-        colors = {
-          primary = {
-            background = strColors.bg;
-            foreground = strColors.fg;
-          };
-          normal = {
-            red     = strColors.red;
-            green   = strColors.green;
-            yellow  = strColors.yellow;
-            blue    = strColors.blue;
-            magenta = strColors.magenta;
-            cyan    = strColors.cyan;
-            white   = strColors.fg-dark;
-          };
-          bright = {
-            red     = strColors.bright-red;
-            green   = strColors.bright-green;
-            yellow  = strColors.bright-yellow;
-            blue    = strColors.bright-blue;
-            magenta = strColors.bright-magenta;
-            cyan    = strColors.bright-cyan;
-            white   = strColors.fg;
-          };
-          indexed_colors = [
-            # where do they apply?
-            { index = 16; color = strColors.orange; }
-            { index = 17; color = strColors.red1; }
-          ];
         };
       };
     };
