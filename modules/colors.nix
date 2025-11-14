@@ -72,29 +72,26 @@ let
       a = builtins.floor (color.a * factor);
     };
 
+  # Ensure integer conversion without decimals
+  intStr = n: toString (builtins.floor n);
+
   # Convert color to rgba string for zathura (rgba format)
   colorToRgbaStr = { r, g, b, a ? 255 }:
     let
       f = pkgs.lib.strings.floatToString;
-      i = toString;
     in
-    "rgba(${i r},${i g},${i b},${f ((intToFloat a) / 255.0)})";
+    "rgba(${intStr r},${intStr g},${intStr b},${f ((intToFloat a) / 255.0)})";
 
   # Convert color to rgba literal string for rofi mkLiteral
   colorToRgbaLiteral = color:
     let
       f = pkgs.lib.strings.floatToString;
-      # Ensure integer conversion without decimals
-      intStr = n: toString (builtins.floor n);
     in
     "rgba(${intStr color.r},${intStr color.g},${intStr color.b},${f ((intToFloat color.a) / 255.0)})";
 
   # Convert color to rgb() string for hyprlock
   colorToRgbStr = color:
-    let
-      i = toString;
-    in
-    "rgb(${i color.r}, ${i color.g}, ${i color.b})";
+    "rgb(${intStr color.r}, ${intStr color.g}, ${intStr color.b})";
 
 in
 {

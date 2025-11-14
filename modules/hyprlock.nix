@@ -2,15 +2,10 @@
 let
   cfg = config.programs.sergio-hyprlock;
   colors = config.colorScheme.colors;
-  inherit (config.lib.colors) colorToRgbStr intToFloat;
+  inherit (config.lib.colors) colorToRgbStr colorToRgbaStr intToFloat;
 
-  # Convert color to rgba string with full opacity
-  colorToRgbaStrFull = color:
-    let
-      f = pkgs.lib.strings.floatToString;
-      i = toString;
-    in
-    "rgba(${i color.r}, ${i color.g}, ${i color.b}, ${f ((intToFloat color.a) / 255.0)})";
+  # Convert color to rgba string (wrapper for colorToRgbaStr)
+  colorToRgbaStrFull = colorToRgbaStr;
 in {
   imports = [];
   options = {
