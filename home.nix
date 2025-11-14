@@ -206,6 +206,7 @@ in
      libreoffice
      ghostscript
      gimp
+     obs-studio
      dragon-drop
      pciutils
      usbutils
