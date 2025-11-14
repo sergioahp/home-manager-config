@@ -1,5 +1,13 @@
 { config, lib, inputs, pkgs, system, ... }:
 
+# TODO: PROBLEM:
+# Launching with uwsm the rofi laucher is slower, but without it and the rest of
+# the lauched programs close on each home-manager update
+
+
+# PROBLEM: for some reason the rofi program laucher sometimes freeses instead of
+# exiting
+
 let
   username = "admin";
   homeDirectory = "/home/${username}";

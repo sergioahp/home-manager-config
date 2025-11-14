@@ -110,6 +110,13 @@ in {
                       # bug: hyprctl does not work with commands containing semicolons
                       # Do not use "${pkgs.uwsm}/bin/uwsm" "app" "--" it makes
                       # this slow but we need this to be really fast
+                      # THIS IS UNFORTUNATE, we have to use uwsm when lauching
+                      # apps to avoid them closing on home-switch, will keep
+                      # this here but not on the window switcher as window
+                      # switches does not really mater that much if it closes
+                      "${pkgs.uwsm}/bin/uwsm"
+                      "app"
+                      "--"
                       "${pkgs.rofi}/bin/rofi" "-show" "drun"
                        "-theme-str" "window {width: 20%;}"
                     ];
