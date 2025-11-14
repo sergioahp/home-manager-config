@@ -61,6 +61,8 @@ in
     ./modules/yazi.nix
     ./modules/dunst.nix
     ./modules/git.nix
+  ] ++ lib.optionals (builtins.pathExists ./modules/private/notifications.nix) [
+    ./modules/private/notifications.nix
   ];
   nixpkgs.config.allowUnfree = true;
   home.username = username;
