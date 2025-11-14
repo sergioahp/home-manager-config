@@ -3,6 +3,7 @@ let
   cfg = config.programs.sergio-xremap;
   launcher = import ./rofi-launcher.nix { inherit config pkgs lib inputs system; };
   launcherBin = "${launcher.script}/bin/xremap-launcher";
+  rofiPowerMenu = "${inputs.rofi-power-menu}/rofi-power-menu";
 in {
   # -----------------------------------------------------------------------------
   # xremap launcher metadata guide
@@ -132,6 +133,16 @@ in {
                     launch = [
                       "${pkgs.uwsm}/bin/uwsm" "app" "--"
                       "${pkgs.bitwarden-desktop}/bin/bitwarden"
+                    ];
+                  };
+                  # rofi-entry include category=Utilities color=#7DCFFF emoji=⏻
+                  super-p = {
+                    launch = [
+                      "${pkgs.rofi}/bin/rofi"
+                      "-show"
+                      "power-menu"
+                      "-modi"
+                      "power-menu:${rofiPowerMenu}"
                     ];
                   };
                 };

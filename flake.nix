@@ -21,6 +21,10 @@
     kitty-extended-keys.url = "github:sergioahp/kitty-extended-keys";
     rofi-switch-rust.url = "github:sergioahp/rofi-switch-rust";
     hyprvoice.url = "github:sergioahp/hyprvoice";
+    rofi-power-menu = {
+      url = "github:sergioahp/rofi-power-menu";
+      flake = false;
+    };
   };
 
   outputs = { nixpkgs, home-manager, ... }@inputs:

@@ -2,6 +2,7 @@
 
 let
   categoryColors = config.categoryColors;
+  rofiPowerMenu = "${inputs.rofi-power-menu}/rofi-power-menu";
 
   entries = [
     {
@@ -112,6 +113,20 @@ let
         "app"
         "--"
         "${pkgs.bitwarden-desktop}/bin/bitwarden"
+      ];
+    }
+    {
+      key = "super-m super-p";
+      desc = "Power Menu";
+      category = "Utilities";
+      color = categoryColors.Utilities;
+      glyph = "⏻";
+      args = [
+        "${pkgs.rofi}/bin/rofi"
+        "-show"
+        "power-menu"
+        "-modi"
+        "power-menu:${rofiPowerMenu}"
       ];
     }
     {

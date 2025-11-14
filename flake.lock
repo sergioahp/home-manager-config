@@ -1074,6 +1074,22 @@
         "type": "github"
       }
     },
+    "rofi-power-menu": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1763105675,
+        "narHash": "sha256-mYubzW4o/Gi88KgcUr7pvtQwCIiOTxp27IelBWAp+lM=",
+        "owner": "sergioahp",
+        "repo": "rofi-power-menu",
+        "rev": "2d0099d26de412bb8f3f82dee6e8ab1225f44d50",
+        "type": "github"
+      },
+      "original": {
+        "owner": "sergioahp",
+        "repo": "rofi-power-menu",
+        "type": "github"
+      }
+    },
     "rofi-switch-rust": {
       "inputs": {
         "advisory-db": "advisory-db",
@@ -1104,6 +1120,7 @@
         "kitty-extended-keys": "kitty-extended-keys",
         "nix-rice": "nix-rice",
         "nixpkgs": "nixpkgs_8",
+        "rofi-power-menu": "rofi-power-menu",
         "rofi-switch-rust": "rofi-switch-rust",
         "sops-nix": "sops-nix",
         "xremap": "xremap"
