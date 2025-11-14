@@ -50,6 +50,7 @@ in
     inputs.xremap.homeManagerModules.default
     inputs.sops-nix.homeManagerModules.sops
     ./modules/colors.nix
+    ./modules/category-colors.nix
     ./modules/rofi.nix
     ./modules/zathura.nix
     ./modules/hyprland.nix

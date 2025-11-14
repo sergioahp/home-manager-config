@@ -56,6 +56,10 @@ let
     pale-red = "#dca6af";
     accent = "#88C0D0";
     urgent = "#EBCB8B";
+    # Lock screen colors
+    lock-input-inner = "#5b6078";
+    lock-input-outer = "#181926";
+    lock-text = "#c8c8c8";
   };
 
   # Helper: convert int to float
@@ -84,6 +88,13 @@ let
     in
     "rgba(${i color.r},${i color.g},${i color.b},${f ((intToFloat color.a) / 255.0)})";
 
+  # Convert color to rgb() string for hyprlock
+  colorToRgbStr = color:
+    let
+      i = toString;
+    in
+    "rgb(${i color.r}, ${i color.g}, ${i color.b})";
+
 in
 {
   options = {
@@ -105,7 +116,7 @@ in
   config = {
     # Export color utilities as lib functions for use in home.nix
     lib.colors = {
-      inherit transparentize colorToRgbaStr colorToRgbaLiteral;
+      inherit transparentize colorToRgbaStr colorToRgbaLiteral colorToRgbStr;
       inherit rice intToFloat;
     };
   };

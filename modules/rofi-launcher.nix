@@ -1,16 +1,7 @@
-{ pkgs, lib, inputs, system }:
+{ config, pkgs, lib, inputs, system }:
 
 let
-  categoryColors = {
-    Applications = "#7AA2F7";
-    Utilities = "#7DCFFF";
-    Monitoring = "#9ECE6A";
-    Notifications = "#F7768E";
-    Window = "#BB9AF7";
-    Media = "#E0AF68";
-    Audio = "#2AC3DE";
-    Brightness = "#E0AF68";
-  };
+  categoryColors = config.categoryColors;
 
   entries = [
     {

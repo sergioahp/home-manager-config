@@ -1,6 +1,16 @@
 { config, lib, pkgs, ... }:
 let
   cfg = config.programs.sergio-hyprlock;
+  colors = config.colorScheme.colors;
+  inherit (config.lib.colors) colorToRgbStr intToFloat;
+
+  # Convert color to rgba string with full opacity
+  colorToRgbaStrFull = color:
+    let
+      f = pkgs.lib.strings.floatToString;
+      i = toString;
+    in
+    "rgba(${i color.r}, ${i color.g}, ${i color.b}, ${f ((intToFloat color.a) / 255.0)})";
 in {
   imports = [];
   options = {
@@ -26,11 +36,11 @@ in {
           monitor = "";
           dots_center = true;
           fade_on_empty = false;
-          font_color = "rgb(202, 211, 245)";
-          inner_color = "rgb(91, 96, 120)";
-          outer_color = "rgb(24, 25, 38)";
+          font_color = colorToRgbStr colors.fg2;
+          inner_color = colorToRgbStr colors.lock-input-inner;
+          outer_color = colorToRgbStr colors.lock-input-outer;
           outline_thickness = 5;
-          placeholder_text = "<span foreground=\"##cad3f5\">Password...</span>";
+          placeholder_text = "<span foreground=\"#${config.colorScheme.colorsRgbHex.fg2}\">Password...</span>";
           shadow_passes = 2;
         }];
         
@@ -38,7 +48,7 @@ in {
           {
             monitor = "";
             text = "Hi $USER";
-            color = "rgba(200, 200, 200, 1.0)";
+            color = colorToRgbaStrFull colors.lock-text;
             font_size = 55;
             font_family = "DejaVu Sans Mono";
             position = "0, 80";
@@ -48,7 +58,7 @@ in {
           {
             monitor = "";
             text = "$TIME12";
-            color = "rgba(200, 200, 200, 1.0)";
+            color = colorToRgbaStrFull colors.lock-text;
             font_size = 90;
             font_family = "DejaVu Sans Mono";
             position = "0, 250";

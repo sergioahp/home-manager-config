@@ -1,7 +1,7 @@
 { config, lib, pkgs, inputs, system, ... }:
 let
   cfg = config.programs.sergio-xremap;
-  launcher = import ./rofi-launcher.nix { inherit pkgs lib inputs system; };
+  launcher = import ./rofi-launcher.nix { inherit config pkgs lib inputs system; };
   launcherBin = "${launcher.script}/bin/xremap-launcher";
 in {
   # -----------------------------------------------------------------------------
