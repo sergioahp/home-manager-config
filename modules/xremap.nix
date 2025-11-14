@@ -440,6 +440,10 @@ in {
               super-slash = {
                 launch = [ launcherBin ];
               };
+              # rofi-entry include category=Productivity color=#7AA2F7 emoji=🎤
+              super-0 = {
+                launch = [ "${inputs.hyprvoice.packages.${system}.default}/bin/hyprvoice" "toggle" ];
+              };
               # rofi-entry skip reason=workspace-relative
               super-n = {
                 launch = [ "${pkgs.hyprland}/bin/hyprctl" "dispatch"

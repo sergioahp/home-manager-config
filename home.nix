@@ -354,9 +354,29 @@ in
         dmenu = "${pkgs.rofi}/bin/rofi -dmenu -p dunst";
         origin = "top-left";
       };
+      hyprvoice = {
+        appname = "Hyprvoice";
+        background = "#dca6af60";  # pale red with same transparency as charcoal
+        frame_color = "#dca6af";   # pale red border
+      };
     };
   };
   services.ssh-agent.enable = true;
+
+  services.hyprvoice = {
+    enable = true;
+    settings = {
+      transcription = {
+        provider = "openai";
+        language = "";
+        model = "whisper-1";
+      };
+      injection = {
+        mode = "fallback";
+        restore_clipboard = true;
+      };
+    };
+  };
 
   programs = {
     readline = {

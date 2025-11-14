@@ -20,6 +20,7 @@
     gtk-status-bar.url = "github:sergioahp/gtk-status-bar";
     kitty-extended-keys.url = "github:sergioahp/kitty-extended-keys";
     rofi-switch-rust.url = "github:sergioahp/rofi-switch-rust";
+    hyprvoice.url = "github:sergioahp/hyprvoice";
   };
 
   outputs = { nixpkgs, home-manager, ... }@inputs:
@@ -34,6 +35,7 @@
           modules = [
             ./home.nix
             ./machines/nixd.nix
+            inputs.hyprvoice.homeManagerModules.default
           ];
 
           extraSpecialArgs = { inherit inputs; inherit system; };
