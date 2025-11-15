@@ -18,6 +18,7 @@ in
         Media = rice.color.toRgbHex colors.yellow;
         Audio = rice.color.toRgbHex colors.blue1;
         Brightness = rice.color.toRgbHex colors.yellow;
+        Productivity = rice.color.toRgbHex colors.blue;
       };
     };
   };

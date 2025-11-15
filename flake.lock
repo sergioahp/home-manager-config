@@ -662,11 +662,11 @@
         "nixpkgs": "nixpkgs_4"
       },
       "locked": {
-        "lastModified": 1763078632,
-        "narHash": "sha256-8QarTLOO2wFDBLJeCWaOfNs3e9v1T/U3ObyZFItQMHU=",
+        "lastModified": 1763200215,
+        "narHash": "sha256-Tdr2OBijUZikX6cBbJHM2i2kj2jOzhdbaEiefxOnYCg=",
         "owner": "sergioahp",
         "repo": "hyprvoice",
-        "rev": "4b0da53b59dbaa6fc50e4c1f52c08a6b246c56db",
+        "rev": "dd080233974cd2ce7ac372f7140982a479d3596d",
         "type": "github"
       },
       "original": {

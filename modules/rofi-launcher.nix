@@ -120,13 +120,25 @@ let
       desc = "Power Menu";
       category = "Utilities";
       color = categoryColors.Utilities;
-      glyph = "⏻";
+      # TODO: This is not aligned
+      glyph = "⏻  ";
       args = [
         "${pkgs.rofi}/bin/rofi"
         "-show"
         "power-menu"
         "-modi"
         "power-menu:${rofiPowerMenu}"
+      ];
+    }
+    {
+      key = "super-0";
+      desc = "Voice Input (Hyprvoice)";
+      category = "Productivity";
+      color = categoryColors.Productivity;
+      glyph = "🎤";
+      args = [
+        "${inputs.hyprvoice.packages.${system}.default}/bin/hyprvoice"
+        "toggle"
       ];
     }
     {
