@@ -62,9 +62,15 @@ in
     ./modules/dunst.nix
     ./modules/git.nix
     ./modules/hyprvoice.nix
-  ] ++ lib.optionals (builtins.pathExists ./modules/private/notifications.nix) [
-    ./modules/private/notifications.nix
-  ];
+  ] ++ (let
+    # NOTE: Git submodules require ?submodules=1 in the flake URL to be included.
+    # Use: home-manager switch --flake '.?submodules=1#nixd'
+    # Without it, the private module won't be found and this import will be skipped.
+    privateNotifications = ./modules/private/notifications.nix;
+    tryImport = builtins.tryEval (builtins.pathExists privateNotifications);
+  in lib.optionals (tryImport.success && tryImport.value) [
+    privateNotifications
+  ]);
   nixpkgs.config.allowUnfree = true;
   home.username = username;
   home.homeDirectory = homeDirectory;
