@@ -61,6 +61,7 @@ in
     ./modules/yazi.nix
     ./modules/dunst.nix
     ./modules/git.nix
+    ./modules/hyprvoice.nix
   ] ++ lib.optionals (builtins.pathExists ./modules/private/notifications.nix) [
     ./modules/private/notifications.nix
   ];
@@ -85,6 +86,7 @@ in
   programs.sergio-yazi.enable = true;
   programs.sergio-dunst.enable = true;
   programs.sergio-git.enable = true;
+  programs.sergio-hyprvoice.enable = true;
 
   home.packages = with pkgs; [
      nerd-fonts.dejavu-sans-mono
@@ -318,36 +320,6 @@ in
   };
   services.ssh-agent.enable = true;
 
-  services.hyprvoice = {
-    enable = true;
-    environmentFile = "${config.home.homeDirectory}/.config/hyprvoice/env";
-    settings = {
-      recording = {
-        sample_rate = 16000;
-        channels = 1;
-        format = "s16";
-        buffer_size = 8192;
-        device = "";
-        channel_buffer_size = 30;
-        timeout = "5m";
-      };
-      transcription = {
-        provider = "openai";
-        language = "";
-        model = "whisper-1";
-      };
-      injection = {
-        mode = "fallback";
-        restore_clipboard = true;
-        wtype_timeout = "5s";
-        clipboard_timeout = "3s";
-      };
-      notifications = {
-        enabled = true;
-        type = "desktop";
-      };
-    };
-  };
 
   programs = {
     readline = {
