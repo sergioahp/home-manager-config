@@ -48,6 +48,7 @@ in
 
   imports = [
     inputs.xremap.homeManagerModules.default
+    inputs.hyprvoice.homeManagerModules.default
     inputs.sops-nix.homeManagerModules.sops
     ./modules/colors.nix
     ./modules/category-colors.nix

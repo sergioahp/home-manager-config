@@ -39,7 +39,6 @@
           modules = [
             ./home.nix
             ./machines/nixd.nix
-            inputs.hyprvoice.homeManagerModules.default
           ];
 
           extraSpecialArgs = { inherit inputs; inherit system; };
