@@ -42,9 +42,10 @@ in {
         if [ -f ~/.secrets ]; then
           source ~/.secrets
         fi
+        # Set window title to command and current directory
         preexec() {
           local cmd="''${1%% *}"
-          printf "\e]0;%s\a" "$cmd"
+          printf "\e]0;%s - %s\a" "$cmd" "''${PWD/#$HOME/~}"
         }
       '';
     };
