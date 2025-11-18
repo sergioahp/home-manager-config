@@ -74,7 +74,7 @@ in {
                   # rofi-entry include category=Applications color=#7AA2F7 emoji=🖥️
                   super-l = {
                     launch = [
-                      "${pkgs.uwsm}/bin/uwsm" "app" "--"
+                      "${pkgs.uwsm}/bin/uwsm-app" "--"
                       "${pkgs.hyprland}/bin/hyprctl" "dispatch" "--" "exec"
                       "${pkgs.kitty}/bin/kitty"
                     ];
@@ -82,7 +82,7 @@ in {
                   # rofi-entry include category=Applications color=#7AA2F7 emoji=🦊
                   super-f = {
                     launch = [
-                      "${pkgs.uwsm}/bin/uwsm" "app" "--"
+                      "${pkgs.uwsm}/bin/uwsm-app" "--"
                       "${pkgs.hyprland}/bin/hyprctl" "dispatch" "--" "exec"
                       "${pkgs.firefox}/bin/firefox"
                     ];
@@ -90,7 +90,7 @@ in {
                   # rofi-entry include category=Utilities color=#7DCFFF emoji=🗂️
                   super-e = {
                     launch = [
-                      "${pkgs.uwsm}/bin/uwsm" "app" "--"
+                      "${pkgs.uwsm}/bin/uwsm-app" "--"
                       "${pkgs.hyprland}/bin/hyprctl" "dispatch" "--" "exec"
                       "${pkgs.kitty}/bin/kitty"
                       "${pkgs.ranger}/bin/ranger"
@@ -99,7 +99,7 @@ in {
                   # rofi-entry include category=Monitoring color=#9ECE6A emoji=📊
                   super-o = {
                     launch = [
-                      "${pkgs.uwsm}/bin/uwsm" "app" "--"
+                      "${pkgs.uwsm}/bin/uwsm-app" "--"
                       "${pkgs.hyprland}/bin/hyprctl" "dispatch" "--" "exec"
                       "${pkgs.kitty}/bin/kitty"
                       "${pkgs.btop}/bin/btop"
@@ -109,15 +109,8 @@ in {
                   super-m = {
                     launch = [
                       # bug: hyprctl does not work with commands containing semicolons
-                      # Do not use "${pkgs.uwsm}/bin/uwsm" "app" "--" it makes
-                      # this slow but we need this to be really fast
-                      # THIS IS UNFORTUNATE, we have to use uwsm when lauching
-                      # apps to avoid them closing on home-switch, will keep
-                      # this here but not on the window switcher as window
-                      # switches does not really mater that much if it closes
-                      "${pkgs.uwsm}/bin/uwsm"
-                      "app"
-                      "--"
+                      # Using uwsm-app -- (drop-in replacement) for better performance (avoids Python overhead of uwsm app)
+                      "${pkgs.uwsm}/bin/uwsm-app" "--"
                       "${pkgs.rofi}/bin/rofi" "-show" "drun"
                        "-theme-str" "window {width: 20%;}"
                     ];
@@ -131,7 +124,8 @@ in {
                   # rofi-entry include category=Applications color=#7AA2F7 emoji=🔐
                   super-i = {
                     launch = [
-                      "${pkgs.uwsm}/bin/uwsm" "app" "--"
+                      "${pkgs.uwsm}/bin/uwsm-app" "--"
+                      "${pkgs.hyprland}/bin/hyprctl" "dispatch" "--" "exec"
                       "${pkgs.bitwarden-desktop}/bin/bitwarden"
                     ];
                   };

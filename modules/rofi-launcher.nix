@@ -12,9 +12,7 @@ let
       color = categoryColors.Applications;
       glyph = "🖥️";
       args = [
-        "${pkgs.uwsm}/bin/uwsm"
-        "app"
-        "--"
+        "${pkgs.uwsm}/bin/uwsm-app" "--"
         "${pkgs.hyprland}/bin/hyprctl"
         "dispatch"
         "--"
@@ -29,9 +27,7 @@ let
       color = categoryColors.Applications;
       glyph = "🦊";
       args = [
-        "${pkgs.uwsm}/bin/uwsm"
-        "app"
-        "--"
+        "${pkgs.uwsm}/bin/uwsm-app" "--"
         "${pkgs.hyprland}/bin/hyprctl"
         "dispatch"
         "--"
@@ -46,9 +42,7 @@ let
       color = categoryColors.Utilities;
       glyph = "🗂️";
       args = [
-        "${pkgs.uwsm}/bin/uwsm"
-        "app"
-        "--"
+        "${pkgs.uwsm}/bin/uwsm-app" "--"
         "${pkgs.hyprland}/bin/hyprctl"
         "dispatch"
         "--"
@@ -64,9 +58,7 @@ let
       color = categoryColors.Monitoring;
       glyph = "📊";
       args = [
-        "${pkgs.uwsm}/bin/uwsm"
-        "app"
-        "--"
+        "${pkgs.uwsm}/bin/uwsm-app" "--"
         "${pkgs.hyprland}/bin/hyprctl"
         "dispatch"
         "--"
@@ -82,9 +74,7 @@ let
       color = categoryColors.Applications;
       glyph = "🚀";
       args = [
-        "${pkgs.uwsm}/bin/uwsm"
-        "app"
-        "--"
+        "${pkgs.uwsm}/bin/uwsm-app" "--"
         "${pkgs.rofi}/bin/rofi"
         "-show"
         "drun"
@@ -109,9 +99,11 @@ let
       color = categoryColors.Applications;
       glyph = "🔐";
       args = [
-        "${pkgs.uwsm}/bin/uwsm"
-        "app"
+        "${pkgs.uwsm}/bin/uwsm-app" "--"
+        "${pkgs.hyprland}/bin/hyprctl"
+        "dispatch"
         "--"
+        "exec"
         "${pkgs.bitwarden-desktop}/bin/bitwarden"
       ];
     }
