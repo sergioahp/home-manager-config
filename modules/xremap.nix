@@ -109,9 +109,10 @@ in {
                   super-m = {
                     launch = [
                       # bug: hyprctl does not work with commands containing semicolons
-                      # Using uwsm-app -- (drop-in replacement) for better performance (avoids Python overhead of uwsm app)
-                      "${pkgs.uwsm}/bin/uwsm-app" "--"
+                      # Rofi launches instantly (no uwsm overhead), but apps it spawns get uwsm-app + hyprctl
+                      # Using -run-command to wrap launched apps for session management and workspace stability
                       "${pkgs.rofi}/bin/rofi" "-show" "drun"
+                       "-run-command" "uwsm-app -- hyprctl dispatch exec -- {cmd}"
                        "-theme-str" "window {width: 20%;}"
                     ];
                   };

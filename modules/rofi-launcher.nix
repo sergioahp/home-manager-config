@@ -74,10 +74,11 @@ let
       color = categoryColors.Applications;
       glyph = "🚀";
       args = [
-        "${pkgs.uwsm}/bin/uwsm-app" "--"
         "${pkgs.rofi}/bin/rofi"
         "-show"
         "drun"
+        "-run-command"
+        "uwsm-app -- hyprctl dispatch exec -- {cmd}"
         "-theme-str"
         "window {width: 20%;}"
       ];
