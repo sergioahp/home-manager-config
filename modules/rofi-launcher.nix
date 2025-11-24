@@ -124,14 +124,25 @@ let
       ];
     }
     {
-      key = "super-0";
-      desc = "Voice Input (Hyprvoice)";
+      key = "super-. super-.";
+      desc = "Voice Input Toggle";
       category = "Productivity";
       color = categoryColors.Productivity;
       glyph = "🎤";
       args = [
         "${inputs.hyprvoice.packages.${system}.default}/bin/hyprvoice"
         "toggle"
+      ];
+    }
+    {
+      key = "super-. super-c";
+      desc = "Voice Input Cancel";
+      category = "Productivity";
+      color = categoryColors.Productivity;
+      glyph = "❌";
+      args = [
+        "${inputs.hyprvoice.packages.${system}.default}/bin/hyprvoice"
+        "cancel"
       ];
     }
     {

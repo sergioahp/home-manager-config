@@ -449,13 +449,27 @@ in {
                 launch = [ "${pkgs.hyprland}/bin/hyprctl" "dispatch"
                 "cyclenext" "prev" ];
               };
-              # rofi-entry skip reason=launcher-self
+              # rofi-entry skip reason=submap
               super-slash = {
-                launch = [ launcherBin ];
+                remap = {
+                  # rofi-entry skip reason=launcher-self
+                  super-slash = {
+                    launch = [ launcherBin ];
+                  };
+                };
               };
-              # rofi-entry include category=Productivity color=#7AA2F7 emoji=🎤
-              super-0 = {
-                launch = [ "${inputs.hyprvoice.packages.${system}.default}/bin/hyprvoice" "toggle" ];
+              # rofi-entry skip reason=submap
+              super-dot = {
+                remap = {
+                  # rofi-entry include category=Productivity color=#7AA2F7 emoji=🎤
+                  super-dot = {
+                    launch = [ "${inputs.hyprvoice.packages.${system}.default}/bin/hyprvoice" "toggle" ];
+                  };
+                  # rofi-entry include category=Productivity color=#7AA2F7 emoji=❌
+                  super-c = {
+                    launch = [ "${inputs.hyprvoice.packages.${system}.default}/bin/hyprvoice" "cancel" ];
+                  };
+                };
               };
               # rofi-entry skip reason=workspace-relative
               super-n = {
