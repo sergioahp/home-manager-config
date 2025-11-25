@@ -327,6 +327,10 @@ in
   };
   services.ssh-agent.enable = true;
 
+  services.kdeconnect = {
+    enable = true;
+    indicator = true;
+  };
 
   programs = {
     readline = {
