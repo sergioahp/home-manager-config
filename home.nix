@@ -129,7 +129,7 @@ in
      tinymist
      typst
      typst-live
-     typstfmt
+     typstyle
      firefox
      lua-language-server
      gcc
