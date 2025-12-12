@@ -176,6 +176,17 @@ let
       ];
     }
     {
+      key = "super-s super-c";
+      desc = "Color Picker";
+      category = "Utilities";
+      color = categoryColors.Utilities;
+      glyph = "🎨";
+      args = [
+        "${pkgs.hyprpicker}/bin/hyprpicker"
+        "-a"
+      ];
+    }
+    {
       key = "super-u super-f";
       desc = "Dunst history pop";
       category = "Notifications";

@@ -14,6 +14,10 @@ in {
     programs.sergio-hyprlock.enable = true;
     programs.sergio-hypridle.enable = true;
 
+    home.packages = with pkgs; [
+      hyprpicker
+    ];
+
     wayland.windowManager.hyprland = {
       enable = true;
       systemd.enable = false;

@@ -165,6 +165,10 @@ in {
                       ''
                     ];
                   };
+                  # rofi-entry include category=Utilities color=#7DCFFF emoji=🎨
+                  super-c = {
+                    launch = [ "${pkgs.hyprpicker}/bin/hyprpicker" "-a" ];
+                  };
                 };
               };
               # rofi-entry skip reason=submap
