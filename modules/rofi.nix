@@ -48,15 +48,15 @@ in
           text-color = mkLiteral "@accent-color";
         };
         "element selected" = {
-          text-color = mkLiteral "@fg0";
-          background-color = mkLiteral (colorToRgbaLiteral bg2-90);
+          text-color = mkLiteral "@bg";
+          background-color = mkLiteral "@accent-color";
         };
         "element normal active" = {
           text-color = mkLiteral "@accent-color";
         };
         "element selected normal, element selected active" = {
-          background-color = mkLiteral (colorToRgbaLiteral bg2-90);
-          text-color = mkLiteral "@fg0";
+          background-color = mkLiteral "@accent-color";
+          text-color = mkLiteral "@bg";
         };
         "element-text" = {
           text-color = mkLiteral "inherit";

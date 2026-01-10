@@ -1084,11 +1084,11 @@
         "nixpkgs": "nixpkgs_9"
       },
       "locked": {
-        "lastModified": 1762288683,
-        "narHash": "sha256-4FMOtOQVk0stUXByzRFCc6+qmWpVWAXu6TP3M0B6rcI=",
+        "lastModified": 1768082471,
+        "narHash": "sha256-1FXkoGZPgn6eG+A+de+/WNkygXPhBIJPwf/F3lWmWs4=",
         "owner": "sergioahp",
         "repo": "rofi-switch-rust",
-        "rev": "6d9feb68a060a11f9fb01572f86830c21a1223a4",
+        "rev": "46bac35edf53f7b3b415ecb5663fa52f13941fe3",
         "type": "github"
       },
       "original": {
