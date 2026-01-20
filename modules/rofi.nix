@@ -27,7 +27,8 @@ in
       in {
         "*" = {
           bg = mkLiteral (colorToRgbaLiteral bg-60);
-          fg0 = mkLiteral (rice.color.toRgbHex colors.magenta);
+          fg0 = mkLiteral (rice.color.toRgbHex colors.cyan);
+          selected-fg = mkLiteral (rice.color.toRgbHex colors.blue7);
           accent-color = mkLiteral (rice.color.toRgbHex colors.accent);
           urgent-color = mkLiteral (rice.color.toRgbHex colors.urgent);
           background-color = mkLiteral "transparent";
@@ -48,7 +49,7 @@ in
           text-color = mkLiteral "@accent-color";
         };
         "element selected" = {
-          text-color = mkLiteral "@bg";
+          text-color = mkLiteral "@selected-fg";
           background-color = mkLiteral "@accent-color";
         };
         "element normal active" = {
@@ -56,7 +57,7 @@ in
         };
         "element selected normal, element selected active" = {
           background-color = mkLiteral "@accent-color";
-          text-color = mkLiteral "@bg";
+          text-color = mkLiteral "@selected-fg";
         };
         "element-text" = {
           text-color = mkLiteral "inherit";
