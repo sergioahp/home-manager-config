@@ -23,7 +23,9 @@ in
           in
           rice.color.toRgbaHex charcoal-38;
           dmenu = "${pkgs.rofi}/bin/rofi -dmenu -p dunst";
-          origin = "top-left";
+          follow = "mouse";
+          origin = "top-center";
+          stack_duplicates = false;
         };
         rule-hyprvoice = let
           pale-red-38 = transparentize colors.pale-red 0.3764705882352941;  # 38% opacity, same as charcoal
