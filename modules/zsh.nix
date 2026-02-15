@@ -47,6 +47,25 @@ in {
           local cmd="''${1%% *}"
           printf "\e]0;%s - %s\a" "$cmd" "''${PWD/#$HOME/~}"
         }
+
+        # Conditional aliases: use plain commands in Claude Code, fancy versions otherwise
+        if [ -z "$CLAUDECODE" ]; then
+          # Normal interactive shell - use fancy/safe versions
+          alias ls='${pkgs.eza}/bin/eza'
+          alias tree='${pkgs.eza}/bin/eza -T'
+          alias cat='${pkgs.bat}/bin/bat --paging=never --style=plain'
+          alias cp='cp -i'
+          alias mv='mv -i'
+          alias rm='rm -I'
+        else
+          # Claude Code environment - use original commands without interactive prompts
+          alias ls='ls'
+          alias tree='tree'
+          alias cat='cat'
+          alias cp='cp'
+          alias mv='mv'
+          alias rm='rm'
+        fi
       '';
     };
   };

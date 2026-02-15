@@ -102,6 +102,7 @@ in
      noto-fonts-color-emoji
     (python3.withPackages (ps: with ps; [
       numpy
+      matplotlib
       fabric
       python-lsp-server
       pylsp-mypy
@@ -123,6 +124,7 @@ in
      clippy
      anki-bin
      playerctl
+     inkscape
      wev
      nil
      clang-tools
@@ -144,6 +146,8 @@ in
      tor
      torsocks
      atool
+     unzip
+     unrar
      imagemagick
      img2pdf
      ffmpeg
@@ -207,6 +211,7 @@ in
     # TODO: maybe manage with home manager
     kitty
      # jupyter-all # COLLITION
+    git-lfs
   ];
 
   i18n.inputMethod = {
@@ -440,15 +445,10 @@ in
     mpv.enable = true;
   };
   home.shellAliases = {
-
+    # NOTE: ls, tree, cat, cp, mv, rm are defined conditionally in modules/zsh.nix
+    # to use plain commands in Claude Code and safe/fancy versions otherwise
     sudo = "sudo ";
     g = "git";
-    ls = "${pkgs.eza}/bin/eza";
-    mv = "mv -i";
-    cp = "cp -i";
-    rm = "rm -I";
-    tree = "${pkgs.eza}/bin/eza -T";
-    cat = "${pkgs.bat}/bin/bat --paging=never --style=plain";
   };
   xdg.mimeApps = {
     enable = true;
