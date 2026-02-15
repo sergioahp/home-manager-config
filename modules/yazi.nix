@@ -10,6 +10,11 @@ in {
       enable = true;
       enableZshIntegration = true;
       settings = {
+        plugin = {
+          prepend_preloaders = [
+            { mime = "video/*"; run = "noop"; }
+          ];
+        };
         opener = {
           images = [
             {
