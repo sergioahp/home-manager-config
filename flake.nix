@@ -8,9 +8,11 @@
     nixpkgs-bleeding.url = "github:nixos/nixpkgs/nixos-unstable";
     # Slow-moving nixpkgs for packages that are infrequently updated or take too long to update
     # Used for: kitty-extended-keys, nix-rice, rofi-switch-rust (and potentially others to be migrated gradually)
-    nixpkgs-slow-moving.url = "github:nixos/nixpkgs/cf757f7200b5c3a7f35f8a48acd19f1780794406";
+    # Updated manually with: nix flake lock --update-input nixpkgs-slow-moving
+    nixpkgs-slow-moving.url = "github:nixos/nixpkgs/nixos-unstable";
     # Pinned nixpkgs for bitwarden (newer versions have issues)
-    nixpkgs-bitwarden.url = "github:nixos/nixpkgs/c5296fdd05cfa2c187990dd909864da9658df755";
+    # Keep at working commit - update manually only when tested
+    nixpkgs-bitwarden.url = "github:nixos/nixpkgs/nixos-unstable";
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
