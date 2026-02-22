@@ -1,4 +1,4 @@
-{ config, lib, inputs, pkgs, system, ... }:
+{ config, lib, inputs, pkgs, pkgs-bleeding, pkgs-bitwarden, system, ... }:
 
 # TODO: PROBLEM:
 # Launching with uwsm the rofi laucher is slower, but without it and the rest of
@@ -151,7 +151,7 @@ in
      imagemagick
      img2pdf
      ffmpeg
-     bitwarden-desktop
+     pkgs-bitwarden.bitwarden-desktop
      jq
      # awscli2
      element-desktop
@@ -206,8 +206,8 @@ in
      eza
      hunspell
      hunspellDicts.es-mx
-     claude-code
-     codex
+     pkgs-bleeding.claude-code
+     pkgs-bleeding.codex
     # TODO: maybe manage with home manager
     kitty
      # jupyter-all # COLLITION

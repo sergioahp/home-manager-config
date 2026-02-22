@@ -1,4 +1,4 @@
-{ config, pkgs, lib, inputs, system }:
+{ config, pkgs, pkgs-bitwarden, lib, inputs, system }:
 
 let
   categoryColors = config.categoryColors;
@@ -105,7 +105,7 @@ let
         "dispatch"
         "--"
         "exec"
-        "${pkgs.bitwarden-desktop}/bin/bitwarden"
+        "${pkgs-bitwarden.bitwarden-desktop}/bin/bitwarden"
       ];
     }
     {

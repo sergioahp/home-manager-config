@@ -4,6 +4,10 @@
   inputs = {
     # Specify the source of Home Manager and Nixpkgs.
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    # Bleeding edge nixpkgs for latest packages (claude-code, codex, etc.)
+    nixpkgs-bleeding.url = "github:nixos/nixpkgs/nixos-unstable";
+    # Pinned nixpkgs for bitwarden (newer versions have issues)
+    nixpkgs-bitwarden.url = "github:nixos/nixpkgs/c5296fdd05cfa2c187990dd909864da9658df755";
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -31,6 +35,14 @@
     let
       system = "x86_64-linux";
       pkgs = nixpkgs.legacyPackages.${system};
+      pkgs-bleeding = import inputs.nixpkgs-bleeding {
+        inherit system;
+        config.allowUnfree = true;
+      };
+      pkgs-bitwarden = import inputs.nixpkgs-bitwarden {
+        inherit system;
+        config.allowUnfree = true;
+      };
     in {
       homeConfigurations = {
         nixd = home-manager.lib.homeManagerConfiguration {
@@ -41,7 +53,7 @@
             ./machines/nixd.nix
           ];
 
-          extraSpecialArgs = { inherit inputs; inherit system; };
+          extraSpecialArgs = { inherit inputs; inherit system; inherit pkgs-bleeding; inherit pkgs-bitwarden; };
         };
 
         laptop = home-manager.lib.homeManagerConfiguration {
@@ -52,7 +64,7 @@
             ./machines/laptop.nix
           ];
 
-          extraSpecialArgs = { inherit inputs; inherit system; };
+          extraSpecialArgs = { inherit inputs; inherit system; inherit pkgs-bleeding; inherit pkgs-bitwarden; };
         };
       };
 
