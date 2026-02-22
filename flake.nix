@@ -6,6 +6,9 @@
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     # Bleeding edge nixpkgs for latest packages (claude-code, codex, etc.)
     nixpkgs-bleeding.url = "github:nixos/nixpkgs/nixos-unstable";
+    # Slow-moving nixpkgs for packages that are infrequently updated or take too long to update
+    # Used for: kitty-extended-keys, nix-rice (and potentially others to be migrated gradually)
+    nixpkgs-slow-moving.url = "github:nixos/nixpkgs/cf757f7200b5c3a7f35f8a48acd19f1780794406";
     # Pinned nixpkgs for bitwarden (newer versions have issues)
     nixpkgs-bitwarden.url = "github:nixos/nixpkgs/c5296fdd05cfa2c187990dd909864da9658df755";
     home-manager = {
@@ -20,9 +23,13 @@
     hyprswitch.url = "github:h3rmt/hyprswitch/release";
     nix-rice = {
       url = "github:bertof/nix-rice";
+      inputs.nixpkgs.follows = "nixpkgs-slow-moving";
     };
     gtk-status-bar.url = "github:sergioahp/gtk-status-bar";
-    kitty-extended-keys.url = "github:sergioahp/kitty-extended-keys";
+    kitty-extended-keys = {
+      url = "github:sergioahp/kitty-extended-keys";
+      inputs.nixpkgs.follows = "nixpkgs-slow-moving";
+    };
     rofi-switch-rust.url = "github:sergioahp/rofi-switch-rust";
     hyprvoice.url = "github:sergioahp/hyprvoice";
     rofi-power-menu = {

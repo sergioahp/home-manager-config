@@ -349,10 +349,6 @@ in
       enable = true;
       enableZshIntegration = true;
     };
-    eww = {
-      enable = true;
-      configDir = ./eww;
-    };
     ranger = {
       enable = true;
       rifle = [
