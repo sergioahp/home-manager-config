@@ -12,7 +12,7 @@
     nixpkgs-slow-moving.url = "github:nixos/nixpkgs/nixos-unstable";
     # Pinned nixpkgs for bitwarden (newer versions have issues)
     # Keep at working commit - update manually only when tested
-    nixpkgs-bitwarden.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs-bitwarden-zathura.url = "github:nixos/nixpkgs/nixos-unstable";
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -51,7 +51,7 @@
         inherit system;
         config.allowUnfree = true;
       };
-      pkgs-bitwarden = import inputs.nixpkgs-bitwarden {
+      pkgs-bitwarden-zathura = import inputs.nixpkgs-bitwarden-zathura {
         inherit system;
         config.allowUnfree = true;
       };
@@ -65,7 +65,7 @@
             ./machines/nixd.nix
           ];
 
-          extraSpecialArgs = { inherit inputs; inherit system; inherit pkgs-bleeding; inherit pkgs-bitwarden; };
+          extraSpecialArgs = { inherit inputs; inherit system; inherit pkgs-bleeding; inherit pkgs-bitwarden-zathura; };
         };
 
         laptop = home-manager.lib.homeManagerConfiguration {
@@ -76,7 +76,7 @@
             ./machines/laptop.nix
           ];
 
-          extraSpecialArgs = { inherit inputs; inherit system; inherit pkgs-bleeding; inherit pkgs-bitwarden; };
+          extraSpecialArgs = { inherit inputs; inherit system; inherit pkgs-bleeding; inherit pkgs-bitwarden-zathura; };
         };
       };
 

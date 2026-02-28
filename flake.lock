@@ -349,11 +349,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1771750122,
-        "narHash": "sha256-+JYMGE6Z4O7GoaBFHByl22XcyeStu56GE1eu3+2sVjI=",
+        "lastModified": 1771851181,
+        "narHash": "sha256-gFgE6mGUftwseV3DUENMb0k0EiHd739lZexPo5O/sdQ=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "603626a8da9e1b622e55251a90ef486b8179334c",
+        "rev": "9a4b494b1aa1b93d8edf167f46dc8e0c0011280c",
         "type": "github"
       },
       "original": {
@@ -778,7 +778,7 @@
         "type": "github"
       }
     },
-    "nixpkgs-bitwarden": {
+    "nixpkgs-bitwarden-zathura": {
       "locked": {
         "lastModified": 1769170682,
         "narHash": "sha256-oMmN1lVQU0F0W2k6OI3bgdzp2YOHWYUAw79qzDSjenU=",
@@ -796,11 +796,11 @@
     },
     "nixpkgs-bleeding": {
       "locked": {
-        "lastModified": 1771369470,
-        "narHash": "sha256-0NBlEBKkN3lufyvFegY4TYv5mCNHbi5OmBDrzihbBMQ=",
+        "lastModified": 1771848320,
+        "narHash": "sha256-0MAd+0mun3K/Ns8JATeHT1sX28faLII5hVLq0L3BdZU=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "0182a361324364ae3f436a63005877674cf45efb",
+        "rev": "2fc6539b481e1d2569f25f8799236694180c0993",
         "type": "github"
       },
       "original": {
@@ -1114,7 +1114,7 @@
         "kitty-extended-keys": "kitty-extended-keys",
         "nix-rice": "nix-rice",
         "nixpkgs": "nixpkgs_6",
-        "nixpkgs-bitwarden": "nixpkgs-bitwarden",
+        "nixpkgs-bitwarden-zathura": "nixpkgs-bitwarden-zathura",
         "nixpkgs-bleeding": "nixpkgs-bleeding",
         "nixpkgs-slow-moving": "nixpkgs-slow-moving",
         "rofi-power-menu": "rofi-power-menu",

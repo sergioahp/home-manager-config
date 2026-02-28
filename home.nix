@@ -1,4 +1,4 @@
-{ config, lib, inputs, pkgs, pkgs-bleeding, pkgs-bitwarden, system, ... }:
+{ config, lib, inputs, pkgs, pkgs-bleeding, pkgs-bitwarden-zathura, system, ... }:
 
 # TODO: PROBLEM:
 # Launching with uwsm the rofi laucher is slower, but without it and the rest of
@@ -151,7 +151,7 @@ in
      imagemagick
      img2pdf
      ffmpeg
-     pkgs-bitwarden.bitwarden-desktop
+     pkgs-bitwarden-zathura.bitwarden-desktop
      jq
      # awscli2
      element-desktop
