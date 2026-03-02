@@ -116,6 +116,22 @@
         "type": "github"
       }
     },
+    "dunst-src": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1772446098,
+        "narHash": "sha256-tYo4VUknVS24TLTa3mPn1bf6akY7MozROB9MtX21O4w=",
+        "owner": "sergioahp",
+        "repo": "dunst",
+        "rev": "42be0e6ed095766b6116221fe3bafa69975f6bad",
+        "type": "github"
+      },
+      "original": {
+        "owner": "sergioahp",
+        "repo": "dunst",
+        "type": "github"
+      }
+    },
     "flake-compat": {
       "flake": false,
       "locked": {
@@ -1107,6 +1123,7 @@
     },
     "root": {
       "inputs": {
+        "dunst-src": "dunst-src",
         "gtk-status-bar": "gtk-status-bar",
         "home-manager": "home-manager",
         "hyprswitch": "hyprswitch",

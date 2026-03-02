@@ -41,6 +41,10 @@
       url = "github:sergioahp/rofi-power-menu";
       flake = false;
     };
+    dunst-src = {
+      url = "github:sergioahp/dunst";
+      flake = false;
+    };
   };
 
   outputs = { nixpkgs, home-manager, ... }@inputs:

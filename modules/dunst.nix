@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, inputs, ... }:
 
 let
   cfg = config.programs.sergio-dunst;
@@ -13,6 +13,7 @@ in
   config = lib.mkIf cfg.enable {
     services.dunst = {
       enable = true;
+      package = pkgs.dunst.overrideAttrs (_: { src = inputs.dunst-src; });
       settings = {
         # NOTE: Rule names determine alphabetical ordering in the generated INI file.
         # Rules MUST come after [global] section to work properly.
