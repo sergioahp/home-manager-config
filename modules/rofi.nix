@@ -16,8 +16,8 @@ in
       package = pkgs.rofi;
       extraConfig = {
         show-icons = true;
-        sorting-method = "fzf";
-        matching = "fuzzy";
+        sorting-method = "normal";
+        matching = "normal";
         case-smart = true;
       };
       theme = let

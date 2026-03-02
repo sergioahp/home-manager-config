@@ -93,7 +93,7 @@ in {
                       "${pkgs.uwsm}/bin/uwsm-app" "--"
                       "${pkgs.hyprland}/bin/hyprctl" "dispatch" "--" "exec"
                       "${pkgs.kitty}/bin/kitty"
-                      "${pkgs.ranger}/bin/ranger"
+                      "${pkgs.yazi}/bin/yazi"
                     ];
                   };
                   # rofi-entry include category=Monitoring color=#9ECE6A emoji=📊

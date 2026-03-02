@@ -37,7 +37,7 @@ let
     }
     {
       key = "super-m super-e";
-      desc = "File Manager (Ranger)";
+      desc = "File Manager (Yazi)";
       category = "Utilities";
       color = categoryColors.Utilities;
       glyph = "🗂️";
@@ -48,7 +48,7 @@ let
         "--"
         "exec"
         "${pkgs.kitty}/bin/kitty"
-        "${pkgs.ranger}/bin/ranger"
+        "${pkgs.yazi}/bin/yazi"
       ];
     }
     {
