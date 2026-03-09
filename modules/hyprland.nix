@@ -95,6 +95,8 @@ in {
           "blur, notifications"
           # "ignorezero, bar"
           # "blur, bar"
+          "blur, status-overlay"
+          "ignorealpha 0.1, status-overlay"
         ];
         misc = {
           focus_on_activate = true;
