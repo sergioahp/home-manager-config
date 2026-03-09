@@ -678,15 +678,16 @@
         "nixpkgs": "nixpkgs_4"
       },
       "locked": {
-        "lastModified": 1763446743,
-        "narHash": "sha256-3P31sosz/x18q9Ox3MhY6qfzi46/TvcSfrEPfOjbf2k=",
+        "lastModified": 1772994783,
+        "narHash": "sha256-nsTbshDHwJ2x41kstDDbEUtg9iLCdi7uQpyq7fPynDI=",
         "owner": "sergioahp",
         "repo": "hyprvoice",
-        "rev": "a945c017e1b55e3237f842a50c0159ef3a00fe0d",
+        "rev": "60f89f27dd8e3162db6b85c7fe7f41ff4990652d",
         "type": "github"
       },
       "original": {
         "owner": "sergioahp",
+        "ref": "feature/custom",
         "repo": "hyprvoice",
         "type": "github"
       }

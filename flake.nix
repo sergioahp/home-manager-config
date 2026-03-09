@@ -36,7 +36,7 @@
       url = "github:sergioahp/rofi-switch-rust";
       inputs.nixpkgs.follows = "nixpkgs-slow-moving";
     };
-    hyprvoice.url = "github:sergioahp/hyprvoice";
+    hyprvoice.url = "github:sergioahp/hyprvoice/feature/custom";
     rofi-power-menu = {
       url = "github:sergioahp/rofi-power-menu";
       flake = false;
