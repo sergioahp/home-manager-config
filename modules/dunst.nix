@@ -27,6 +27,9 @@ in
           follow = "mouse";
           origin = "top-center";
           stack_duplicates = false;
+          # action_history_timeout: custom option from sergioahp/dunst fork
+          # keeps actions valid for 1 minute after notification is closed
+          action_history_timeout = "1m";
         };
         rule-hyprvoice = let
           pale-red-38 = transparentize colors.pale-red 0.3764705882352941;  # 38% opacity, same as charcoal

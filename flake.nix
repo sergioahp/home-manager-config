@@ -42,7 +42,7 @@
       flake = false;
     };
     dunst-src = {
-      url = "github:sergioahp/dunst";
+      url = "github:sergioahp/dunst/feature/action-history-timeout";
       flake = false;
     };
   };
