@@ -49,9 +49,10 @@ in {
           prepend_rules = [
             { mime = "image/vnd.djvu"; use = "docs";   }
             { mime = "image/x-djvu";   use = "docs";   }
-            { name = "*.djvu";         use = "docs";   }
-            { name = "*.pdf";          use = "docs";   }
-            { name = "*.epub";         use = "docs";   }
+            { url = "*.djvu";          use = "docs";   }
+            { url = "*.djv";           use = "docs";   }
+            { url = "*.pdf";           use = "docs";   }
+            { url = "*.epub";          use = "docs";   }
             { mime = "video/*";        use = "video";  }
             { mime = "text/*";         use = "edit";   }
             { mime = "image/*";        use = "images"; }
