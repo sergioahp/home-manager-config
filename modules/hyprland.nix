@@ -103,6 +103,7 @@ in {
         };
         exec-once = [
           "${inputs.gtk-status-bar.packages.${pkgs.system}.default}/bin/gtk-status-bar"
+          "${inputs.status-overlay.packages.${pkgs.system}.default}/bin/status-overlay"
         ];
       };
     };

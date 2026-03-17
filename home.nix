@@ -112,12 +112,13 @@ in
       matplotlib
       ipykernel
       scipy
-      pip
-      virtualenv
-      notebook
+     pip
+     virtualenv
+     notebook
      ]))
      ltex-ls-plus
      inputs.hyprswitch.packages.${system}.default
+     inputs.status-overlay.packages.${system}.default
      vimPlugins.nvim-dbee
      cargo
      rust-analyzer

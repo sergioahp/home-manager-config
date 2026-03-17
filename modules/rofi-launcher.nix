@@ -176,6 +176,17 @@ let
       ];
     }
     {
+      key = "super-s super-o";
+      desc = "Toggle status overlay";
+      category = "Monitoring";
+      color = categoryColors.Monitoring;
+      glyph = "🟠";
+      args = [
+        "${inputs.status-overlay.packages.${system}.default}/bin/status-overlay"
+        "toggle"
+      ];
+    }
+    {
       key = "super-s super-c";
       desc = "Color Picker";
       category = "Utilities";

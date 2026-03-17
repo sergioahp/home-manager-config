@@ -165,6 +165,13 @@ in {
                       ''
                     ];
                   };
+                  # rofi-entry include category=Monitoring color=#9ECE6A emoji=🟠
+                  super-o = {
+                    launch = [
+                      "${inputs.status-overlay.packages.${system}.default}/bin/status-overlay"
+                      "toggle"
+                    ];
+                  };
                   # rofi-entry include category=Utilities color=#7DCFFF emoji=🎨
                   super-c = {
                     launch = [ "${pkgs.hyprpicker}/bin/hyprpicker" "-a" ];

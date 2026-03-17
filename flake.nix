@@ -45,6 +45,7 @@
       url = "github:sergioahp/dunst/feature/action-history-timeout";
       flake = false;
     };
+    status-overlay.url = "github:sergioahp/status-overlay";
   };
 
   outputs = { nixpkgs, home-manager, ... }@inputs:
