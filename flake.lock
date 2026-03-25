@@ -853,11 +853,11 @@
     },
     "nixpkgs-bitwarden-zathura": {
       "locked": {
-        "lastModified": 1752011769,
-        "narHash": "sha256-dRu8PKuewYTtNadYNIYzehG8/ufkQAzEVVLi0uY8b08=",
+        "lastModified": 1750215678,
+        "narHash": "sha256-Rc/ytpamXRf6z8UA2SGa4aaWxUXRbX2MAWIu2C8M+ok=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "52999a15db6eb95a2ca294233696c7796b3ede86",
+        "rev": "5395fb3ab3f97b9b7abca147249fa2e8ed27b192",
         "type": "github"
       },
       "original": {
