@@ -51,9 +51,7 @@ in {
             # vibrancy = 0.4;
             vibrancy_darkness = 0.4;
             input_methods = true;
-            input_methods_ignorealpha = 0.1;
             popups = true;
-            popups_ignorealpha = 0.1;
           };
           shadow = {
             enabled = false;
@@ -91,12 +89,12 @@ in {
           "$mod, mouse:273, resizewindow"
         ];
         layerrule = [
-          "blur, rofi"
-          "blur, notifications"
-          # "ignorezero, bar"
-          # "blur, bar"
-          "blur, status-overlay"
-          "ignorealpha 0.1, status-overlay"
+          "blur on, match:namespace ^(rofi)$"
+          "blur on, match:namespace ^(notifications)$"
+          # "ignore_alpha 0.0, match:namespace ^(bar)$"
+          # "blur on, match:namespace ^(bar)$"
+          "blur on, match:namespace ^(status-overlay)$"
+          "ignore_alpha 0.1, match:namespace ^(status-overlay)$"
         ];
         misc = {
           focus_on_activate = true;

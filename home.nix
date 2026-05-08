@@ -1,4 +1,4 @@
-{ config, lib, inputs, pkgs, pkgs-bleeding, pkgs-bitwarden-zathura, system, ... }:
+{ config, lib, inputs, pkgs, pkgs-bleeding, pkgs-bitwarden-zathura, system, codex, ... }:
 
 # TODO: PROBLEM:
 # Launching with uwsm the rofi laucher is slower, but without it and the rest of
@@ -208,11 +208,13 @@ in
      hunspell
      hunspellDicts.es-mx
      pkgs-bleeding.claude-code
-     pkgs-bleeding.codex
+     pkgs-bleeding.opencode
+     codex
     # TODO: maybe manage with home manager
     kitty
      # jupyter-all # COLLITION
     git-lfs
+    gemini-cli-bin
   ];
 
   i18n.inputMethod = {
@@ -359,7 +361,7 @@ in
         }
         {
           condition = "ext pdf|djvu|epub, flag f";
-          command = ''${pkgs.zathura}/bin/zathura -- "$@"'';
+          command = ''${pkgs-bitwarden-zathura.zathura}/bin/zathura -- "$@"'';
         }
         {
           condition = "mime ^video, flag f";

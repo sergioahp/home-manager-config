@@ -4,8 +4,12 @@
   inputs = {
     # Specify the source of Home Manager and Nixpkgs.
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    # Bleeding edge nixpkgs for latest packages (claude-code, codex, etc.)
+    # Bleeding edge nixpkgs for latest packages (claude-code, etc.)
     nixpkgs-bleeding.url = "github:nixos/nixpkgs/nixos-unstable";
+    codex-src = {
+      url = "github:openai/codex";
+      flake = false;
+    };
     # Slow-moving nixpkgs for packages that are infrequently updated or take too long to update
     # Used for: kitty-extended-keys, nix-rice, rofi-switch-rust (and potentially others to be migrated gradually)
     # Updated manually with: nix flake lock --update-input nixpkgs-slow-moving
@@ -60,6 +64,128 @@
         inherit system;
         config.allowUnfree = true;
       };
+      codexRoot = inputs.codex-src + "/codex-rs";
+      codexCargoToml = builtins.fromTOML (builtins.readFile (codexRoot + "/Cargo.toml"));
+      codexCargoVersion = codexCargoToml.workspace.package.version;
+      codexVersion =
+        if codexCargoVersion != "0.0.0" then codexCargoVersion else "0.0.0-dev";
+      codexNixpkgsDir = inputs.nixpkgs-bleeding.outPath + "/pkgs/by-name/co/codex";
+      codexFetchers = pkgs-bleeding.callPackage (codexNixpkgsDir + "/fetchers.nix") { };
+      codex = pkgs-bleeding.callPackage (
+        {
+          lib,
+          stdenv,
+          callPackage,
+          rustPlatform,
+          installShellFiles,
+          bubblewrap,
+          clang,
+          cmake,
+          gitMinimal,
+          libcap,
+          libclang,
+          librusty_v8 ? callPackage (codexNixpkgsDir + "/librusty_v8.nix") {
+            inherit (codexFetchers) fetchLibrustyV8;
+          },
+          livekit-libwebrtc,
+          makeBinaryWrapper,
+          pkg-config,
+          openssl,
+          ripgrep,
+          versionCheckHook,
+          installShellCompletions ? stdenv.buildPlatform.canExecute stdenv.hostPlatform,
+        }:
+        rustPlatform.buildRustPackage {
+          pname = "codex";
+          version = codexVersion;
+
+          src = inputs.codex-src;
+          sourceRoot = "source/codex-rs";
+
+          cargoLock = {
+            lockFile = codexRoot + "/Cargo.lock";
+            allowBuiltinFetchGit = true;
+          };
+
+          cargoBuildFlags = [
+            "--package"
+            "codex-cli"
+          ];
+          cargoCheckFlags = [
+            "--package"
+            "codex-cli"
+          ];
+
+          postPatch = ''
+            # nixpkgs ships libwebrtc as a shared library, so patch the crate
+            # build script to link it dynamically.
+            find "$cargoDepsCopy" -path '*/webrtc-sys-*/build.rs' \
+              -exec sed -i 's/cargo:rustc-link-lib=static=webrtc/cargo:rustc-link-lib=dylib=webrtc/' {} +
+
+            substituteInPlace Cargo.toml \
+              --replace-fail 'lto = "fat"' "" \
+              --replace-fail 'codegen-units = 1' "" \
+              --replace-fail 'version = "0.0.0"' 'version = "${codexVersion}"'
+          '';
+
+          nativeBuildInputs = [
+            clang
+            cmake
+            gitMinimal
+            installShellFiles
+            makeBinaryWrapper
+            pkg-config
+          ];
+
+          buildInputs = [
+            libclang
+            openssl
+          ]
+          ++ lib.optionals stdenv.hostPlatform.isLinux [
+            libcap
+          ];
+
+          env = {
+            LIBCLANG_PATH = "${lib.getLib libclang}/lib";
+            LK_CUSTOM_WEBRTC = lib.getDev livekit-libwebrtc;
+            NIX_CFLAGS_COMPILE = toString (
+              lib.optionals stdenv.cc.isGNU [
+                "-Wno-error=stringop-overflow"
+              ]
+              ++ lib.optionals stdenv.cc.isClang [
+                "-Wno-error=character-conversion"
+              ]
+            );
+            RUSTY_V8_ARCHIVE = librusty_v8;
+          };
+
+          doCheck = false;
+
+          postInstall = lib.optionalString installShellCompletions ''
+            installShellCompletion --cmd codex \
+              --bash <($out/bin/codex completion bash) \
+              --fish <($out/bin/codex completion fish) \
+              --zsh <($out/bin/codex completion zsh)
+          '';
+
+          postFixup = ''
+            wrapProgram $out/bin/codex --prefix PATH : ${
+              lib.makeBinPath ([ ripgrep ] ++ lib.optionals stdenv.hostPlatform.isLinux [ bubblewrap ])
+            }
+          '';
+
+          doInstallCheck = true;
+          nativeInstallCheckInputs = [ versionCheckHook ];
+
+          meta = {
+            description = "Lightweight coding agent that runs in your terminal";
+            homepage = "https://github.com/openai/codex";
+            license = lib.licenses.asl20;
+            mainProgram = "codex";
+            platforms = lib.platforms.unix;
+          };
+        }
+      ) { };
     in {
       homeConfigurations = {
         nixd = home-manager.lib.homeManagerConfiguration {
@@ -70,7 +196,7 @@
             ./machines/nixd.nix
           ];
 
-          extraSpecialArgs = { inherit inputs; inherit system; inherit pkgs-bleeding; inherit pkgs-bitwarden-zathura; };
+          extraSpecialArgs = { inherit inputs; inherit system; inherit pkgs-bleeding; inherit pkgs-bitwarden-zathura; inherit codex; };
         };
 
         laptop = home-manager.lib.homeManagerConfiguration {
@@ -81,7 +207,7 @@
             ./machines/laptop.nix
           ];
 
-          extraSpecialArgs = { inherit inputs; inherit system; inherit pkgs-bleeding; inherit pkgs-bitwarden-zathura; };
+          extraSpecialArgs = { inherit inputs; inherit system; inherit pkgs-bleeding; inherit pkgs-bitwarden-zathura; inherit codex; };
         };
       };
 
