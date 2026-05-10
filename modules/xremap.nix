@@ -51,9 +51,8 @@ in {
   };
   config = lib.mkIf cfg.enable {
     services.xremap = {
-      # yes, you as per a gh issue, one should use this
-      # instead of withHypr
-      withWlroots = true;
+      enable = true;
+      withHypr = true;
       config = {
         keypress_delay_ms = 20;
         modmap = [
