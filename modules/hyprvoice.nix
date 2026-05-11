@@ -25,16 +25,15 @@ in
         transcription = {
           provider = "openai";
           language = "";
-          model = "whisper-1";
+          model = "gpt-4o-transcribe";
         };
         injection = {
-          mode = "fallback";
+          backends = [ "wl-clipboard" "wtype" ];
           restore_clipboard = true;
           wtype_timeout = "5s";
           clipboard_timeout = "3s";
         };
         notifications = {
-          enabled = true;
           type = "desktop";
         };
       };
