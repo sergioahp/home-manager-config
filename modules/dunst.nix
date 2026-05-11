@@ -38,6 +38,13 @@ in
           background = rice.color.toRgbaHex pale-red-38;
           frame_color = rice.color.toRgbHex colors.pale-red;
         };
+        rule-hyprvoice-ctx = let
+          blue-38 = transparentize colors.blue 0.3764705882352941;  # 38% opacity, same as rule-hyprvoice
+        in {
+          appname = "HyprvoiceCtx";
+          background = rice.color.toRgbaHex blue-38;
+          frame_color = rice.color.toRgbHex colors.blue;
+        };
         rule-claude-code = let
           claude-warm-60 = transparentize colors.claude-warm-bg 0.3764705882352941;  # ~38% opacity (60 hex)
         in {
