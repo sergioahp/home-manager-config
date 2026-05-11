@@ -26,7 +26,11 @@ in {
       autosuggestion = {
         enable = true;
       };
-      initContent = ''
+      initContent =
+        let
+          personal-api-keys = "${config.home.homeDirectory}/.config/sops-nix/secrets/personal-api-keys";
+        in
+        /* bash */ '''
         bindkey -v '^?' backward-delete-char
         source ${pkgs.zsh-fzf-tab}/share/fzf-tab/fzf-tab.plugin.zsh
         bindkey ^K fzf-cd-widget
@@ -38,10 +42,19 @@ in {
         bindkey ^F edit-command-line
         # Temporary, gnome overrides the other var so we override back
         export EDITOR=nvim
-        # Set secret env vars
-        if [ -f ~/.secrets ]; then
-          source ~/.secrets
-        fi
+        # Set up API keys
+        for key in "${personal-api-keys}"/*; do
+          [ -r "$key" ] || continue
+
+          name="$(basename "$key")"
+
+          case "$name" in
+            [A-Za-z]*([A-Za-z0-9_]))
+              export "$name=$(cat "$key")"
+              ;;
+            esac
+        done
+
         # Set window title to command and current directory
         preexec() {
           local cmd="''${1%% *}"

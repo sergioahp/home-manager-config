@@ -248,8 +248,11 @@ in
 
   sops = {
     age.keyFile = ageFile;
-    defaultSopsFile = ./secrets.yaml;
-    secrets."avante/anthropic" = { };
+    defaultSopsFile = ./secrets/secrets.yaml;
+    secrets."personal-api-keys/OPENAI_API_KEY" = {};
+    secrets."personal-api-keys/ANTHROPIC_API_KEY" = {};
+    secrets."personal-api-keys/OPENROUTER_API_KEY" = {};
+    secrets."personal-api-keys/MISTRAL_API_KEY" = {};
   };
 
   services.podman = {
