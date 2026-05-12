@@ -30,7 +30,7 @@ in {
         let
           personal-api-keys = "${config.home.homeDirectory}/.config/sops-nix/secrets/personal-api-keys";
         in
-        /* bash */ '''
+        /* bash */ ''
         bindkey -v '^?' backward-delete-char
         source ${pkgs.zsh-fzf-tab}/share/fzf-tab/fzf-tab.plugin.zsh
         bindkey ^K fzf-cd-widget
