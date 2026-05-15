@@ -42,18 +42,22 @@ in {
         bindkey ^F edit-command-line
         # Temporary, gnome overrides the other var so we override back
         export EDITOR=nvim
-        # Set up API keys
-        for key in "${personal-api-keys}"/*; do
-          [ -r "$key" ] || continue
+        # Set up API keys only when the secrets directory exists and is readable.
+        if [ -d "${personal-api-keys}" ] && [ -r "${personal-api-keys}" ]; then
+          # If the directory is empty, the glob "*" may stay literal; guard with -e.
+          for key in "${personal-api-keys}"/*; do
+            [ -e "$key" ] || break
+            [ -r "$key" ] || continue
 
-          name="$(basename "$key")"
+            name="$(basename "$key")"
 
-          case "$name" in
-            [A-Za-z]*([A-Za-z0-9_]))
-              export "$name=$(cat "$key")"
-              ;;
+            case "$name" in
+              [A-Za-z]*([A-Za-z0-9_]))
+                export "$name=$(cat "$key")"
+                ;;
             esac
-        done
+          done
+        fi
 
         # Set window title to command and current directory
         preexec() {
