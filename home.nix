@@ -35,6 +35,23 @@ let
       value = colorsRgbHex.electric-blue;
     };
   }; };
+  # not in claude code wrapper -- explicit alternative for commands in vs out
+  in-claude-else  = pkgs.writeShellApplication {
+    name = "in-claude-else";
+    text = ''
+
+      true_prefix="$1"
+      false_prefix="$2"
+
+      shift 2
+
+      if [[ "''${CLAUDECODE:-}" == "1" ]]; then
+        eval "$true_prefix \"\$@\""
+      else
+        eval "$false_prefix \"\$@\""
+      fi
+    '';
+  };
 in
 {
   nixpkgs.overlays = [
@@ -96,6 +113,7 @@ in
   programs.sergio-hyprvoice.enable = true;
 
   home.packages = with pkgs; [
+     in-claude-else
      nerd-fonts.dejavu-sans-mono
      noto-fonts
      noto-fonts-cjk-sans
@@ -452,6 +470,12 @@ in
     # to use plain commands in Claude Code and safe/fancy versions otherwise
     sudo = "sudo ";
     g = "git";
+    ls   = "in-claude-else 'ls' '${pkgs.eza}/bin/eza'";
+    tree = "in-claude-else 'tree' '${pkgs.eza}/bin/eza -T'";
+    cat  = "in-claude-else 'cat' '${pkgs.bat}/bin/bat --paging=never --style=plain'";
+    cp   = "in-claude-else 'cp' 'cp -i'";
+    mv   = "in-claude-else 'mv' 'mv -i'";
+    rm   = "in-claude-else 'rm' 'rm -I'";
   };
   xdg.mimeApps = {
     enable = true;
