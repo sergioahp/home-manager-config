@@ -1,6 +1,7 @@
 { config, lib, pkgs, inputs, ... }:
 let
   cfg = config.programs.sergio-hyprland;
+  legacyHyprland = lib.versionOlder config.wayland.windowManager.hyprland.package.version "0.50";
 in {
   imports = [
     ./hyprlock.nix
@@ -52,6 +53,9 @@ in {
             vibrancy_darkness = 0.4;
             input_methods = true;
             popups = true;
+          } // lib.optionalAttrs legacyHyprland {
+            input_methods_ignorealpha = 0.1;
+            popups_ignorealpha = 0.1;
           };
           shadow = {
             enabled = false;
@@ -88,7 +92,14 @@ in {
           "$mod, mouse:272, movewindow"
           "$mod, mouse:273, resizewindow"
         ];
-        layerrule = [
+        layerrule = if legacyHyprland then [
+          "blur, rofi"
+          "blur, notifications"
+          # "ignorezero, bar"
+          # "blur, bar"
+          "blur, status-overlay"
+          "ignorealpha 0.1, status-overlay"
+        ] else [
           "blur on, match:namespace ^(rofi)$"
           "blur on, match:namespace ^(notifications)$"
           # "ignore_alpha 0.0, match:namespace ^(bar)$"

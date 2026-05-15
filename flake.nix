@@ -4,6 +4,10 @@
   inputs = {
     # Specify the source of Home Manager and Nixpkgs.
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    # hyprland pinned to v0.49.0 (last known stable on desktop)
+    # Why tf did you pinned this, claude?
+    # last thing that produces a good config != last stable  on desktop
+    hyprland.url = "github:hyprwm/Hyprland/v0.49.0";
     # Bleeding edge nixpkgs for latest packages (claude-code, etc.)
     nixpkgs-bleeding.url = "github:nixos/nixpkgs/nixos-unstable";
     codex-src = {
@@ -40,7 +44,7 @@
       url = "github:sergioahp/rofi-switch-rust";
       inputs.nixpkgs.follows = "nixpkgs-slow-moving";
     };
-    hyprvoice.url = "github:sergioahp/hyprvoice/feature/custom";
+    hyprvoice.url = "github:sergioahp/hyprvoice/feature/context-transcription";
     rofi-power-menu = {
       url = "github:sergioahp/rofi-power-menu";
       flake = false;
@@ -50,6 +54,7 @@
       flake = false;
     };
     status-overlay.url = "github:sergioahp/status-overlay";
+    typst-languagetool-nix.url = "github:sergioahp/typst-languagetool-nix";
   };
 
   outputs = { nixpkgs, home-manager, ... }@inputs:

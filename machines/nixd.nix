@@ -1,15 +1,18 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, inputs, system, ... }:
 
 {
   # nixd-specific Hyprland configuration
-  wayland.windowManager.hyprland.settings = {
-    monitor = [
-      "DVI-I-1,preferred,1920x0,1"
-      "DVI-D-1,preferred,0x0,1"
-    ];
+  wayland.windowManager.hyprland = {
+    package = inputs.hyprland.packages.${system}.hyprland;
+    settings = {
+      monitor = [
+        "DVI-D-1,preferred,0x0,1"
+        "DVI-I-1,preferred,1920x0,1"
+      ];
 
-    input = {
-      sensitivity = lib.mkForce (-0.4); # -1.0 to 1.0, negative = slower
+      input = {
+        sensitivity = lib.mkForce (-0.4); # -1.0 to 1.0, negative = slower
+      };
     };
   };
 
