@@ -137,6 +137,7 @@ in
      ltex-ls-plus
      inputs.hyprswitch.packages.${system}.default
      inputs.status-overlay.packages.${system}.default
+     inputs.typst-languagetool-nix.packages.${system}.lsp
      vimPlugins.nvim-dbee
      cargo
      rust-analyzer
@@ -347,6 +348,7 @@ in
      EDITOR = "${pkgs.neovim}/bin/nvim";
      MANPAGER = "${pkgs.neovim}/bin/nvim +Man!=";
      GTK_THEME = "Layan-Dark";
+     LANGUAGETOOL_JAR = inputs.typst-languagetool-nix.packages.${system}.lsp.languagetoolJar;
   };
 
   services.hyprpaper = {
