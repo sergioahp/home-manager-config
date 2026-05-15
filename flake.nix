@@ -18,6 +18,9 @@
     # Used for: kitty-extended-keys, nix-rice, rofi-switch-rust (and potentially others to be migrated gradually)
     # Updated manually with: nix flake lock --update-input nixpkgs-slow-moving
     nixpkgs-slow-moving.url = "github:nixos/nixpkgs/nixos-unstable";
+    # Known-good nixpkgs snapshot for Firefox transparency.
+    # Commit: cc3f2ee0b3909e42334f34720ccac109a7e67068 (2026-04-20T17:14:09Z)
+    nixpkgs-firefox-transparent.url = "github:NixOS/nixpkgs/cc3f2ee0b3909e42334f34720ccac109a7e67068";
     # Pinned nixpkgs for bitwarden (newer versions have issues)
     # Keep at working commit - update manually only when tested
     nixpkgs-bitwarden-zathura.url = "github:nixos/nixpkgs/nixos-unstable";

@@ -60,8 +60,8 @@ in
         conf = nsxiv-conf;
       };
       kitty = inputs.kitty-extended-keys.packages.${system}.default;
-      # Keep Firefox on the older slow-moving nixpkgs snapshot for now.
-      firefox = inputs.nixpkgs-slow-moving.legacyPackages.${system}.firefox;
+      # Keep Firefox on the known-good transparency snapshot for now.
+      firefox = inputs.nixpkgs-firefox-transparent.legacyPackages.${system}.firefox;
     })
   ];
 
