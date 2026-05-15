@@ -227,7 +227,7 @@ in
      hunspellDicts.es-mx
      pkgs-bleeding.claude-code
      pkgs-bleeding.opencode
-     codex
+     pkgs-bleeding.codex
     # TODO: maybe manage with home manager
     kitty
      # jupyter-all # COLLITION
