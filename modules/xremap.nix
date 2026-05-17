@@ -214,6 +214,79 @@ in {
                   };
                 };
               };
+              # rofi-entry skip reason=submap
+              super-r = {
+                remap = {
+                  # rofi-entry skip reason=ime-switch
+                  super-j = {
+                    launch = [ "${pkgs.fcitx5}/bin/fcitx5-remote" "-s" "mozc" ];
+                  };
+                  # rofi-entry skip reason=ime-switch
+                  super-k = {
+                    launch = [ "${pkgs.fcitx5}/bin/fcitx5-remote" "-s" "fzf-kaomoji" ];
+                  };
+                  # rofi-entry skip reason=ime-switch
+                  super-l = {
+                    launch = [ "${pkgs.fcitx5}/bin/fcitx5-remote" "-s" "fzf-latex" ];
+                  };
+                  # rofi-entry skip reason=ime-switch
+                  super-t = {
+                    launch = [ "${pkgs.fcitx5}/bin/fcitx5-remote" "-s" "fzf-typst" ];
+                  };
+                  # rofi-entry skip reason=ime-switch
+                  super-i = {
+                    launch = [ "${pkgs.fcitx5}/bin/fcitx5-remote" "-s" "fzf-ipa" ];
+                  };
+                  # rofi-entry skip reason=picker-trigger
+                  # Pokes the fcitx5-fzf-picker Module addon directly over
+                  # D-Bus. Synthesized keys aren't reliable here because the
+                  # synth -> compositor -> focused-app -> wayland-IM hop only
+                  # delivers to fcitx5 if the focused app speaks the IM
+                  # protocol; a D-Bus call is addon-to-addon and skips all of
+                  # that. The picker pops a one-shot candidate list on top of
+                  # the current IM instead of swapping IMs like the siblings.
+                  super-m = {
+                    launch = [
+                      "${pkgs.dbus}/bin/dbus-send"
+                      "--session" "--type=method_call"
+                      "--dest=org.fcitx.Fcitx5"
+                      "/fzfpicker"
+                      "org.fcitx.Fcitx5.Addon.FzfPicker1.TriggerEmoji"
+                    ];
+                  };
+                  # rofi-entry skip reason=picker-trigger
+                  # Clipboard fuzzy picker - sibling of fzfpicker, pokes the
+                  # fcitx5-fzf-clipboard addon over D-Bus. Same one-off shape:
+                  # pop, type to filter, Alt+1..0 to commit, Esc to cancel.
+                  super-o = {
+                    launch = [
+                      "${pkgs.dbus}/bin/dbus-send"
+                      "--session" "--type=method_call"
+                      "--dest=org.fcitx.Fcitx5"
+                      "/fzfclipboard"
+                      "org.fcitx.Fcitx5.Addon.FzfClipboard1.Trigger"
+                    ];
+                  };
+                  # rofi-entry skip reason=clipboard-clear
+                  # Drop the most recent clipboard history entry. Use after
+                  # copying something you didn't want recorded (the OS
+                  # clipboard itself is unaffected; bind wl-copy --clear
+                  # separately if you also need that).
+                  super-p = {
+                    launch = [
+                      "${pkgs.dbus}/bin/dbus-send"
+                      "--session" "--type=method_call"
+                      "--dest=org.fcitx.Fcitx5"
+                      "/fzfclipboard"
+                      "org.fcitx.Fcitx5.Addon.FzfClipboard1.ClearLast"
+                    ];
+                  };
+                  # rofi-entry skip reason=ime-switch
+                  super-r = {
+                    launch = [ "${pkgs.fcitx5}/bin/fcitx5-remote" "-s" "keyboard-us-altgr-intl" ];
+                  };
+                };
+              };
               # rofi-entry skip reason=workspace-switch
               super-f = {
                 remap = {

@@ -58,6 +58,10 @@
     };
     status-overlay.url = "github:sergioahp/status-overlay";
     typst-languagetool-nix.url = "github:sergioahp/typst-languagetool-nix";
+    fcitx5-fzf-table = {
+      url = "github:sergioahp/fcitx5-fzf-table";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = { nixpkgs, home-manager, ... }@inputs:

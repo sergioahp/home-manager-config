@@ -249,6 +249,7 @@ in
       fcitx5-mozc
       fcitx5-gtk
       kdePackages.fcitx5-qt
+      inputs.fcitx5-fzf-table.packages.${system}.fcitx5-fzf-table
     ];
     fcitx5.waylandFrontend = true;
 

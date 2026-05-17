@@ -173,6 +173,26 @@
         "type": "github"
       }
     },
+    "fcitx5-fzf-table": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1778974732,
+        "narHash": "sha256-QSKYsvLRYIuXHt6xzrioryKumMLeGWja0qwC7d/BZAk=",
+        "owner": "sergioahp",
+        "repo": "fcitx5-fzf-table",
+        "rev": "cb8e67c4de4a274e0034d961e826a61c3ffb54f6",
+        "type": "github"
+      },
+      "original": {
+        "owner": "sergioahp",
+        "repo": "fcitx5-fzf-table",
+        "type": "github"
+      }
+    },
     "fenix": {
       "inputs": {
         "nixpkgs": [
@@ -1183,6 +1203,7 @@
       "inputs": {
         "codex-src": "codex-src",
         "dunst-src": "dunst-src",
+        "fcitx5-fzf-table": "fcitx5-fzf-table",
         "gtk-status-bar": "gtk-status-bar",
         "home-manager": "home-manager",
         "hyprland": "hyprland",
