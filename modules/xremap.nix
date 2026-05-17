@@ -4,6 +4,14 @@ let
   launcher = import ./rofi-launcher.nix { inherit config pkgs pkgs-bitwarden-zathura lib inputs system; };
   launcherBin = "${launcher.script}/bin/xremap-launcher";
   rofiPowerMenu = "${inputs.rofi-power-menu}/rofi-power-menu";
+
+  # Mirror of rofiSwitcher in rofi-launcher.nix: ensure quick-start uses the
+  # overlay's forked rofi (MM_FZF) instead of the one compile-baked by the
+  # rofi-switch-rust flake's own nixpkgs.
+  rofiSwitcher = pkgs.writeShellScriptBin "quick-start" ''
+    export ROFI_BIN=${pkgs.rofi}/bin/rofi
+    exec ${inputs.rofi-switch-rust.packages.${system}.default}/bin/quick-start "$@"
+  '';
 in {
   # -----------------------------------------------------------------------------
   # xremap launcher metadata guide
@@ -118,7 +126,7 @@ in {
                   # rofi-entry include category=Utilities color=#7DCFFF emoji=⚡
                   super-k = {
                     launch = [
-                      "${inputs.rofi-switch-rust.packages.${system}.default}/bin/quick-start"
+                      "${rofiSwitcher}/bin/quick-start"
                     ];
                   };
                   # rofi-entry include category=Applications color=#7AA2F7 emoji=🔐

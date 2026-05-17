@@ -56,6 +56,11 @@
       url = "github:sergioahp/dunst/feature/action-history-timeout";
       flake = false;
     };
+    rofi-src = {
+      # git scheme (not github:) so submodules=1 fetches subprojects/libgwater.
+      url = "git+https://github.com/sergioahp/rofi.git?ref=feature/mm-fzf-matching&submodules=1";
+      flake = false;
+    };
     status-overlay.url = "github:sergioahp/status-overlay";
     typst-languagetool-nix.url = "github:sergioahp/typst-languagetool-nix";
     fcitx5-fzf-table = {

@@ -94,6 +94,11 @@ in {
         ];
         layerrule = if legacyHyprland then [
           "blur, rofi"
+          # Newer rofi renders its layer-surface fullscreen with transparent
+          # margins, so without an alpha cutoff Hyprland blurs the entire
+          # monitor. ignorealpha 0.1 skips painting (and thus blurring) pixels
+          # below 10% alpha, confining the effect to the actual popup.
+          "ignorealpha 0.1, rofi"
           "blur, notifications"
           # "ignorezero, bar"
           # "blur, bar"
@@ -101,6 +106,8 @@ in {
           "ignorealpha 0.1, status-overlay"
         ] else [
           "blur on, match:namespace ^(rofi)$"
+          # See note in legacy branch above; same reasoning, modern syntax.
+          "ignore_alpha 0.1, match:namespace ^(rofi)$"
           "blur on, match:namespace ^(notifications)$"
           # "ignore_alpha 0.0, match:namespace ^(bar)$"
           # "blur on, match:namespace ^(bar)$"

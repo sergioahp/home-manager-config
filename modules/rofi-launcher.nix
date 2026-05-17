@@ -4,6 +4,15 @@ let
   categoryColors = config.categoryColors;
   rofiPowerMenu = "${inputs.rofi-power-menu}/rofi-power-menu";
 
+  # quick-start ships with rofi-switch-rust's own nixpkgs rofi baked in via
+  # compile-time ROFI_BIN. We override at runtime so the overlay's forked rofi
+  # (with MM_FZF) is what actually spawns. Matching mode is set in the rofi
+  # config file, so no -matching arg is needed here.
+  rofiSwitcher = pkgs.writeShellScriptBin "quick-start" ''
+    export ROFI_BIN=${pkgs.rofi}/bin/rofi
+    exec ${inputs.rofi-switch-rust.packages.${system}.default}/bin/quick-start "$@"
+  '';
+
   entries = [
     {
       key = "super-m super-l";
@@ -90,7 +99,7 @@ let
       color = categoryColors.Utilities;
       glyph = "⚡";
       args = [
-        "${inputs.rofi-switch-rust.packages.${system}.default}/bin/quick-start"
+        "${rofiSwitcher}/bin/quick-start"
       ];
     }
     {

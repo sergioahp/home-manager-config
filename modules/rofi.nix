@@ -16,8 +16,11 @@ in
       package = pkgs.rofi;
       extraConfig = {
         show-icons = true;
-        sorting-method = "normal";
-        matching = "normal";
+        # sort=true actually reorders matches by score; without it, sorting-method
+        # is computed but ignored and rofi displays matches in input order.
+        sort = true;
+        sorting-method = "fzf";
+        matching = "fzf";
         case-smart = true;
       };
       theme = let

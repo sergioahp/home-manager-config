@@ -1176,6 +1176,25 @@
         "type": "github"
       }
     },
+    "rofi-src": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1778732475,
+        "narHash": "sha256-7yQhXwUDfS8RTy4jgR8nerl7WDpDw1qpxOGZKdI1GIQ=",
+        "ref": "feature/mm-fzf-matching",
+        "rev": "22a589c9355acdd6d9ddb950b25a5c6f08a0bc71",
+        "revCount": 4323,
+        "submodules": true,
+        "type": "git",
+        "url": "https://github.com/sergioahp/rofi.git"
+      },
+      "original": {
+        "ref": "feature/mm-fzf-matching",
+        "submodules": true,
+        "type": "git",
+        "url": "https://github.com/sergioahp/rofi.git"
+      }
+    },
     "rofi-switch-rust": {
       "inputs": {
         "advisory-db": "advisory-db",
@@ -1186,11 +1205,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1768082471,
-        "narHash": "sha256-1FXkoGZPgn6eG+A+de+/WNkygXPhBIJPwf/F3lWmWs4=",
+        "lastModified": 1778986570,
+        "narHash": "sha256-VOpDtUz9QJqMVRSnv1Mq+Yx6TOqJPLnkOqOF9D+smJ0=",
         "owner": "sergioahp",
         "repo": "rofi-switch-rust",
-        "rev": "46bac35edf53f7b3b415ecb5663fa52f13941fe3",
+        "rev": "81d65d21ae2833712d6551fc068f2ec20d7f7420",
         "type": "github"
       },
       "original": {
@@ -1217,6 +1236,7 @@
         "nixpkgs-firefox-transparent": "nixpkgs-firefox-transparent",
         "nixpkgs-slow-moving": "nixpkgs-slow-moving",
         "rofi-power-menu": "rofi-power-menu",
+        "rofi-src": "rofi-src",
         "rofi-switch-rust": "rofi-switch-rust",
         "sops-nix": "sops-nix",
         "status-overlay": "status-overlay",
