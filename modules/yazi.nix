@@ -9,6 +9,7 @@ in {
     programs.yazi = {
       enable = true;
       enableZshIntegration = true;
+      shellWrapperName = "y";
       settings = {
         plugin = {
           prepend_preloaders = [
