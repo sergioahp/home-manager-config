@@ -6,6 +6,7 @@ in {
   imports = [
     ./hyprlock.nix
     ./hypridle.nix
+    inputs.gtk-status-bar.homeModules.default
   ];
   options = {
     programs.sergio-hyprland.enable = lib.mkEnableOption "sergio's hyprland config";
@@ -14,6 +15,10 @@ in {
     # Enable hyprlock and hypridle modules
     programs.sergio-hyprlock.enable = true;
     programs.sergio-hypridle.enable = true;
+    # gtk-status-bar installs the unit (no Install.WantedBy); we start it from
+    # exec-once below so it only runs alongside Hyprland and we still get
+    # journald logs + on-failure restart.
+    programs.gtk-status-bar.enable = true;
 
     home.packages = with pkgs; [
       hyprpicker
@@ -118,7 +123,12 @@ in {
           focus_on_activate = true;
         };
         exec-once = [
-          "${inputs.gtk-status-bar.packages.${pkgs.system}.default}/bin/gtk-status-bar"
+          # UWSM exports WAYLAND_DISPLAY etc. into the user systemd environment,
+          # but HYPRLAND_INSTANCE_SIGNATURE is only known after Hyprland is up.
+          # Re-import here so systemd-launched children (the status bar) can find
+          # Hyprland's IPC sockets at $XDG_RUNTIME_DIR/hypr/$HIS/.socket2.sock.
+          "systemctl --user import-environment HYPRLAND_INSTANCE_SIGNATURE WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
+          "systemctl --user start gtk-status-bar.service"
           "${inputs.status-overlay.packages.${pkgs.system}.default}/bin/status-overlay"
         ];
       };
