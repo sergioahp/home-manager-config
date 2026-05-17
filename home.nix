@@ -164,6 +164,7 @@ in
      lua-language-server
      gcc
      gnumake
+     tree-sitter
      ripgrep
      fd
      yt-dlp
