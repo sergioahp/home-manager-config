@@ -159,11 +159,11 @@
     "dunst-src": {
       "flake": false,
       "locked": {
-        "lastModified": 1772446098,
-        "narHash": "sha256-tYo4VUknVS24TLTa3mPn1bf6akY7MozROB9MtX21O4w=",
+        "lastModified": 1778984118,
+        "narHash": "sha256-3hyLx6ap9qWTGZE0VLw/nX5oeEfMDHCRqxkOZ/xlMuQ=",
         "owner": "sergioahp",
         "repo": "dunst",
-        "rev": "42be0e6ed095766b6116221fe3bafa69975f6bad",
+        "rev": "3b978e922875d89ed33e8b9f6faeb32c7a22b8e1",
         "type": "github"
       },
       "original": {

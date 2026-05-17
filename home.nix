@@ -62,6 +62,7 @@ in
       kitty = inputs.kitty-extended-keys.packages.${system}.default;
       # Keep Firefox on the known-good transparency snapshot for now.
       firefox = inputs.nixpkgs-firefox-transparent.legacyPackages.${system}.firefox;
+      dunst = p.dunst.overrideAttrs (_: { src = inputs.dunst-src; });
     })
   ];
 
