@@ -60,8 +60,6 @@ in
         conf = nsxiv-conf;
       };
       kitty = inputs.kitty-extended-keys.packages.${system}.default;
-      # Keep Firefox on the known-good transparency snapshot for now.
-      firefox = inputs.nixpkgs-firefox-transparent.legacyPackages.${system}.firefox;
       dunst = p.dunst.overrideAttrs (_: { src = inputs.dunst-src; });
       # pkgs.rofi is a symlinkJoin wrapper; overriding .src on it does nothing.
       # The compiled binary comes from rofi-unwrapped, so swap that via .override.
