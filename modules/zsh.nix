@@ -14,7 +14,11 @@ in {
       enable = true;
       zshIntegration = true;
     };
-    
+
+    home.sessionVariables = {
+      # Avoid waiting for key timeout when using vi mode
+      KEYTIMEOUT = 1;
+    };
     programs.zsh = {
       enable = true;
       defaultKeymap = "viins";
