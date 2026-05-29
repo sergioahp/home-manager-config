@@ -9,19 +9,22 @@ in {
 
   config = lib.mkIf cfg.enable (
     let
-      hyprlockBin = lib.getExe pkgs.hyprlock;
+      hyprlockBin    = lib.getExe pkgs.hyprlock;
       systemdInhibit = lib.getExe' pkgs.systemd "systemd-inhibit";
-      pgrep = lib.getExe' pkgs.procps "pgrep";
-      hyprlockInhibitor = pkgs.writeShellScriptBin "hyprlock-inhibit" ''
-        set -euo pipefail
+      pkill          = lib.getExe' pkgs.procps "pkill";
+      inhibitTag     = "hypridle-lock-inhibit";
 
-        if ${pgrep} -x hyprlock >/dev/null; then
-          exit 0
-        fi
+      lockInhibitOn = pkgs.writeShellScript "lock-inhibit-on" ''
+        set -eu
+        ${pkill} -f "${inhibitTag}" || true
+        ${systemdInhibit} --what=handle-lid-switch:sleep --mode=block \
+          --who=${inhibitTag} --why="Screen locked" \
+          sleep infinity &
+        disown
+      '';
 
-        exec ${systemdInhibit} --what=handle-lid-switch:sleep --mode=block \
-          --who=hyprlock --why="Screen locked" \
-          ${hyprlockBin} --grace 10 "$@"
+      lockInhibitOff = pkgs.writeShellScript "lock-inhibit-off" ''
+        ${pkill} -f "${inhibitTag}" || true
       '';
     in {
       services.hypridle = {
@@ -29,9 +32,11 @@ in {
 
         settings = {
           general = {
-            lock_cmd = "${hyprlockInhibitor}/bin/hyprlock-inhibit";
+            lock_cmd         = "${hyprlockBin} --grace 10";
+            on_lock_cmd      = "${lockInhibitOn}";
+            on_unlock_cmd    = "${lockInhibitOff}";
             before_sleep_cmd = "loginctl lock-session";
-            after_sleep_cmd = "hyprctl dispatch dpms on";
+            after_sleep_cmd  = "hyprctl dispatch dpms on";
           };
 
           listener = [
