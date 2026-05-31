@@ -420,6 +420,7 @@ in
       settings = {
         theme_background = false;
         vim_keys = true;
+        update_ms = 100;
       };
     };
     vscode = {
