@@ -36,6 +36,20 @@ in {
         in
         /* bash */ ''
         bindkey -v '^?' backward-delete-char
+
+        # Cursor shape per vi mode: block in normal, bar in insert
+        function zle-keymap-select {
+          case $KEYMAP in
+            vicmd) printf '\e[2 q';;
+            viins|main) printf '\e[6 q';;
+          esac
+        }
+        zle -N zle-keymap-select
+        function zle-line-init {
+          printf '\e[6 q'
+        }
+        zle -N zle-line-init
+
         source ${pkgs.zsh-fzf-tab}/share/fzf-tab/fzf-tab.plugin.zsh
         bindkey ^K fzf-cd-widget
         bindkey ^J fzf-file-widget
