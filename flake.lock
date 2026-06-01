@@ -180,11 +180,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1779358507,
-        "narHash": "sha256-Ebog8C/t0FKd/MlfjYxrfrzOzHFvHCpPbuexI/HkDI8=",
+        "lastModified": 1780285080,
+        "narHash": "sha256-aS0oj0PNMPIABjuP/3AdubI1oV1qK6C4ujoG0U1SfkM=",
         "owner": "sergioahp",
         "repo": "fcitx5-fzf-table",
-        "rev": "163afbe754ca242f53ffbd169b27ecced6e0108f",
+        "rev": "c48778967c12ff6aebf265f70776126a09438a28",
         "type": "github"
       },
       "original": {
@@ -892,11 +892,11 @@
     },
     "nixpkgs-bleeding": {
       "locked": {
-        "lastModified": 1779357205,
-        "narHash": "sha256-cCO8aTqss5x9Ky8GWkpY0Hy5fyTZEbtifSUV8QjSzic=",
+        "lastModified": 1779560665,
+        "narHash": "sha256-tpyBcxPpcQb8ukyNF7DoCwfSY3VPsxHoYwj00Cayv5o=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "f83fc3c307e74bc5fd5adb7eb6b8b13ffd2a36e1",
+        "rev": "64c08a7ca051951c8eae34e3e3cb1e202fe36786",
         "type": "github"
       },
       "original": {
