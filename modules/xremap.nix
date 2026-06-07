@@ -167,8 +167,39 @@ in {
                     launch = [
                       "${pkgs.bash}/bin/sh" "-c"
                       ''
-                        ${pkgs.grim}/bin/grim -g "$(${pkgs.slurp}/bin/slurp -w 0)" - |
-                        ${pkgs.swappy}/bin/swappy -f -
+                        # Freeze the screen with hyprpicker (-r renders a still
+                        # frame, -z drops the zoom lens) so the slurp selection
+                        # and the grim capture both see a frozen image. Capture
+                        # to a private temp file and kill hyprpicker before
+                        # swappy opens, otherwise the frozen overlay would linger
+                        # on top of the editor (swappy -f blocks until you close
+                        # it).
+                        ${pkgs.hyprpicker}/bin/hyprpicker -r -z &
+                        picker=$!
+                        # hyprpicker captures and commits its frozen overlay
+                        # asynchronously, so poll for the layer-surface instead
+                        # of a blind sleep: wait at most 200ms, bail if the
+                        # process dies or the overlay never shows (otherwise grim
+                        # would grab the live desktop), and proceed the instant
+                        # it is up.
+                        ready=
+                        deadline=$(($(${pkgs.coreutils}/bin/date +%s%3N) + 200))
+                        while [ "$(${pkgs.coreutils}/bin/date +%s%3N)" -lt "$deadline" ]; do
+                          kill -0 "$picker" 2>/dev/null || break
+                          if ${config.wayland.windowManager.hyprland.package}/bin/hyprctl layers -j |
+                               ${pkgs.gnugrep}/bin/grep -q '"namespace": "hyprpicker"'; then
+                            ready=1
+                            break
+                          fi
+                          ${pkgs.coreutils}/bin/sleep 0.01
+                        done
+                        [ -n "$ready" ] || { kill "$picker" 2>/dev/null; exit 1; }
+                        geometry="$(${pkgs.slurp}/bin/slurp -w 0)" || { kill "$picker"; exit 1; }
+                        shot="$(${pkgs.coreutils}/bin/mktemp --tmpdir="''${XDG_RUNTIME_DIR:-/tmp}" shot.XXXXXX.png)"
+                        ${pkgs.grim}/bin/grim -g "$geometry" "$shot"
+                        kill "$picker"
+                        ${pkgs.swappy}/bin/swappy -f "$shot"
+                        ${pkgs.coreutils}/bin/rm -f "$shot"
                       ''
                     ];
                   };
