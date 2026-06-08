@@ -742,6 +742,7 @@ let
       args = [
         "${pkgs.lua}/bin/lua"
         "-e"
+        /* lua */
         ''
           local handle = io.popen("${pkgs.brightnessctl}/bin/brightnessctl get")
           local current = tonumber(handle:read("*a"))
