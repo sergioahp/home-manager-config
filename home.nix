@@ -66,6 +66,8 @@ in
       rofi = p.rofi.override {
         rofi-unwrapped = p.rofi-unwrapped.overrideAttrs (_: { src = inputs.rofi-src; });
       };
+      # The full sage-tests suite takes hours and dominates rebuild time; skip it.
+      sage = p.sage.override { requireSageTests = false; };
     })
   ];
 

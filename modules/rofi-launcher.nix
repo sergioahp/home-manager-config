@@ -86,8 +86,12 @@ let
         "${pkgs.rofi}/bin/rofi"
         "-show"
         "drun"
-        "-run-command"
-        "uwsm-app -- hyprctl dispatch exec -- {cmd}"
+        # drun ignores -run-command and launches via GIO as a child of rofi
+        # (hence of xremap.service), so apps die when that unit restarts. The
+        # forked rofi's -drun-launch-prefix routes the launch through uwsm/hyprctl
+        # instead, detaching it into the compositor's scope.
+        "-drun-launch-prefix"
+        "${pkgs.uwsm}/bin/uwsm-app -- ${pkgs.hyprland}/bin/hyprctl dispatch exec --"
         "-theme-str"
         "window {width: 20%;}"
       ];
