@@ -804,15 +804,16 @@
         ]
       },
       "locked": {
-        "lastModified": 1778464241,
-        "narHash": "sha256-AlmWff9uaMDmJsQpAPNaYLs/ysZixyOg8VEovnAe/mk=",
+        "lastModified": 1781055187,
+        "narHash": "sha256-yj6Pk8TMLs5cBR//zZQ8QrwnUkeXoDPT8kA21/L2U3A=",
         "owner": "sergioahp",
         "repo": "kitty-extended-keys",
-        "rev": "1bed5f75000ac2cfe63559315770cf2600090c26",
+        "rev": "51a2c93793e88883eace21e8667eac20fb0acf90",
         "type": "github"
       },
       "original": {
         "owner": "sergioahp",
+        "ref": "feat/enable-ctrl-shift-f",
         "repo": "kitty-extended-keys",
         "type": "github"
       }
