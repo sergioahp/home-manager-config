@@ -325,6 +325,123 @@ let
       ];
     }
     {
+      key = "super-r super-j";
+      desc = "Fcitx switch to Mozc";
+      category = "Input";
+      color = categoryColors.Input;
+      glyph = "あ";
+      args = [
+        "${pkgs.fcitx5}/bin/fcitx5-remote"
+        "-s"
+        "mozc"
+      ];
+    }
+    {
+      key = "super-r super-k";
+      desc = "Fcitx switch to kaomoji";
+      category = "Input";
+      color = categoryColors.Input;
+      glyph = "☺";
+      args = [
+        "${pkgs.fcitx5}/bin/fcitx5-remote"
+        "-s"
+        "fzf-kaomoji"
+      ];
+    }
+    {
+      key = "super-r super-l";
+      desc = "Fcitx switch to LaTeX";
+      category = "Input";
+      color = categoryColors.Input;
+      glyph = "λ";
+      args = [
+        "${pkgs.fcitx5}/bin/fcitx5-remote"
+        "-s"
+        "fzf-latex"
+      ];
+    }
+    {
+      key = "super-r super-t";
+      desc = "Fcitx switch to Typst";
+      category = "Input";
+      color = categoryColors.Input;
+      glyph = "T";
+      args = [
+        "${pkgs.fcitx5}/bin/fcitx5-remote"
+        "-s"
+        "fzf-typst"
+      ];
+    }
+    {
+      key = "super-r super-i";
+      desc = "Fcitx switch to IPA";
+      category = "Input";
+      color = categoryColors.Input;
+      glyph = "ə";
+      args = [
+        "${pkgs.fcitx5}/bin/fcitx5-remote"
+        "-s"
+        "fzf-ipa"
+      ];
+    }
+    {
+      key = "super-r super-m";
+      desc = "Fcitx emoji picker";
+      category = "Input";
+      color = categoryColors.Input;
+      glyph = "😀";
+      args = [
+        "${pkgs.dbus}/bin/dbus-send"
+        "--session"
+        "--type=method_call"
+        "--dest=org.fcitx.Fcitx5"
+        "/fzfpicker"
+        "org.fcitx.Fcitx5.Addon.FzfPicker1.TriggerEmoji"
+      ];
+    }
+    {
+      key = "super-r super-o";
+      desc = "Fcitx clipboard picker";
+      category = "Input";
+      color = categoryColors.Input;
+      glyph = "📋";
+      args = [
+        "${pkgs.dbus}/bin/dbus-send"
+        "--session"
+        "--type=method_call"
+        "--dest=org.fcitx.Fcitx5"
+        "/fzfclipboard"
+        "org.fcitx.Fcitx5.Addon.FzfClipboard1.Trigger"
+      ];
+    }
+    {
+      key = "super-r super-p";
+      desc = "Fcitx clear last clipboard entry";
+      category = "Input";
+      color = categoryColors.Input;
+      glyph = "🧹";
+      args = [
+        "${pkgs.dbus}/bin/dbus-send"
+        "--session"
+        "--type=method_call"
+        "--dest=org.fcitx.Fcitx5"
+        "/fzfclipboard"
+        "org.fcitx.Fcitx5.Addon.FzfClipboard1.ClearLast"
+      ];
+    }
+    {
+      key = "super-r super-r";
+      desc = "Fcitx switch to US intl";
+      category = "Input";
+      color = categoryColors.Input;
+      glyph = "⌨";
+      args = [
+        "${pkgs.fcitx5}/bin/fcitx5-remote"
+        "-s"
+        "keyboard-us-altgr-intl"
+      ];
+    }
+    {
       key = "super-d super-c";
       desc = "Kill active window";
       category = "Window";

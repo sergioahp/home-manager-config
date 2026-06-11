@@ -256,27 +256,27 @@ in {
               # rofi-entry skip reason=submap
               super-r = {
                 remap = {
-                  # rofi-entry skip reason=ime-switch
+                  # rofi-entry include category=Input color=#7DCFFF emoji=あ
                   super-j = {
                     launch = [ "${pkgs.fcitx5}/bin/fcitx5-remote" "-s" "mozc" ];
                   };
-                  # rofi-entry skip reason=ime-switch
+                  # rofi-entry include category=Input color=#7DCFFF emoji=☺
                   super-k = {
                     launch = [ "${pkgs.fcitx5}/bin/fcitx5-remote" "-s" "fzf-kaomoji" ];
                   };
-                  # rofi-entry skip reason=ime-switch
+                  # rofi-entry include category=Input color=#7DCFFF emoji=λ
                   super-l = {
                     launch = [ "${pkgs.fcitx5}/bin/fcitx5-remote" "-s" "fzf-latex" ];
                   };
-                  # rofi-entry skip reason=ime-switch
+                  # rofi-entry include category=Input color=#7DCFFF emoji=T
                   super-t = {
                     launch = [ "${pkgs.fcitx5}/bin/fcitx5-remote" "-s" "fzf-typst" ];
                   };
-                  # rofi-entry skip reason=ime-switch
+                  # rofi-entry include category=Input color=#7DCFFF emoji=ə
                   super-i = {
                     launch = [ "${pkgs.fcitx5}/bin/fcitx5-remote" "-s" "fzf-ipa" ];
                   };
-                  # rofi-entry skip reason=picker-trigger
+                  # rofi-entry include category=Input color=#7DCFFF emoji=😀
                   # Pokes the fcitx5-fzf-picker Module addon directly over
                   # D-Bus. Synthesized keys aren't reliable here because the
                   # synth -> compositor -> focused-app -> wayland-IM hop only
@@ -293,7 +293,7 @@ in {
                       "org.fcitx.Fcitx5.Addon.FzfPicker1.TriggerEmoji"
                     ];
                   };
-                  # rofi-entry skip reason=picker-trigger
+                  # rofi-entry include category=Input color=#7DCFFF emoji=📋
                   # Clipboard fuzzy picker - sibling of fzfpicker, pokes the
                   # fcitx5-fzf-clipboard addon over D-Bus. Same one-off shape:
                   # pop, type to filter, Alt+1..0 to commit, Esc to cancel.
@@ -306,7 +306,7 @@ in {
                       "org.fcitx.Fcitx5.Addon.FzfClipboard1.Trigger"
                     ];
                   };
-                  # rofi-entry skip reason=clipboard-clear
+                  # rofi-entry include category=Input color=#7DCFFF emoji=🧹
                   # Drop the most recent clipboard history entry. Use after
                   # copying something you didn't want recorded (the OS
                   # clipboard itself is unaffected; bind wl-copy --clear
@@ -320,7 +320,7 @@ in {
                       "org.fcitx.Fcitx5.Addon.FzfClipboard1.ClearLast"
                     ];
                   };
-                  # rofi-entry skip reason=ime-switch
+                  # rofi-entry include category=Input color=#7DCFFF emoji=⌨
                   super-r = {
                     launch = [ "${pkgs.fcitx5}/bin/fcitx5-remote" "-s" "keyboard-us-altgr-intl" ];
                   };

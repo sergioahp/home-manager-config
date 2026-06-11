@@ -19,6 +19,7 @@ in
         Audio = rice.color.toRgbHex colors.blue1;
         Brightness = rice.color.toRgbHex colors.yellow;
         Productivity = rice.color.toRgbHex colors.blue;
+        Input = rice.color.toRgbHex colors.cyan;
       };
     };
   };
