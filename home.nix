@@ -283,6 +283,7 @@ in
     secrets."personal-api-keys/OPENROUTER_API_KEY" = {};
     secrets."personal-api-keys/MISTRAL_API_KEY" = {};
     secrets."personal-api-keys/INCEPTION_API_KEY" = {};
+    secrets."personal-api-keys/MORPH_API_KEY" = {};
   };
 
   services.podman = {
