@@ -27,4 +27,13 @@
 
   # nixd-specific dunst configuration - show on monitor 1 (right monitor)
   services.dunst.settings.global.monitor = 1;
+
+  # Chromium freezes on launch on this box (GTX 760, Kepler, nouveau): the
+  # GPU-compositing -> Wayland surface presentation path hangs in the
+  # EGL/dmabuf buffer hand-off. Tested: any GPU-accelerated backend freezes
+  # (Graphite/Vulkan, Ganesh GL, ANGLE-GL); only software present survives.
+  # --disable-gpu-compositing keeps native Wayland + GPU rasterization and
+  # composites in software, which avoids the hang without dropping to a full
+  # --disable-gpu. Desktop-only; the laptop GPU does not have this issue.
+  programs.chromium.commandLineArgs = [ "--disable-gpu-compositing" ];
 }
