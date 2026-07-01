@@ -67,11 +67,12 @@ in {
             [ -e "$key" ] || break
             [ -r "$key" ] || continue
 
-            name="$(basename "$key")"
+            # Not `name`: nix dev shells export `name` and Starship prints it.
+            key_name="$(basename "$key")"
 
-            case "$name" in
+            case "$key_name" in
               [A-Za-z]*([A-Za-z0-9_]))
-                export "$name=$(cat "$key")"
+                export "$key_name=$(cat "$key")"
                 ;;
             esac
           done
