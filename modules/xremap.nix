@@ -72,6 +72,43 @@ in {
           }
         ];
         keymap = [
+          # Kitty hyprvoice-context override (must precede "main remaps" - see note).
+          #
+          # Globally, super-dot>super-dot runs `hyprvoice toggle` directly with no
+          # terminal context. Inside kitty we instead synthesize the ctrl+. ctrl+.
+          # chord that kitty's own config (in the kitty-extended-keys flake) binds to
+          #   launch --stdin-source=@screen_scrollback ... hyprvoice toggle
+          # so the transcription model receives the visible scrollback as context.
+          # The muscle-memory super-dot stays the same; only the focused app changes
+          # whether scrollback is attached.
+          #
+          # Precedence: xremap gathers every keymap binding `super-dot` in config
+          # order and MERGES the nested submaps; at each leaf the FIRST matching entry
+          # wins (see find_keymap in xremap's event_handler.rs). This block must
+          # therefore sit ahead of "main remaps" so its leaves shadow the global ones
+          # while kitty is focused. `application.only = "kitty"` makes it inert
+          # everywhere else, so the direct-toggle global binding still applies there.
+          {
+            name = "kitty hyprvoice context remaps";
+            remap = {
+              # rofi-entry skip reason=application-remap
+              super-dot = {
+                remap = {
+                  # rofi-entry skip reason=application-remap
+                  # Emit kitty's ctrl+. ctrl+. chord -> records with scrollback context
+                  super-dot = [ "c-dot" "c-dot" ];
+                  # rofi-entry skip reason=application-remap
+                  # Cancel needs no terminal context; call hyprvoice like the global bind
+                  super-c = {
+                    launch = [ "${inputs.hyprvoice.packages.${system}.default}/bin/hyprvoice" "cancel" ];
+                  };
+                };
+              };
+            };
+            application = {
+              "only" = "kitty";
+            };
+          }
           {
             name = "main remaps";
             remap = {
