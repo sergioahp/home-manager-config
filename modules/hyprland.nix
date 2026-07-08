@@ -7,6 +7,7 @@ in {
     ./hyprlock.nix
     ./hypridle.nix
     inputs.gtk-status-bar.homeModules.default
+    inputs.status-overlay.homeModules.default
   ];
   options = {
     programs.sergio-hyprland.enable = lib.mkEnableOption "sergio's hyprland config";
@@ -15,10 +16,11 @@ in {
     # Enable hyprlock and hypridle modules
     programs.sergio-hyprlock.enable = true;
     programs.sergio-hypridle.enable = true;
-    # gtk-status-bar installs the unit (no Install.WantedBy); we start it from
-    # exec-once below so it only runs alongside Hyprland and we still get
-    # journald logs + on-failure restart.
+    # gtk-status-bar and status-overlay both install a unit (no Install.WantedBy);
+    # we start them from exec-once below so they only run alongside Hyprland and we
+    # still get journald logs + on-failure restart.
     programs.gtk-status-bar.enable = true;
+    programs.status-overlay.enable = true;
 
     home.packages = with pkgs; [
       hyprpicker
@@ -129,7 +131,7 @@ in {
           # Hyprland's IPC sockets at $XDG_RUNTIME_DIR/hypr/$HIS/.socket2.sock.
           "systemctl --user import-environment HYPRLAND_INSTANCE_SIGNATURE WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
           "systemctl --user start gtk-status-bar.service"
-          "${inputs.status-overlay.packages.${pkgs.system}.default}/bin/status-overlay"
+          "systemctl --user start status-overlay.service"
         ];
       };
     };

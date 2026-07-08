@@ -144,7 +144,6 @@ in
      ]))
      ltex-ls-plus
      inputs.hyprswitch.packages.${system}.default
-     inputs.status-overlay.packages.${system}.default
      inputs.typst-languagetool-nix.packages.${system}.lsp
      vimPlugins.nvim-dbee
      cargo

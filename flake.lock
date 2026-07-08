@@ -1312,11 +1312,11 @@
         "nixpkgs": "nixpkgs_8"
       },
       "locked": {
-        "lastModified": 1778399827,
-        "narHash": "sha256-D3JcLUzj3xvZgi1DocseqlfwdiS3l8FqXH5mbSb16u8=",
+        "lastModified": 1783371872,
+        "narHash": "sha256-fzLx9Vx3iHM4nQWhrHUjMWtGcMlcg5+p5cQtL6zNo5c=",
         "owner": "sergioahp",
         "repo": "status-overlay",
-        "rev": "f78228006092265994ba4b7cfad25d94e5f76db6",
+        "rev": "d2081f3212f4b21d815fa8b607e14aed81140201",
         "type": "github"
       },
       "original": {
