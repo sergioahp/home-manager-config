@@ -93,6 +93,9 @@ in {
           "$mod, Q, exec, uwsm stop"
           "$mod, F12, exec, systemctl restart --user xremap"
         ];
+        bindl = [
+          ", switch:off:Lid Switch, exec, hyprctl dispatch dpms on"
+        ];
         bindm = [
           "$mod, mouse:272, movewindow"
           "$mod, mouse:273, resizewindow"
