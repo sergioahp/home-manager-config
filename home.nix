@@ -1,4 +1,4 @@
-{ config, lib, inputs, pkgs, pkgs-bleeding, pkgs-bitwarden-zathura, system, codex, ... }:
+{ config, lib, inputs, pkgs, pkgs-bleeding, pkgs-bitwarden-zathura, pkgs-slow-moving, system, codex, ... }:
 
 # TODO: PROBLEM:
 # Launching with uwsm the rofi laucher is slower, but without it and the rest of
@@ -192,7 +192,8 @@ in
      hwinfo
      inxi
      nix-index
-     session-desktop
+     # session-desktop broken on current nixpkgs pin (NixOS/nixpkgs#537728)
+     pkgs-slow-moving.session-desktop
      pandoc
      httpie
      mat2

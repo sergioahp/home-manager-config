@@ -79,6 +79,10 @@
         inherit system;
         config.allowUnfree = true;
       };
+      pkgs-slow-moving = import inputs.nixpkgs-slow-moving {
+        inherit system;
+        config.allowUnfree = true;
+      };
       codexRoot = inputs.codex-src + "/codex-rs";
       codexCargoToml = builtins.fromTOML (builtins.readFile (codexRoot + "/Cargo.toml"));
       codexCargoVersion = codexCargoToml.workspace.package.version;
@@ -211,7 +215,7 @@
             ./machines/nixd.nix
           ];
 
-          extraSpecialArgs = { inherit inputs; inherit system; inherit pkgs-bleeding; inherit pkgs-bitwarden-zathura; inherit codex; };
+          extraSpecialArgs = { inherit inputs; inherit system; inherit pkgs-bleeding; inherit pkgs-bitwarden-zathura; inherit pkgs-slow-moving; inherit codex; };
         };
 
         laptop = home-manager.lib.homeManagerConfiguration {
@@ -222,7 +226,7 @@
             ./machines/laptop.nix
           ];
 
-          extraSpecialArgs = { inherit inputs; inherit system; inherit pkgs-bleeding; inherit pkgs-bitwarden-zathura; inherit codex; };
+          extraSpecialArgs = { inherit inputs; inherit system; inherit pkgs-bleeding; inherit pkgs-bitwarden-zathura; inherit pkgs-slow-moving; inherit codex; };
         };
       };
 
