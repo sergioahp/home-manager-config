@@ -54,6 +54,23 @@ in {
         bindkey ^K fzf-cd-widget
         bindkey ^J fzf-file-widget
         bindkey ^O autosuggest-accept
+
+        # Accept the autosuggestion one word at a time with Ctrl+, mirroring
+        # minuet.nvim's <C-,> (accept_word). Ctrl+, reaches zsh as \e[44;5u via
+        # the kitty-extended-keys map (send_text application). zsh-autosuggestions
+        # does the partial accept for any widget in
+        # ZSH_AUTOSUGGEST_PARTIAL_ACCEPT_WIDGETS; the widget only has to push
+        # CURSOR into the suggestion. .vi-forward-word-end is zsh's "e" motion and
+        # lands on the word's last char, so step one past it to take the whole
+        # word (the dot calls the builtin, bypassing the autosuggest wrapper).
+        function autosuggest-accept-word() {
+          zle .vi-forward-word-end
+          (( CURSOR < $#BUFFER )) && (( CURSOR++ ))
+        }
+        zle -N autosuggest-accept-word
+        ZSH_AUTOSUGGEST_PARTIAL_ACCEPT_WIDGETS+=(autosuggest-accept-word)
+        bindkey '^[[44;5u' autosuggest-accept-word
+
         autoload -U edit-command-line
         zle -N edit-command-line
         bindkey -M vicmd ^F edit-command-line
