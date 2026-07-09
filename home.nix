@@ -236,6 +236,7 @@ in
      hunspell
      hunspellDicts.es-mx
      claude-code # from llm-agents.nix via overlay
+     llm-agents.claude-desktop
      pkgs-bleeding.opencode
      codex # from llm-agents.nix via overlay
     # TODO: maybe manage with home manager
