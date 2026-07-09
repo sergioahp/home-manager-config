@@ -1,6 +1,14 @@
 {
   description = "Home Manager configuration of admin";
 
+  # Binary cache for llm-agents.nix (claude-code, codex); their packages are
+  # built against their own pinned nixpkgs so this cache hits regardless of
+  # our nixpkgs revision.
+  nixConfig = {
+    extra-substituters = [ "https://cache.numtide.com" ];
+    extra-trusted-public-keys = [ "niks3.numtide.com-1:DTx8wZduET09hRmMtKdQDxNNthLQETkc/yaX7M4qK0g=" ];
+  };
+
   inputs = {
     # Specify the source of Home Manager and Nixpkgs.
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
@@ -8,7 +16,7 @@
     # Why tf did you pinned this, claude?
     # last thing that produces a good config != last stable  on desktop
     hyprland.url = "github:hyprwm/Hyprland/v0.49.0";
-    # Bleeding edge nixpkgs for latest packages (claude-code, etc.)
+    # Bleeding edge nixpkgs for latest packages (opencode, etc.)
     nixpkgs-bleeding.url = "github:nixos/nixpkgs/nixos-unstable";
     codex-src = {
       url = "github:openai/codex";
@@ -65,12 +73,28 @@
       url = "github:sergioahp/fcitx5-fzf-table";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    # Daily-updated AI coding agents (claude-code, codex). No nixpkgs follows=
+    # on purpose: overlays.default builds against their pinned nixpkgs, which
+    # is what the numtide binary cache serves.
+    llm-agents.url = "github:numtide/llm-agents.nix";
   };
 
   outputs = { nixpkgs, home-manager, ... }@inputs:
     let
       system = "x86_64-linux";
-      pkgs = nixpkgs.legacyPackages.${system};
+      pkgs = import nixpkgs {
+        inherit system;
+        overlays = [
+          inputs.llm-agents.overlays.default
+          # Also override the top-level attrs so anything referencing
+          # pkgs.claude-code / pkgs.codex (e.g. wrappers or other apps that
+          # launch them) gets the llm-agents version, not the nixpkgs one.
+          (final: prev: {
+            claude-code = final.llm-agents.claude-code;
+            codex = final.llm-agents.codex;
+          })
+        ];
+      };
       pkgs-bleeding = import inputs.nixpkgs-bleeding {
         inherit system;
         config.allowUnfree = true;

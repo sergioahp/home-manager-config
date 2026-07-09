@@ -235,9 +235,11 @@ in
      eza
      hunspell
      hunspellDicts.es-mx
-     pkgs-bleeding.claude-code
+     claude-code # from llm-agents.nix via overlay
      pkgs-bleeding.opencode
-     pkgs-bleeding.codex
+     # pkgs. prefix is load-bearing: the `codex` module arg (custom flake
+     # build) lexically shadows `with pkgs`, and we want the overlay version.
+     pkgs.codex # from llm-agents.nix via overlay
     # TODO: maybe manage with home manager
     kitty
      # jupyter-all # COLLITION
