@@ -123,22 +123,6 @@
         "type": "github"
       }
     },
-    "codex-src": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1778198566,
-        "narHash": "sha256-5G/yFJbIS92POKRfKb4dzc7GfAgzD9OFhUTo1tfs0iA=",
-        "owner": "openai",
-        "repo": "codex",
-        "rev": "79ad209ce6cade1089cdbe4dbda8835731d5af15",
-        "type": "github"
-      },
-      "original": {
-        "owner": "openai",
-        "repo": "codex",
-        "type": "github"
-      }
-    },
     "crane": {
       "locked": {
         "lastModified": 1758758545,
@@ -1323,7 +1307,6 @@
     },
     "root": {
       "inputs": {
-        "codex-src": "codex-src",
         "dunst-src": "dunst-src",
         "fcitx5-fzf-table": "fcitx5-fzf-table",
         "gtk-status-bar": "gtk-status-bar",

@@ -1,4 +1,4 @@
-{ config, lib, inputs, pkgs, pkgs-bleeding, pkgs-bitwarden-zathura, pkgs-slow-moving, system, codex, ... }:
+{ config, lib, inputs, pkgs, pkgs-bleeding, pkgs-bitwarden-zathura, pkgs-slow-moving, system, ... }:
 
 # TODO: PROBLEM:
 # Launching with uwsm the rofi laucher is slower, but without it and the rest of
@@ -237,9 +237,7 @@ in
      hunspellDicts.es-mx
      claude-code # from llm-agents.nix via overlay
      pkgs-bleeding.opencode
-     # pkgs. prefix is load-bearing: the `codex` module arg (custom flake
-     # build) lexically shadows `with pkgs`, and we want the overlay version.
-     pkgs.codex # from llm-agents.nix via overlay
+     codex # from llm-agents.nix via overlay
     # TODO: maybe manage with home manager
     kitty
      # jupyter-all # COLLITION
