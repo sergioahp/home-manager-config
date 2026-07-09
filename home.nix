@@ -360,6 +360,9 @@ in
      MANPAGER = "${pkgs.neovim}/bin/nvim +Man!=";
      GTK_THEME = "Layan-Dark";
      LANGUAGETOOL_JAR = inputs.typst-languagetool-nix.packages.${system}.lsp.languagetoolJar;
+     # Make Claude Code's Bash tool use bash, not the login zsh; avoids zsh
+     # nomatch aborting commands on unmatched globs.
+     CLAUDE_CODE_SHELL = "${pkgs.bash}/bin/bash";
   };
 
   services.hyprpaper = {
