@@ -13,6 +13,12 @@
       input = {
         sensitivity = lib.mkForce (-0.4); # -1.0 to 1.0, negative = slower
       };
+
+      # The GTX 760 on nouveau has a broken hardware cursor plane: the cursor
+      # vanishes as soon as it stops moving (it only stays visible while
+      # Hyprland keeps updating it). Compositing the cursor in software fixes
+      # it. Desktop-only; the laptop GPU handles hardware cursors fine.
+      cursor.no_hardware_cursors = true;
     };
   };
 
