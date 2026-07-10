@@ -73,6 +73,13 @@
     # on purpose: overlays.default builds against their pinned nixpkgs, which
     # is what the numtide binary cache serves.
     llm-agents.url = "github:numtide/llm-agents.nix";
+    # Prebuilt codex helper binary, pinned by flake.lock; the version in the
+    # URL must match llm-agents' codex (asserted in the overlay). See
+    # overlays/codex-code-mode-host.nix for why this exists.
+    codex-code-mode-host-bin = {
+      url = "https://github.com/openai/codex/releases/download/rust-v0.144.0/codex-code-mode-host-x86_64-unknown-linux-musl.tar.gz";
+      flake = false;
+    };
   };
 
   outputs = { nixpkgs, home-manager, ... }@inputs:
@@ -87,40 +94,10 @@
           # launch them) gets the llm-agents version, not the nixpkgs one.
           (final: prev: {
             claude-code = final.llm-agents.claude-code;
-            # TEMPORARY shim, remove once numtide/llm-agents.nix#6631 lands:
-            # their codex package misses the codex-code-mode-host helper that
-            # codex >= 0.144.0 spawns for every shell command, breaking all
-            # command execution. Upstream ships it prebuilt (static musl), so
-            # fetch it and point codex at it via CODEX_CODE_MODE_HOST_PATH
-            # instead of recompiling the whole rust workspace. The fetchurl
-            # hash pins the host to 0.144.0; when llm-agents bumps codex the
-            # URL changes and this fails loudly - check if the shim is still
-            # needed before updating the hash.
-            codex =
-              let
-                base = final.llm-agents.codex;
-                hostTarball = final.fetchurl {
-                  url = "https://github.com/openai/codex/releases/download/rust-v${base.version}/codex-code-mode-host-x86_64-unknown-linux-musl.tar.gz";
-                  hash = "sha256-JtnGXFqUfCv0iVE+9/geAnsMltwV4ngd5u7V4CoYmT0=";
-                };
-                hostBin = final.runCommand "codex-code-mode-host-${base.version}" { } ''
-                  mkdir -p $out/bin
-                  tar -xzf ${hostTarball} -C $out/bin
-                  mv $out/bin/codex-code-mode-host-* $out/bin/codex-code-mode-host
-                  chmod +x $out/bin/codex-code-mode-host
-                '';
-              in
-              final.runCommand "codex-with-code-mode-host-${base.version}"
-                { nativeBuildInputs = [ final.makeWrapper ]; }
-                ''
-                  mkdir -p $out/bin
-                  for f in ${base}/*; do
-                    [ "$(basename "$f")" = bin ] || ln -s "$f" $out/
-                  done
-                  makeWrapper ${base}/bin/codex $out/bin/codex \
-                    --set CODEX_CODE_MODE_HOST_PATH ${hostBin}/bin/codex-code-mode-host
-                '';
           })
+          # Per-package fixups on top of the llm-agents packages
+          (import ./overlays/codex-code-mode-host.nix inputs)
+          (import ./overlays/claude-desktop-keyring.nix)
         ];
       };
       pkgs-bleeding = import inputs.nixpkgs-bleeding {

@@ -236,7 +236,7 @@ in
      hunspell
      hunspellDicts.es-mx
      claude-code # from llm-agents.nix via overlay
-     llm-agents.claude-desktop
+     claude-desktop # llm-agents.nix wrapped with --password-store (overlay)
      llm-agents.hermes-agent
      llm-agents.hermes-desktop
      pkgs-bleeding.opencode

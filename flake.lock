@@ -123,6 +123,19 @@
         "type": "github"
       }
     },
+    "codex-code-mode-host-bin": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1783613610,
+        "narHash": "sha256-OmF/kO4Iqb2/AGr7E8KJkQLIGbRPrf1gWfmZU2x+SMQ=",
+        "type": "tarball",
+        "url": "https://github.com/openai/codex/releases/download/rust-v0.144.0/codex-code-mode-host-x86_64-unknown-linux-musl.tar.gz"
+      },
+      "original": {
+        "type": "tarball",
+        "url": "https://github.com/openai/codex/releases/download/rust-v0.144.0/codex-code-mode-host-x86_64-unknown-linux-musl.tar.gz"
+      }
+    },
     "crane": {
       "locked": {
         "lastModified": 1758758545,
@@ -1307,6 +1320,7 @@
     },
     "root": {
       "inputs": {
+        "codex-code-mode-host-bin": "codex-code-mode-host-bin",
         "dunst-src": "dunst-src",
         "fcitx5-fzf-table": "fcitx5-fzf-table",
         "gtk-status-bar": "gtk-status-bar",
