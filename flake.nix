@@ -87,7 +87,39 @@
           # launch them) gets the llm-agents version, not the nixpkgs one.
           (final: prev: {
             claude-code = final.llm-agents.claude-code;
-            codex = final.llm-agents.codex;
+            # TEMPORARY shim, remove once numtide/llm-agents.nix#6631 lands:
+            # their codex package misses the codex-code-mode-host helper that
+            # codex >= 0.144.0 spawns for every shell command, breaking all
+            # command execution. Upstream ships it prebuilt (static musl), so
+            # fetch it and point codex at it via CODEX_CODE_MODE_HOST_PATH
+            # instead of recompiling the whole rust workspace. The fetchurl
+            # hash pins the host to 0.144.0; when llm-agents bumps codex the
+            # URL changes and this fails loudly - check if the shim is still
+            # needed before updating the hash.
+            codex =
+              let
+                base = final.llm-agents.codex;
+                hostTarball = final.fetchurl {
+                  url = "https://github.com/openai/codex/releases/download/rust-v${base.version}/codex-code-mode-host-x86_64-unknown-linux-musl.tar.gz";
+                  hash = "sha256-JtnGXFqUfCv0iVE+9/geAnsMltwV4ngd5u7V4CoYmT0=";
+                };
+                hostBin = final.runCommand "codex-code-mode-host-${base.version}" { } ''
+                  mkdir -p $out/bin
+                  tar -xzf ${hostTarball} -C $out/bin
+                  mv $out/bin/codex-code-mode-host-* $out/bin/codex-code-mode-host
+                  chmod +x $out/bin/codex-code-mode-host
+                '';
+              in
+              final.runCommand "codex-with-code-mode-host-${base.version}"
+                { nativeBuildInputs = [ final.makeWrapper ]; }
+                ''
+                  mkdir -p $out/bin
+                  for f in ${base}/*; do
+                    [ "$(basename "$f")" = bin ] || ln -s "$f" $out/
+                  done
+                  makeWrapper ${base}/bin/codex $out/bin/codex \
+                    --set CODEX_CODE_MODE_HOST_PATH ${hostBin}/bin/codex-code-mode-host
+                '';
           })
         ];
       };
