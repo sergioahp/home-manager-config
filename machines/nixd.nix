@@ -18,7 +18,12 @@
       # vanishes as soon as it stops moving (it only stays visible while
       # Hyprland keeps updating it). Compositing the cursor in software fixes
       # it. Desktop-only; the laptop GPU handles hardware cursors fine.
-      cursor.no_hardware_cursors = true;
+      cursor = {
+        no_hardware_cursors = true;
+        # Deliberate hide-on-idle; the occasional residual nouveau vanish
+        # blends into this instead of looking like a glitch.
+        inactive_timeout = 2;
+      };
     };
   };
 
