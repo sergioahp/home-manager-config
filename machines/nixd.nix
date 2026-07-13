@@ -1,6 +1,9 @@
 { config, lib, pkgs, inputs, system, ... }:
 
 {
+  systemd.user.services.gtk-status-bar.Service.ExecStart = lib.mkForce
+    "${config.programs.gtk-status-bar.package}/bin/gtk-status-bar --monitor DVI-I-1";
+
   # nixd-specific Hyprland configuration
   wayland.windowManager.hyprland = {
     package = inputs.hyprland.packages.${system}.hyprland;
