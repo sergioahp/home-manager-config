@@ -631,12 +631,14 @@ in {
                 };
               };
               # Tray keyboard navigation: press super+[ twice to grab the
-              # keyboard and focus the tray at level 0. h/l move across the tray
-              # icons (each landed icon auto-opens its dropdown); j/k descend into
-              # the open dropdown; inside it h/l step through submenus and gg/G
-              # jump; Enter activates; q/Escape steps out one level, so pressing
-              # it again at level 0 releases the grab. Uses the packaged trayctl
-              # from the gtk-status-bar flake input.
+              # keyboard and focus the tray at level 0. `open` resumes on the
+              # icon the last session ended on (first icon on a fresh bar or if
+              # that icon is gone), so it is not pinned to any one tray app. h/l
+              # move across the tray icons (each landed icon auto-opens its
+              # dropdown); j/k descend into the open dropdown; inside it h/l step
+              # through submenus and gg/G jump; Enter activates; q/Escape steps
+              # out one level, so pressing it again at level 0 releases the grab.
+              # Uses the packaged trayctl from the gtk-status-bar flake input.
               # rofi-entry skip reason=submap
               super-leftbrace = {
                 remap = {
@@ -644,7 +646,7 @@ in {
                   super-leftbrace = {
                     launch = [
                       "${inputs.gtk-status-bar.packages.${system}.default}/bin/trayctl"
-                      "keyboard-menu" "Input Method"
+                      "open"
                     ];
                   };
                 };
