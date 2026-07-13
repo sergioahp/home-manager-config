@@ -1,13 +1,6 @@
 {
   description = "Home Manager configuration of admin";
 
-  # Binary cache for llm-agents.nix (claude-code, codex); their packages are
-  # built against their own pinned nixpkgs so this cache hits regardless of
-  # our nixpkgs revision.
-  nixConfig = {
-    extra-substituters = [ "https://cache.numtide.com" ];
-    extra-trusted-public-keys = [ "niks3.numtide.com-1:DTx8wZduET09hRmMtKdQDxNNthLQETkc/yaX7M4qK0g=" ];
-  };
 
   inputs = {
     # Specify the source of Home Manager and Nixpkgs.
