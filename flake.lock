@@ -501,11 +501,11 @@
         "rust-overlay": "rust-overlay"
       },
       "locked": {
-        "lastModified": 1783919042,
-        "narHash": "sha256-FKOleFtKy3mMVlckLbQ+2ck8hkO2cIO6BPel6OnOvtI=",
+        "lastModified": 1783972667,
+        "narHash": "sha256-C+1m2rMIkXe3kDGyAqwXyx2AHq9grVmpc5Cm3D9Bao8=",
         "owner": "sergioahp",
         "repo": "gtk-status-bar",
-        "rev": "a55a8d895155be2ac8a99c18b2402fde226f42a6",
+        "rev": "c108b779a4cd0a28a1c697d9ab5599169d28d6bd",
         "type": "github"
       },
       "original": {
