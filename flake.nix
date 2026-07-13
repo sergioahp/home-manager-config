@@ -71,15 +71,10 @@
     };
     # Daily-updated AI coding agents (claude-code, codex). No nixpkgs follows=
     # on purpose: overlays.default builds against their pinned nixpkgs, which
-    # is what the numtide binary cache serves.
+    # is what the numtide binary cache serves. As of numtide/llm-agents.nix#6631
+    # their codex package also builds the codex-code-mode-host helper into its
+    # own bin/, so the old prebuilt-binary shim is gone.
     llm-agents.url = "github:numtide/llm-agents.nix";
-    # Prebuilt codex helper binary, pinned by flake.lock; the version in the
-    # URL must match llm-agents' codex (asserted in the overlay). See
-    # overlays/codex-code-mode-host.nix for why this exists.
-    codex-code-mode-host-bin = {
-      url = "https://github.com/openai/codex/releases/download/rust-v0.144.0/codex-code-mode-host-x86_64-unknown-linux-musl.tar.gz";
-      flake = false;
-    };
   };
 
   outputs = { nixpkgs, home-manager, ... }@inputs:
@@ -88,15 +83,20 @@
       pkgs = import nixpkgs {
         inherit system;
         overlays = [
-          inputs.llm-agents.overlays.default
+          # Upstream dropped its overlays.default output (blueprint removal),
+          # so re-inject the package set as pkgs.llm-agents. Downstream refs
+          # (final.llm-agents.* here and in claude-desktop-keyring.nix) keep
+          # working. These build against llm-agents' own pinned nixpkgs, which
+          # the numtide binary cache serves.
+          (final: prev: { llm-agents = inputs.llm-agents.packages.${system}; })
           # Also override the top-level attrs so anything referencing
           # pkgs.claude-code / pkgs.codex (e.g. wrappers or other apps that
           # launch them) gets the llm-agents version, not the nixpkgs one.
           (final: prev: {
             claude-code = final.llm-agents.claude-code;
+            codex = final.llm-agents.codex;
           })
           # Per-package fixups on top of the llm-agents packages
-          (import ./overlays/codex-code-mode-host.nix inputs)
           (import ./overlays/claude-desktop-keyring.nix)
         ];
       };
