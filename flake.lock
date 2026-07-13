@@ -539,11 +539,11 @@
         "rust-overlay": "rust-overlay"
       },
       "locked": {
-        "lastModified": 1783832466,
-        "narHash": "sha256-o3yep/6ZWDYDgGwGHCm2FGqcsXDxFXhc/DHRXR7Slmg=",
+        "lastModified": 1783900242,
+        "narHash": "sha256-FAbBzP6+lovyOuIJzKck6KOW82TO3D2+y8y8PKOssxM=",
         "owner": "sergioahp",
         "repo": "gtk-status-bar",
-        "rev": "1ba39860f9b6ebb71c7da5a77990dd5f57ccb2c5",
+        "rev": "2031f6c3e71ed96d90b4cc0c1919cb6643c6fde6",
         "type": "github"
       },
       "original": {
