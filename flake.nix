@@ -97,10 +97,6 @@
         inherit system;
         config.allowUnfree = true;
       };
-      pkgs-bitwarden-zathura = import inputs.nixpkgs-bitwarden-zathura {
-        inherit system;
-        config.allowUnfree = true;
-      };
       pkgs-slow-moving = import inputs.nixpkgs-slow-moving {
         inherit system;
         config.allowUnfree = true;
@@ -115,7 +111,7 @@
             ./machines/nixd.nix
           ];
 
-          extraSpecialArgs = { inherit inputs; inherit system; inherit pkgs-bleeding; inherit pkgs-bitwarden-zathura; inherit pkgs-slow-moving; };
+          extraSpecialArgs = { inherit inputs; inherit system; inherit pkgs-bleeding; inherit pkgs-slow-moving; };
         };
 
         laptop = home-manager.lib.homeManagerConfiguration {
@@ -126,7 +122,7 @@
             ./machines/laptop.nix
           ];
 
-          extraSpecialArgs = { inherit inputs; inherit system; inherit pkgs-bleeding; inherit pkgs-bitwarden-zathura; inherit pkgs-slow-moving; };
+          extraSpecialArgs = { inherit inputs; inherit system; inherit pkgs-bleeding; inherit pkgs-slow-moving; };
         };
       };
 

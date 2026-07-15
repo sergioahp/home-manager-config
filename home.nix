@@ -1,4 +1,4 @@
-{ config, lib, inputs, pkgs, pkgs-bleeding, pkgs-bitwarden-zathura, pkgs-slow-moving, system, ... }:
+{ config, lib, inputs, pkgs, pkgs-bleeding, pkgs-slow-moving, system, ... }:
 
 # TODO: PROBLEM:
 # Launching with uwsm the rofi laucher is slower, but without it and the rest of
@@ -17,6 +17,10 @@ let
   inherit (config.lib.colors) transparentize colorToRgbaStr colorToRgbaLiteral rice intToFloat;
   colors = config.colorScheme.colors;
   colorsRgbHex = config.colorScheme.colorsRgbHex;
+  pinnedApps = import inputs.nixpkgs-bitwarden-zathura {
+    inherit system;
+    config.allowUnfree = true;
+  };
   nsxiv-conf = import ./nsxiv-conf-builder.nix { inherit pkgs; conf = {
     win_fg = {
       x_resource = "Nsxiv.window.background";
@@ -68,6 +72,7 @@ in
       };
       # The full sage-tests suite takes hours and dominates rebuild time; skip it.
       sage = p.sage.override { requireSageTests = false; };
+      inherit (pinnedApps) bitwarden-desktop zathura;
     })
   ];
 
@@ -179,7 +184,7 @@ in
      imagemagick
      img2pdf
      ffmpeg
-     pkgs-bitwarden-zathura.bitwarden-desktop
+     bitwarden-desktop
      jq
      # awscli2
      element-desktop
@@ -402,7 +407,7 @@ in
         }
         {
           condition = "ext pdf|djvu|epub, flag f";
-          command = ''${pkgs-bitwarden-zathura.zathura}/bin/zathura -- "$@"'';
+          command = ''${pkgs.zathura}/bin/zathura -- "$@"'';
         }
         {
           condition = "mime ^video, flag f";

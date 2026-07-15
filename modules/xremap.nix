@@ -1,7 +1,7 @@
-{ config, lib, pkgs, pkgs-bitwarden-zathura, inputs, system, ... }:
+{ config, lib, pkgs, inputs, system, ... }:
 let
   cfg = config.programs.sergio-xremap;
-  launcher = import ./rofi-launcher.nix { inherit config pkgs pkgs-bitwarden-zathura lib inputs system; };
+  launcher = import ./rofi-launcher.nix { inherit config pkgs lib inputs system; };
   launcherBin = "${launcher.script}/bin/xremap-launcher";
   rofiPowerMenu = "${inputs.rofi-power-menu}/rofi-power-menu";
 
@@ -171,7 +171,7 @@ in {
                     launch = [
                       "${pkgs.uwsm}/bin/uwsm-app" "--"
                       "${pkgs.hyprland}/bin/hyprctl" "dispatch" "--" "exec"
-                      "${pkgs-bitwarden-zathura.bitwarden-desktop}/bin/bitwarden"
+                      "${pkgs.bitwarden-desktop}/bin/bitwarden"
                     ];
                   };
                   # rofi-entry include category=Utilities color=#7DCFFF emoji=⏻

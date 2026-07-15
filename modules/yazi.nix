@@ -1,4 +1,4 @@
-{ config, lib, pkgs, pkgs-bitwarden-zathura, ... }:
+{ config, lib, pkgs, ... }:
 let
   cfg = config.programs.sergio-yazi;
 in {
@@ -26,7 +26,7 @@ in {
           ];
           docs = [
             {
-              run   = ''${pkgs-bitwarden-zathura.zathura}/bin/zathura "$@"'';
+              run   = ''${pkgs.zathura}/bin/zathura "$@"'';
               orphan = true;
               desc  = "zathura (document viewer)";
             }

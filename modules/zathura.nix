@@ -1,4 +1,4 @@
-{ config, lib, pkgs, pkgs-bitwarden-zathura, ... }:
+{ config, lib, pkgs, ... }:
 
 let
   cfg = config.programs.sergio-zathura;
@@ -13,7 +13,7 @@ in
   config = lib.mkIf cfg.enable {
     programs.zathura = {
       enable = true;
-      package = pkgs-bitwarden-zathura.zathura;
+      package = pkgs.zathura;
       options = let
         rgba = colorToRgbaStr;
         bg-80 = transparentize colors.bg 0.8;  # 80% opacity
