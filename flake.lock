@@ -501,15 +501,16 @@
         "rust-overlay": "rust-overlay"
       },
       "locked": {
-        "lastModified": 1783986033,
-        "narHash": "sha256-YXH56pzsZMdv3ESXygy3zERqeI6VqSq6clHmRrVutqI=",
+        "lastModified": 1784075838,
+        "narHash": "sha256-/UMpuzuheQhE0UBUKl1QZ/rQ4s28kaVvMLzcZYpdhmM=",
         "owner": "sergioahp",
         "repo": "gtk-status-bar",
-        "rev": "5c793e89e3e146f6cc02f293fb5ee1416ca8bb0f",
+        "rev": "aa0b12ec98d38efa47d7f2eef9ecd92fe05179e1",
         "type": "github"
       },
       "original": {
         "owner": "sergioahp",
+        "ref": "feature/fused-tray-popover",
         "repo": "gtk-status-bar",
         "type": "github"
       }
