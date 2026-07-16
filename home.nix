@@ -344,7 +344,7 @@ in
   dconf = {
     enable = true;
     settings = {
-      "org/gnome/desktop/interfase" = {
+      "org/gnome/desktop/interface" = {
         color-scheme = "prefer-dark";
       };
     };
