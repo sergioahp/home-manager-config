@@ -32,7 +32,7 @@
       url = "github:bertof/nix-rice";
       inputs.nixpkgs.follows = "nixpkgs-slow-moving";
     };
-    gtk-status-bar.url = "github:sergioahp/gtk-status-bar?ref=feature/fused-tray-popover";
+    gtk-status-bar.url = "github:sergioahp/gtk-status-bar";
     kitty-extended-keys = {
       # Branch off the pre-flake-parts-refactor commit; adds ctrl+shift+f extended key.
       url = "github:sergioahp/kitty-extended-keys/feat/enable-ctrl-shift-f";
