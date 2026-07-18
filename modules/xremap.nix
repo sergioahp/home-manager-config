@@ -599,14 +599,16 @@ in {
               };
 
               # rofi-entry include category=Window color=#BB9AF7 emoji=➡️
+              # batch raises the newly focused window so floating clients
+              # don't stay buried behind their siblings
               super-j = {
-                launch = [ "${pkgs.hyprland}/bin/hyprctl" "dispatch"
-                "cyclenext" ];
+                launch = [ "${pkgs.hyprland}/bin/hyprctl" "--batch"
+                "dispatch cyclenext; dispatch alterzorder top,activewindow" ];
               };
               # rofi-entry include category=Window color=#BB9AF7 emoji=⬅️
               super-k = {
-                launch = [ "${pkgs.hyprland}/bin/hyprctl" "dispatch"
-                "cyclenext" "prev" ];
+                launch = [ "${pkgs.hyprland}/bin/hyprctl" "--batch"
+                "dispatch cyclenext prev; dispatch alterzorder top,activewindow" ];
               };
               # rofi-entry skip reason=submap
               super-slash = {

@@ -618,8 +618,8 @@ let
       glyph = "➡️";
       args = [
         "${pkgs.hyprland}/bin/hyprctl"
-        "dispatch"
-        "cyclenext"
+        "--batch"
+        "dispatch cyclenext; dispatch alterzorder top,activewindow"
       ];
     }
     {
@@ -630,9 +630,8 @@ let
       glyph = "⬅️";
       args = [
         "${pkgs.hyprland}/bin/hyprctl"
-        "dispatch"
-        "cyclenext"
-        "prev"
+        "--batch"
+        "dispatch cyclenext prev; dispatch alterzorder top,activewindow"
       ];
     }
     {
