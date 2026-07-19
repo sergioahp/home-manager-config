@@ -305,7 +305,11 @@ in
       # https://github.com/NixOS/nixpkgs/issues/172412
       serif = [ "DejaVu Serif" "emoji" ];
       sansSerif = [ "DejaVu Sans" "noto-fonts-cjk" "emoji" ];
-      monospace = [ "DejaVu Sans Mono" "emoji" ];
+      # Symbols 2 before emoji: text-default symbols (nh's U+23F1 stopwatch,
+      # arrows, geometric shapes) render monochrome instead of hitting the
+      # bitmap emoji font, which kitty draws as a blank cell when the char
+      # lacks VS16. VS16-qualified emoji still resolve to Noto Color Emoji.
+      monospace = [ "DejaVu Sans Mono" "Noto Sans Symbols 2" "emoji" ];
       emoji = [ "Noto Color Emoji" ];
     };
   };
