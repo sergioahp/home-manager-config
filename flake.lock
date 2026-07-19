@@ -197,11 +197,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1784230290,
-        "narHash": "sha256-1ScWLpQYWCtkrg5j8rqhiarKnc+JkpxIJXO5DBtQlL8=",
+        "lastModified": 1784419900,
+        "narHash": "sha256-mU4KkSdDNw/hJHrZROAXd+gnyTutPAkbfV9IH6Tusd4=",
         "owner": "sergioahp",
         "repo": "fcitx5-fzf-table",
-        "rev": "a3617d19b022f909504b27ecce1d6524b8b554b9",
+        "rev": "b2ae4ad2d6046b9a95dbd33cc1129231566bbeae",
         "type": "github"
       },
       "original": {
