@@ -477,14 +477,13 @@ in
     ssh = {
       enable = true;
       enableDefaultConfig = false;
-      matchBlocks = {
+      settings = {
         "*" = {
-          addKeysToAgent = "yes";
+          AddKeysToAgent = "yes";
         };
-        "github" = {
-          host = "github.com";
-          user = "git";
-          identityFile = [
+        "github.com" = {
+          User = "git";
+          IdentityFile = [
             "${homeDirectory}/.ssh/main"
           ];
         };
