@@ -91,6 +91,19 @@
           })
           # Per-package fixups on top of the llm-agents packages
           (import ./overlays/claude-desktop-keyring.nix)
+          # TEMPORARY: pylsp-mypy's test suite fails against the mypy in this
+          # nixpkgs rev (mypy dropped python_version=3.9 support, but the
+          # test fixtures still target 3.9). Skip checks until upstream syncs
+          # the two packages back up; remove once that lands.
+          (final: prev: {
+            pythonPackagesExtensions = prev.pythonPackagesExtensions ++ [
+              (pyfinal: pyprev: {
+                pylsp-mypy = pyprev.pylsp-mypy.overridePythonAttrs (old: {
+                  doCheck = false;
+                });
+              })
+            ];
+          })
         ];
       };
       pkgs-bleeding = import inputs.nixpkgs-bleeding {
