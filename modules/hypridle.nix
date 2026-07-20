@@ -11,20 +11,28 @@ in {
     let
       hyprlockBin    = lib.getExe pkgs.hyprlock;
       systemdInhibit = lib.getExe' pkgs.systemd "systemd-inhibit";
-      pkill          = lib.getExe' pkgs.procps "pkill";
+      systemdRun     = lib.getExe' pkgs.systemd "systemd-run";
+      systemctl      = lib.getExe' pkgs.systemd "systemctl";
       inhibitTag     = "hypridle-lock-inhibit";
 
+      # Run the inhibitor as its own transient user unit, not as a disowned
+      # child of hypridle.service. hypridle has KillMode=control-group, so a
+      # `home-manager switch` that restarts the service would drop a child
+      # inhibitor along with it -- silently un-blocking handle-lid-switch:sleep
+      # and letting logind suspend a lid-closed, remotely-used box. As its own
+      # unit the inhibitor survives hypridle restarts. --collect GCs the unit if
+      # it ever exits, so the next lock can reuse the name.
       lockInhibitOn = pkgs.writeShellScript "lock-inhibit-on" ''
         set -eu
-        ${pkill} -f "${inhibitTag}" || true
-        ${systemdInhibit} --what=handle-lid-switch:sleep --mode=block \
-          --who=${inhibitTag} --why="Screen locked" \
-          sleep infinity &
-        disown
+        ${systemctl} --user stop ${inhibitTag}.service 2>/dev/null || true
+        ${systemdRun} --user --unit=${inhibitTag} --collect \
+          ${systemdInhibit} --what=handle-lid-switch:sleep --mode=block \
+            --who=${inhibitTag} --why="Screen locked" \
+            sleep infinity
       '';
 
       lockInhibitOff = pkgs.writeShellScript "lock-inhibit-off" ''
-        ${pkill} -f "${inhibitTag}" || true
+        ${systemctl} --user stop ${inhibitTag}.service 2>/dev/null || true
       '';
     in {
       services.hypridle = {
