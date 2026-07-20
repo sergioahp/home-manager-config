@@ -1389,11 +1389,11 @@
         "nixpkgs": "nixpkgs_9"
       },
       "locked": {
-        "lastModified": 1783886902,
-        "narHash": "sha256-uCDx24Geb8onjlOEitLdhxoNe9zxTryUol3RwFcgjro=",
+        "lastModified": 1784582837,
+        "narHash": "sha256-YH+bf+yX/treyt+9UWbv25adhi58lUW2mps4syRdJmg=",
         "owner": "sergioahp",
         "repo": "status-overlay",
-        "rev": "dd3d0c9ba0a4b30c50a2e8fb2b65b839efa43ecb",
+        "rev": "f9556bfdd9fdfaa6565c3d7892ffb877a3858be2",
         "type": "github"
       },
       "original": {
