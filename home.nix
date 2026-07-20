@@ -340,6 +340,7 @@ in
       name = "Layan-Dark";
       package = pkgs.layan-gtk-theme;
     };
+    gtk4.theme = config.gtk.theme;
     iconTheme = {
       name = "Adwaita";
       package = pkgs.adwaita-icon-theme;
