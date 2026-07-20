@@ -250,6 +250,7 @@ in
     kitty
      # jupyter-all # COLLITION
     git-lfs
+    grim # Claude Code likes to use this one
   ];
 
   i18n.inputMethod = {
