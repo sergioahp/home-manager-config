@@ -250,7 +250,6 @@ in
     kitty
      # jupyter-all # COLLITION
     git-lfs
-    gemini-cli-bin
   ];
 
   i18n.inputMethod = {
