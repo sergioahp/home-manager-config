@@ -37,6 +37,19 @@
     }
   ];
 
+  # Stop honoring the org.freedesktop.ScreenSaver dbus inhibit protocol.
+  # Firefox ("Playing audio") and OBS spam these inhibits constantly. If one
+  # toggles off *after* the screen has already dpms-off'd, hypridle's onInhibit
+  # tears down and recreates every idle-notification while its global isIdled
+  # flag is still true (src/core/Hypridle.cpp onInhibit, v0.1.7). That discards
+  # the pending "Resumed" event, so the next key/mouse input has nothing to
+  # resume from and on-resume (dpms on) never runs -- the monitor stays dark
+  # until you manually `hyprctl dispatch dpms on`. Ignoring the dbus inhibit
+  # removes the trigger. Tradeoff: apps can no longer keep the screen awake via
+  # this protocol, so a long video with no input hits the 10 min dpms timeout.
+  # See reports/hypridle-dpms-wake-desync.md.
+  services.hypridle.settings.general.ignore_dbus_inhibit = true;
+
   # nixd-specific dunst configuration - show on monitor 1 (right monitor)
   services.dunst.settings.global.monitor = 1;
 
