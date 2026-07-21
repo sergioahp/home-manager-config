@@ -127,6 +127,20 @@ in {
         ];
         misc = {
           focus_on_activate = true;
+          # Wake the display on input compositor-side, so re-lighting the
+          # monitor no longer depends on hypridle's on-resume firing. hypridle
+          # (v0.1.7) can leave a dpms-off monitor stuck dark: when a screensaver
+          # dbus inhibit (Firefox "Playing audio", OBS) toggles off *after* the
+          # screen already went off, onInhibit destroys and recreates the idle
+          # notifications (behavior added in hypridle PR #72) while its global
+          # isIdled flag stays true. That discards the pending resume, so the
+          # next key/mouse input never runs on-resume = `dpms on`. Tracked
+          # upstream in hypridle issues #208, #104, #128 (no fix released).
+          # Letting Hyprland re-light on input removes that single point of
+          # failure while keeping hypridle's inhibit handling intact, so video
+          # still keeps the screen awake. #208 ships exactly this workaround.
+          key_press_enables_dpms = true;
+          mouse_move_enables_dpms = true;
         };
         exec-once = [
           # UWSM exports WAYLAND_DISPLAY etc. into the user systemd environment,
