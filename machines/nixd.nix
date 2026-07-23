@@ -3,9 +3,9 @@
 {
   programs.gtk-status-bar.monitor = "DVI-I-1";
 
-  # nixd-specific Hyprland configuration
+  # nixd-specific Hyprland configuration.
+  # package left at the nixpkgs default (unpinned).
   wayland.windowManager.hyprland = {
-    package = inputs.hyprland.packages.${system}.hyprland;
     settings = {
       monitor = [
         "DVI-D-1,preferred,0x0,1"

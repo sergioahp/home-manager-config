@@ -146,3 +146,32 @@ If crashes continue after implementing recommendations:
 - **Display Manager**: SDDM
 - **Previous Session Runtime**: 3h 46min (before crash)
 - **Memory Usage (peak)**: 9GB
+
+## Version History (recorded 2026-07-22)
+
+Reconstructed from `flake.lock` git history because the crashing versions were
+never written down. Before the pin, Hyprland was NOT a direct flake input; it
+came from nixpkgs (`programs.hyprland` / `wayland.windowManager.hyprland`
+defaults), so the "unstable" version is whatever nixpkgs shipped at the locked
+rev.
+
+### Known-unstable (daily freezes/crashes, ~2026-02 to the 2026-05-14 pin)
+- nixpkgs rev `0182a36` (lastModified 2026-02-17)
+- **Hyprland 0.53.3**
+- **mesa 26.0.0** (nouveau, GTX 760 / Kepler)
+
+### The pin (commit 93f628c, 2026-05-14 "checkpoint: hyprland compatibility for nvidia desktop")
+Bumped nixpkgs to `da5ad66` (which offered Hyprland 0.54.3 / mesa 26.1.0) but
+in the same commit pinned Hyprland to the upstream flake at **v0.49.0**, built
+from source. So the box jumped 0.53.3 -> 0.49.0 and never ran 0.54.3. The
+source build took hours and was effectively never a viable update path.
+
+### After unpin (2026-07-22, back to nixpkgs hyprland)
+- system nixpkgs `da5ad66` (2026-05-06): **Hyprland 0.54.3 / mesa 26.1.0** <- the compositor that actually runs
+- home-manager nixpkgs `61b7c44` (2026-07-15): Hyprland 0.55.4 (profile copy only, not launched; harmless 0.54<->0.55 skew)
+
+Currently testing 0.54.3 / mesa 26.1.0. This is one hyprland minor and one mesa
+minor NEWER than the known-bad 0.53.3 / 26.0.0, and this exact combo was never
+run before, so it is a fresh stability datapoint, not a repeat of the bad
+version. To test a newer stack, bump `~/nixos`'s nixpkgs (that is what provides
+the running compositor).

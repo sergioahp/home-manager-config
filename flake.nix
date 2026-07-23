@@ -5,10 +5,9 @@
   inputs = {
     # Specify the source of Home Manager and Nixpkgs.
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    # hyprland pinned to v0.49.0 (last known stable on desktop)
-    # Why tf did you pinned this, claude?
-    # last thing that produces a good config != last stable  on desktop
-    hyprland.url = "github:hyprwm/Hyprland/v0.49.0";
+    # hyprland now comes from nixpkgs (unpinned). It was pinned to the upstream
+    # flake at v0.49.0, but that built from source (hours) and was never
+    # viable; nixpkgs is binary-cached and its portal is ABI-coherent.
     # Bleeding edge nixpkgs for latest packages (opencode, etc.)
     nixpkgs-bleeding.url = "github:nixos/nixpkgs/nixos-unstable";
     # Slow-moving nixpkgs for packages that are infrequently updated or take too long to update
