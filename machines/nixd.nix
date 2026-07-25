@@ -4,8 +4,9 @@
   programs.gtk-status-bar.monitor = "DVI-I-1";
 
   # nixd-specific Hyprland configuration.
-  # package left at the nixpkgs default (unpinned).
+  # package re-pinned to the flake v0.49.0 (nouveau/Kepler freeze mitigation).
   wayland.windowManager.hyprland = {
+    package = inputs.hyprland.packages.${system}.hyprland;
     settings = {
       monitor = [
         "DVI-D-1,preferred,0x0,1"

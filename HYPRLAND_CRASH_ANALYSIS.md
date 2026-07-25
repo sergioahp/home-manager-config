@@ -166,12 +166,81 @@ in the same commit pinned Hyprland to the upstream flake at **v0.49.0**, built
 from source. So the box jumped 0.53.3 -> 0.49.0 and never ran 0.54.3. The
 source build took hours and was effectively never a viable update path.
 
-### After unpin (2026-07-22, back to nixpkgs hyprland)
-- system nixpkgs `da5ad66` (2026-05-06): **Hyprland 0.54.3 / mesa 26.1.0** <- the compositor that actually runs
-- home-manager nixpkgs `61b7c44` (2026-07-15): Hyprland 0.55.4 (profile copy only, not launched; harmless 0.54<->0.55 skew)
+### CRITICAL correction: mesa has been pinned at 25.1.4 the whole time
 
-Currently testing 0.54.3 / mesa 26.1.0. This is one hyprland minor and one mesa
-minor NEWER than the known-bad 0.53.3 / 26.0.0, and this exact combo was never
-run before, so it is a fresh stability datapoint, not a repeat of the bad
-version. To test a newer stack, bump `~/nixos`'s nixpkgs (that is what provides
-the running compositor).
+`~/nixos` `configuration.nix` sets `hardware.graphics.package =
+inputs.nixpkgsGen11.legacyPackages.<sys>.mesa`, and `nixpkgsGen11` is frozen at
+`3016b4b` = **mesa 25.1.4** (commit 98a4244 "Pin graphics stack to gen11 Mesa",
+2026-05-12). So the GL driver actually loaded at `/run/opengl-driver` has been
+**mesa 25.1.4** continuously, regardless of what the main nixpkgs ships.
+
+Every "mesa 26.x" figure elsewhere in this doc is the main-nixpkgs DEFAULT, not
+the loaded driver - EXCEPT the pre-2026-05-12 daily-freeze era, which predates
+the gen11 pin and therefore did load the default (26.0.x). Net effect: across
+this whole session's tests, **mesa was constant at 25.1.4 and only Hyprland
+changed.** The golden-stable stack is **Hyprland 0.49.0 + mesa 25.1.4**.
+
+### After unpin (2026-07-22, back to nixpkgs hyprland)
+- system: **Hyprland 0.54.3** running on the pinned **mesa 25.1.4** (nixpkgs
+  default at `da5ad66` was 26.1.0 but is not the loaded driver)
+- home-manager nixpkgs `61b7c44`: Hyprland 0.55.4 (profile copy only, not launched; harmless 0.54<->0.55 skew)
+
+## Update: brief run on 0.55.4 (2026-07-22)
+
+Bumped `~/nixos` nixpkgs `da5ad66` -> `61b7c44`: Hyprland 0.55.4, kernel
+6.18.38 (main-nixpkgs default mesa 26.1.5, but the loaded driver stayed at the
+pinned mesa 25.1.4). Two issues, neither a hard failure:
+- First post-update boot only: status bar + overlay took ~53s to appear.
+  Root cause was a one-time cold GPU shader cache on the new mesa (nouveau/NVK
+  recompiling shaders) plus cold GTK/fontconfig caches; the systemd units
+  themselves started in ~4s. Subsequent boots were 10-18s. Self-resolving.
+- Every session: Hyprland notification "WARNING: Hyprland is being launched
+  without start-hyprland. This is highly advised against." New advisory in
+  0.55: the plain `hyprland.desktop` session now runs the `start-hyprland`
+  supervisor, but the UWSM session launches the bare `Hyprland` binary, so it
+  warns. Cosmetic false-positive for UWSM users; no env var suppresses it
+  (checked the compositor's full HYPRLAND_* list). Did NOT fix the bug codex
+  reported as fixed in newer Hyprland. Reverted to `da5ad66` (0.54.3).
+
+## Freeze on 0.54.3 (2026-07-24 ~21:00)
+
+Full hard freeze after ~27h uptime (Thu 2026-07-23 17:49 -> Fri 2026-07-24
+21:00); required a hard reboot. Running stack at the time:
+- **Hyprland 0.54.3**, loaded **mesa 25.1.4** (gen11 pin), kernel 6.18.28
+- nouveau, GTX 760 (GK104, Kepler)
+
+### What the logs show
+- The journal for that boot stops dead at `21:00:00`, right after a routine
+  `logrotate.service` run. No shutdown sequence -> it was a hard hang, not a
+  clean or dirty reboot.
+- Kernel ring buffer for the whole boot: nouveau initialized cleanly at start
+  (GK104, 2048 MiB GDDR5, nouveau 1.4.0) and logged NO GPU errors afterward -
+  no Xid, no fifo fault, no `DRM: GPU hang`, no reset, no reclock/pstate
+  message. The only kernel events all session were unrelated: a couple of USB
+  device resets and one `Bluetooth: hci0: command tx timeout`.
+- `journalctl -p err` for the final hour: no entries. No OOM-kill, no segfault,
+  no coredump, no Hyprland crash logged.
+- Last userspace activity before the stop was normal (gtk-status-bar dbus
+  signals, a mongodb WiredTiger checkpoint, a successful network probe).
+
+### Interpretation
+A silent hard hang that leaves zero trace is the classic nouveau/Kepler GPU
+lockup already described at the top of this document (stuck boot clocks,
+incomplete Wayland/NVK support). It is not attributable to any app or to a
+Hyprland crash in the logs. Because mesa was constant at 25.1.4 across all
+tests, the stability difference tracks Hyprland: 0.49.0 ran for months, while
+0.54.3 hung once in ~27h. (The old daily-freeze era was a different stack -
+Hyprland 0.53.3 on the then-default mesa 26.0.x, before the gen11 mesa pin.)
+
+### On mesa: nothing lower to try
+mesa is already at 25.1.4, below every "26.x" figure in this doc, and it is the
+one variable that did NOT change. So there is no lower-mesa move to make here;
+the lever is Hyprland. Dropping mesa further has no evidence behind it and would
+mean hand-pinning an even older nixpkgs for the graphics stack.
+
+### Action (2026-07-24)
+Re-pinned Hyprland to the upstream flake **v0.49.0** on both `~/nixos` and
+`~/.config/home-manager` (the exact build is still in the store from before the
+unpin, so no source rebuild). mesa is left at the pinned 25.1.4. Together that
+reproduces the exact golden-stable stack (0.49.0 + 25.1.4). codex's bug remains
+unfixed at 0.49.0, accepted for now in exchange for stability.
