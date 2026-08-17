@@ -68,6 +68,18 @@
     # their codex package also builds the codex-code-mode-host helper into its
     # own bin/, so the old prebuilt-binary shim is gone.
     llm-agents.url = "github:numtide/llm-agents.nix";
+    # The dendritic config, for its claude-code wrap only. That wrap points
+    # CLAUDE_CODE_SHELL at a bash whose BASH_ENV carries the shell aliases with
+    # the ones claude runs constantly (cat/ls/rm/...) removed, which replaces
+    # the in-claude-else script this repo used to dispatch on $CLAUDECODE at
+    # runtime. Deliberately not following our nixpkgs: the wrap is a
+    # symlinkJoin over llm-agents' package, and llm-agents builds against its
+    # own pin, which is what cache.numtide.com serves.
+    #
+    # github: rather than a path: input, which would copy the whole working
+    # tree (desktop.qcow2 included) into the store. Local dendritic edits
+    # therefore need a push plus `nix flake update dendritic` to land here.
+    dendritic.url = "github:sergioahp/dendritic-nix-config";
   };
 
   outputs = { nixpkgs, home-manager, ... }@inputs:
@@ -85,9 +97,13 @@
           # Also override the top-level attrs so anything referencing
           # pkgs.claude-code / pkgs.codex (e.g. wrappers or other apps that
           # launch them) gets the llm-agents version, not the nixpkgs one.
+          # Both come from dendritic rather than straight off llm-agents:
+          # claude-code because dendritic wraps it (see the input comment),
+          # codex because taking it from the same place keeps the two agents on
+          # one llm-agents pin instead of two that drift apart.
           (final: prev: {
-            claude-code = final.llm-agents.claude-code;
-            codex = final.llm-agents.codex;
+            claude-code = inputs.dendritic.packages.${system}.claude-code;
+            codex = inputs.dendritic.packages.${system}.codex;
           })
           # Per-package fixups on top of the llm-agents packages
           (import ./overlays/claude-desktop-keyring.nix)

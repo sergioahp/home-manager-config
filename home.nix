@@ -39,23 +39,6 @@ let
       value = colorsRgbHex.electric-blue;
     };
   }; };
-  # not in claude code wrapper -- explicit alternative for commands in vs out
-  in-claude-else  = pkgs.writeShellApplication {
-    name = "in-claude-else";
-    text = ''
-
-      true_prefix="$1"
-      false_prefix="$2"
-
-      shift 2
-
-      if [[ "''${CLAUDECODE:-}" == "1" ]]; then
-        eval "$true_prefix \"\$@\""
-      else
-        eval "$false_prefix \"\$@\""
-      fi
-    '';
-  };
 in
 {
   nixpkgs.overlays = [
@@ -126,7 +109,6 @@ in
   programs.sergio-hyprvoice.enable = true;
 
   home.packages = with pkgs; [
-     in-claude-else
      nerd-fonts.dejavu-sans-mono
      noto-fonts
      noto-fonts-cjk-sans
@@ -494,17 +476,20 @@ in
     sagemath.enable = true;
     mpv.enable = true;
   };
+  # Plain aliases now. These used to route through in-claude-else, which
+  # checked $CLAUDECODE on every single invocation to decide between the stock
+  # command and the fancy one. Claude no longer sees them at all: the
+  # dendritic claude-code wrap runs its shell commands under a bash whose
+  # BASH_ENV omits exactly this set, so the fallback has nowhere left to fire.
   home.shellAliases = {
-    # NOTE: ls, tree, cat, cp, mv, rm are defined conditionally in modules/zsh.nix
-    # to use plain commands in Claude Code and safe/fancy versions otherwise
     sudo = "sudo ";
     g = "git";
-    ls   = "in-claude-else 'ls' '${pkgs.eza}/bin/eza'";
-    tree = "in-claude-else 'tree' '${pkgs.eza}/bin/eza -T'";
-    cat  = "in-claude-else 'cat' '${pkgs.bat}/bin/bat --paging=never --style=plain'";
-    cp   = "in-claude-else 'cp' 'cp -i'";
-    mv   = "in-claude-else 'mv' 'mv -i'";
-    rm   = "in-claude-else 'rm' 'rm -I'";
+    ls   = "${pkgs.eza}/bin/eza";
+    tree = "${pkgs.eza}/bin/eza -T";
+    cat  = "${pkgs.bat}/bin/bat --paging=never --style=plain";
+    cp   = "cp -i";
+    mv   = "mv -i";
+    rm   = "rm -I";
   };
   xdg.mimeApps = {
     enable = true;
