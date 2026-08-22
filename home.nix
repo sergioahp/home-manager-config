@@ -333,6 +333,13 @@ in
     settings = {
       "org/gnome/desktop/interface" = {
         color-scheme = "prefer-dark";
+        # GTK4 takes gtk-font-name from the Settings portal, which serves this
+        # key and overrides settings.ini. Unset, the portal answers the schema
+        # default, which GNOME 49 changed from "Cantarell 11" to
+        # "Adwaita Sans 11"; neither font is installed here, so it fell back to
+        # Noto Sans CJK KR at 11pt. Pin the font that GTK's own "Sans 10"
+        # default used to resolve to.
+        font-name = "DejaVu Sans 10";
       };
     };
   };
