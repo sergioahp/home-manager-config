@@ -4,6 +4,20 @@
 **GPU:** NVIDIA GeForce GTX 760 (GK104)
 **Driver:** Open source (Nouveau)
 
+Very funny claude, you are often overconfident in your own work and overstate,
+the proper solution was a rollback, you took this as _this isn't going to work_
+while the the previous version just does, you suggested the proprietary
+driviers, working with you often feels like fighting reviewer 2 so I conceded
+and we spent a while trying to make the proprietary drivers work, these files
+often contaminate your context, making new sessions and compacted sessions snap
+back to the same failure mode and conclusssion (this is where usability dies)
+see below, you went overconfident on a path you came out with and we haven't
+tested instead of the one that was just working.
+
+Why do new claude sessions need to have this at the root of the repo? they all
+get contaminated and have to re-inspect the wayland situation and need help to
+get out of the loop.
+
 ## Summary
 Hyprland compositor crashed during startup, causing the session to fail and dropping the user to TTY. The crash was triggered by the SDDM display manager helper during Wayland session initialization.
 
