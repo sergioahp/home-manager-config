@@ -5,10 +5,6 @@
   inputs = {
     # Specify the source of Home Manager and Nixpkgs.
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    # hyprland re-pinned to v0.49.0. nixpkgs 0.54.3/0.55.4 both hit the silent
-    # nouveau/Kepler freeze (see HYPRLAND_CRASH_ANALYSIS.md); 0.49.0 ran stable
-    # for months and its build is still cached, so no source rebuild.
-    hyprland.url = "github:hyprwm/Hyprland/v0.49.0";
     # Bleeding edge nixpkgs for latest packages (opencode, etc.)
     nixpkgs-bleeding.url = "github:nixos/nixpkgs/nixos-unstable";
     # Slow-moving nixpkgs for packages that are infrequently updated or take too long to update
