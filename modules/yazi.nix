@@ -19,28 +19,28 @@ in {
         opener = {
           images = [
             {
-              run   = ''${pkgs.nsxiv}/bin/nsxiv "$@"'';
+              run   = ''${pkgs.nsxiv}/bin/nsxiv %s'';
               orphan = true;
               desc  = "nsxiv (image viewer)";
             }
           ];
           docs = [
             {
-              run   = ''${pkgs.zathura}/bin/zathura "$@"'';
+              run   = ''${pkgs.zathura}/bin/zathura %s'';
               orphan = true;
               desc  = "zathura (document viewer)";
             }
           ];
           video = [
             {
-              run   = ''${pkgs.mpv}/bin/mpv --fs "$@"'';
+              run   = ''${pkgs.mpv}/bin/mpv --fs %s'';
               orphan = true;
               desc  = "mpv (video player)";
             }
           ];
           edit = [
             {
-              run   = ''${pkgs.neovim}/bin/nvim "$@"'';
+              run   = ''${pkgs.neovim}/bin/nvim %s'';
               block = true;
               desc  = "Neovim (text editor)";
             }
@@ -64,7 +64,7 @@ in {
         mgr.prepend_keymap = [
           {
             on = "<C-d>";
-            run = ''shell -- ${pkgs.dragon-drop}/bin/dragon-drop "$@"'';
+            run = ''shell -- ${pkgs.dragon-drop}/bin/dragon-drop %s'';
             desc = "Dragon drop";
           }
           {
