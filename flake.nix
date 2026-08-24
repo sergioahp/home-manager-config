@@ -108,10 +108,13 @@
             inherit (llm-agents-pkgs) hermes-agent hermes-desktop;
             inherit (dendritic-pkgs) claude-code codex claude-desktop;
           })
-          # TEMPORARY: pylsp-mypy's test suite fails against the mypy in this
-          # nixpkgs rev (mypy dropped python_version=3.9 support, but the
-          # test fixtures still target 3.9). Skip checks until upstream syncs
-          # the two packages back up; remove once that lands.
+          # pylsp-mypy's test suite runs mypy over the package's own
+          # pyproject.toml, which pins python_version = "3.9"; current mypy
+          # refuses anything below 3.10, so 7 of 39 tests fail on that one
+          # line. Upstream master still carries the 3.9 pin and 0.7.0
+          # (2025-01) is still the newest release, so the fix has to come from
+          # a nixpkgs patch, not a version bump. Recheck by building
+          # nixpkgs#python3Packages.pylsp-mypy unpatched.
           (final: prev: {
             pythonPackagesExtensions = prev.pythonPackagesExtensions ++ [
               (pyfinal: pyprev: {
