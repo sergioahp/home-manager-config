@@ -1,4 +1,4 @@
-{ config, pkgs, lib, inputs, system }:
+{ config, pkgs, lib, inputs, system, clipboardDragonDropLaunch }:
 
 let
   categoryColors = config.categoryColors;
@@ -214,6 +214,14 @@ let
           ${pkgs.coreutils}/bin/rm -f "$shot"
         ''
       ];
+    }
+    {
+      key = "super-s super-b";
+      desc = "Clipboard → DragonDrop";
+      category = "Utilities";
+      color = categoryColors.Utilities;
+      glyph = "🐉";
+      args = clipboardDragonDropLaunch;
     }
     {
       key = "super-s super-o";

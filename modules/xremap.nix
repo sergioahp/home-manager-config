@@ -1,7 +1,144 @@
 { config, lib, pkgs, inputs, system, ... }:
 let
   cfg = config.programs.sergio-xremap;
-  launcher = import ./rofi-launcher.nix { inherit config pkgs lib inputs system; };
+  clipboardDragonDrop = pkgs.writeShellApplication {
+    name = "clipboard-dragon-drop";
+    runtimeInputs = [
+      pkgs.coreutils
+      pkgs.dragon-drop
+      (lib.getBin pkgs.glib)
+      pkgs.libnotify
+      pkgs.wl-clipboard
+    ];
+    text = ''
+      notify_failure() {
+        notify-send \
+          --app-name="clipboard-dragon-drop" \
+          --urgency=normal \
+          "DragonDrop" \
+          "$1" >/dev/null 2>&1 || true
+      }
+
+      if ! clipboard_types="$(wl-paste --list-types 2>/dev/null)" ||
+         [[ -z $clipboard_types ]]; then
+        notify_failure "The clipboard is empty or unavailable."
+        exit 1
+      fi
+
+      has_type() {
+        local requested=$1
+        local advertised
+
+        while IFS= read -r advertised; do
+          [[ $advertised == "$requested" ]] && return 0
+        done <<< "$clipboard_types"
+        return 1
+      }
+
+      content_type=
+      for candidate in text/uri-list x-special/gnome-copied-files; do
+        if has_type "$candidate"; then
+          content_type=$candidate
+          break
+        fi
+      done
+
+      image_extension=
+      if [[ -z $content_type ]]; then
+        while IFS= read -r advertised; do
+          case "$advertised" in
+            image/png) image_extension=png ;;
+            image/jpeg | image/jpg) image_extension=jpg ;;
+            image/webp) image_extension=webp ;;
+            image/gif) image_extension=gif ;;
+            image/bmp) image_extension=bmp ;;
+            image/tiff) image_extension=tiff ;;
+            image/avif) image_extension=avif ;;
+            image/svg+xml) image_extension=svg ;;
+            *) continue ;;
+          esac
+          content_type=$advertised
+          break
+        done <<< "$clipboard_types"
+      fi
+
+      if [[ -z $content_type ]]; then
+        for candidate in text/plain\;charset=utf-8 text/plain UTF8_STRING STRING; do
+          if has_type "$candidate"; then
+            content_type=$candidate
+            break
+          fi
+        done
+      fi
+
+      items=()
+      temporary_file=
+      cleanup() {
+        [[ -z $temporary_file ]] || rm -f -- "$temporary_file"
+      }
+      trap cleanup EXIT
+
+      if [[ -n $image_extension ]]; then
+        temporary_root="''${XDG_RUNTIME_DIR:-''${XDG_CACHE_HOME:-$HOME/.cache}}/clipboard-dragon-drop"
+        mkdir -p -- "$temporary_root"
+        chmod 700 -- "$temporary_root"
+        temporary_file="$(mktemp "$temporary_root/clipboard.XXXXXX.$image_extension")"
+        if ! wl-paste --type "$content_type" > "$temporary_file" ||
+           [[ ! -s $temporary_file ]]; then
+          notify_failure "The clipboard image could not be read."
+          exit 1
+        fi
+        items+=("$temporary_file")
+      elif [[ -n $content_type ]]; then
+        if ! clipboard_text="$(wl-paste --no-newline --type "$content_type" 2>/dev/null)"; then
+          notify_failure "The clipboard contents could not be read."
+          exit 1
+        fi
+
+        while IFS= read -r item || [[ -n $item ]]; do
+          item="''${item%$'\r'}"
+          [[ -z $item || $item == \#* || $item == copy || $item == cut ]] && continue
+
+          if [[ $item == \~/* ]]; then
+            item="$HOME/''${item:2}"
+          fi
+
+          if [[ -e $item ]]; then
+            items+=("$(realpath --canonicalize-existing -- "$item")")
+          elif [[ $item == file:* ]]; then
+            if ! gio info -- "$item" >/dev/null 2>&1; then
+              notify_failure "The clipboard refers to a file that no longer exists."
+              exit 1
+            fi
+            items+=("$item")
+          elif [[ $item =~ ^[A-Za-z][A-Za-z0-9+.-]*: ]]; then
+            items+=("$item")
+          else
+            notify_failure "The clipboard is not a list of files or valid URIs."
+            exit 1
+          fi
+        done <<< "$clipboard_text"
+      fi
+
+      if (( ''${#items[@]} == 0 )); then
+        notify_failure "The clipboard does not contain a file, URI, or image DragonDrop can open."
+        exit 1
+      fi
+
+      if ! dragon-drop "''${items[@]}"; then
+        notify_failure "DragonDrop could not open the clipboard contents."
+        exit 1
+      fi
+    '';
+  };
+  clipboardDragonDropLaunch = [
+    "${pkgs.uwsm}/bin/uwsm-app" "--"
+    "${pkgs.hyprland}/bin/hyprctl" "dispatch" "--" "exec"
+    "${clipboardDragonDrop}/bin/clipboard-dragon-drop"
+  ];
+  launcher = import ./rofi-launcher.nix {
+    inherit config pkgs lib inputs system clipboardDragonDropLaunch;
+  };
   launcherBin = "${launcher.script}/bin/xremap-launcher";
   rofiPowerMenu = "${inputs.rofi-power-menu}/rofi-power-menu";
 
@@ -254,6 +391,10 @@ in {
                   # rofi-entry include category=Utilities color=#7DCFFF emoji=🎨
                   super-c = {
                     launch = [ "${pkgs.hyprpicker}/bin/hyprpicker" "-a" ];
+                  };
+                  # rofi-entry include category=Utilities color=#7DCFFF emoji=🐉
+                  super-b = {
+                    launch = clipboardDragonDropLaunch;
                   };
                 };
               };
@@ -922,7 +1063,7 @@ in {
       };
     };
 
-    home.packages = [ launcher.script ];
+    home.packages = [ launcher.script clipboardDragonDrop ];
 
   };
 }
