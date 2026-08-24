@@ -1,4 +1,4 @@
-{ config, lib, inputs, pkgs, pkgs-bleeding, pkgs-slow-moving, system, ... }:
+{ config, lib, inputs, pkgs, pkgs-slow-moving, system, ... }:
 
 # TODO: PROBLEM:
 # Launching with uwsm the rofi laucher is slower, but without it and the rest of
@@ -229,7 +229,7 @@ in
      claude-desktop # from dendritic via overlay, --password-store fix built in
      hermes-agent # from llm-agents.nix via overlay
      hermes-desktop # from llm-agents.nix via overlay
-     pkgs-bleeding.opencode
+     opencode # from dendritic via overlay
      codex # from dendritic via overlay
     # TODO: maybe manage with home manager
     kitty

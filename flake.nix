@@ -5,8 +5,6 @@
   inputs = {
     # Specify the source of Home Manager and Nixpkgs.
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    # Bleeding edge nixpkgs for latest packages (opencode, etc.)
-    nixpkgs-bleeding.url = "github:nixos/nixpkgs/nixos-unstable";
     # Slow-moving nixpkgs for packages that are infrequently updated or take too long to update
     # Used for: kitty-extended-keys, nix-rice, rofi-switch-rust (and potentially others to be migrated gradually)
     # Updated manually with: nix flake lock --update-input nixpkgs-slow-moving
@@ -102,11 +100,13 @@
           #
           # claude-desktop carries dendritic's HYPRLAND_INSTANCE_SIGNATURE-
           # gated --password-store=gnome-libsecret flag, which replaces this
-          # repo's old unconditional keyring wrapper overlay.
+          # repo's old unconditional keyring wrapper overlay. opencode is a
+          # straight passthrough of llm-agents' and is taken from dendritic
+          # only to keep the agents listed in one place.
           (final: prev: {
             llm-agents = llm-agents-pkgs;
             inherit (llm-agents-pkgs) hermes-agent hermes-desktop;
-            inherit (dendritic-pkgs) claude-code codex claude-desktop;
+            inherit (dendritic-pkgs) claude-code codex claude-desktop opencode;
           })
           # pylsp-mypy's test suite runs mypy over the package's own
           # pyproject.toml, which pins python_version = "3.9"; current mypy
@@ -126,10 +126,6 @@
           })
         ];
       };
-      pkgs-bleeding = import inputs.nixpkgs-bleeding {
-        inherit system;
-        config.allowUnfree = true;
-      };
       pkgs-slow-moving = import inputs.nixpkgs-slow-moving {
         inherit system;
         config.allowUnfree = true;
@@ -144,7 +140,7 @@
             ./machines/nixd.nix
           ];
 
-          extraSpecialArgs = { inherit inputs; inherit system; inherit pkgs-bleeding; inherit pkgs-slow-moving; };
+          extraSpecialArgs = { inherit inputs; inherit system; inherit pkgs-slow-moving; };
         };
 
         laptop = home-manager.lib.homeManagerConfiguration {
@@ -155,7 +151,7 @@
             ./machines/laptop.nix
           ];
 
-          extraSpecialArgs = { inherit inputs; inherit system; inherit pkgs-bleeding; inherit pkgs-slow-moving; };
+          extraSpecialArgs = { inherit inputs; inherit system; inherit pkgs-slow-moving; };
         };
       };
 
