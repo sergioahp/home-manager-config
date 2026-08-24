@@ -154,10 +154,14 @@ in {
                     launch = [
                       # bug: hyprctl does not work with commands containing semicolons
                       # Rofi launches instantly (no uwsm overhead), but apps it spawns get uwsm-app + hyprctl
-                      # Using -run-command to wrap launched apps for session management and workspace stability
+                      # Wraps launched apps for session management and workspace stability.
+                      # drun ignores -run-command and launches via GIO as a child of rofi
+                      # (hence of xremap.service), so apps died on every xremap restart. The
+                      # forked rofi's -drun-launch-prefix routes the launch through
+                      # uwsm/hyprctl instead, detaching it into the compositor's scope.
                       "${pkgs.rofi}/bin/rofi" "-show" "drun"
-                       "-run-command" "uwsm-app -- hyprctl dispatch exec -- {cmd}"
-                       "-theme-str" "window {width: 20%;}"
+                      "-drun-launch-prefix" "${pkgs.uwsm}/bin/uwsm-app -- ${pkgs.hyprland}/bin/hyprctl dispatch exec --"
+                      "-theme-str" "window {width: 20%;}"
                     ];
                   };
                   # rofi-entry include category=Utilities color=#7DCFFF emoji=⚡
