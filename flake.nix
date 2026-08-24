@@ -9,10 +9,10 @@
     # Used for: kitty-extended-keys, nix-rice, rofi-switch-rust (and potentially others to be migrated gradually)
     # Updated manually with: nix flake lock --update-input nixpkgs-slow-moving
     nixpkgs-slow-moving.url = "github:nixos/nixpkgs/nixos-unstable";
-    # Keep at working commit - update manually only when tested. Name is
-    # historical: bitwarden moved back to the main nixpkgs, so what is left
-    # on this pin is zathura and layan-gtk-theme.
-    nixpkgs-bitwarden-zathura.url = "github:nixos/nixpkgs/nixos-unstable";
+    # Keep at working commit - update manually only when tested. Held back
+    # for zathura, whose newer builds are still not where we want them
+    # visually (rechecked 2026-08); layan-gtk-theme rides along.
+    nixpkgs-zathura-layan.url = "github:nixos/nixpkgs/nixos-unstable";
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";

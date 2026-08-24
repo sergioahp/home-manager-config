@@ -961,7 +961,7 @@
         "type": "github"
       }
     },
-    "nixpkgs-bitwarden-zathura": {
+    "nixpkgs-zathura-layan": {
       "locked": {
         "lastModified": 1750215678,
         "narHash": "sha256-Rc/ytpamXRf6z8UA2SGa4aaWxUXRbX2MAWIu2C8M+ok=",
@@ -1387,7 +1387,7 @@
         "kitty-extended-keys": "kitty-extended-keys",
         "nix-rice": "nix-rice",
         "nixpkgs": "nixpkgs_13",
-        "nixpkgs-bitwarden-zathura": "nixpkgs-bitwarden-zathura",
+        "nixpkgs-zathura-layan": "nixpkgs-zathura-layan",
         "nixpkgs-slow-moving": "nixpkgs-slow-moving",
         "rofi-power-menu": "rofi-power-menu",
         "rofi-src": "rofi-src",

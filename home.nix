@@ -17,7 +17,7 @@ let
   inherit (config.lib.colors) transparentize colorToRgbaStr colorToRgbaLiteral rice intToFloat;
   colors = config.colorScheme.colors;
   colorsRgbHex = config.colorScheme.colorsRgbHex;
-  pinnedApps = import inputs.nixpkgs-bitwarden-zathura {
+  pinnedApps = import inputs.nixpkgs-zathura-layan {
     inherit system;
     config.allowUnfree = true;
   };
