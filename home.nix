@@ -319,8 +319,8 @@ in
   gtk = {
     enable = true;
     theme = {
-      name = "Layan-Dark";
-      package = pkgs.layan-gtk-theme;
+      name = "Orchis-Dark";
+      package = pkgs.orchis-theme;
     };
     gtk4.theme = config.gtk.theme;
     iconTheme = {
@@ -350,6 +350,7 @@ in
 
   };
   home.pointerCursor = {
+    enable = true;
     # package = pkgs.vanilla-dmz;
     package = pkgs.capitaine-cursors;
     name = "capitaine-cursors";
@@ -360,7 +361,7 @@ in
   home.sessionVariables = {
      EDITOR = "${pkgs.neovim}/bin/nvim";
      MANPAGER = "${pkgs.neovim}/bin/nvim +Man!=";
-     GTK_THEME = "Layan-Dark";
+     GTK_THEME = "Orchis-Dark";
      LANGUAGETOOL_JAR = inputs.typst-languagetool-nix.packages.${system}.lsp.languagetoolJar;
      # Make Claude Code's Bash tool use bash, not the login zsh; avoids zsh
      # nomatch aborting commands on unmatched globs.
