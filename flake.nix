@@ -58,19 +58,18 @@
       url = "github:sergioahp/fcitx5-fzf-table";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    # Daily-updated AI coding agents (claude-code, codex). No nixpkgs follows=
-    # on purpose: overlays.default builds against their pinned nixpkgs, which
-    # is what the numtide binary cache serves. As of numtide/llm-agents.nix#6631
-    # their codex package also builds the codex-code-mode-host helper into its
-    # own bin/, so the old prebuilt-binary shim is gone.
-    llm-agents.url = "github:numtide/llm-agents.nix";
-    # The dendritic config, for its claude-code wrap only. That wrap points
-    # CLAUDE_CODE_SHELL at a bash whose BASH_ENV carries the shell aliases with
-    # the ones claude runs constantly (cat/ls/rm/...) removed, which replaces
-    # the in-claude-else script this repo used to dispatch on $CLAUDECODE at
-    # runtime. Deliberately not following our nixpkgs: the wrap is a
-    # symlinkJoin over llm-agents' package, and llm-agents builds against its
-    # own pin, which is what cache.numtide.com serves.
+    # Single source for everything llm-agents-related here: its packages
+    # provide claude-code, codex and claude-desktop, and an overlay below
+    # takes hermes-* straight off dendritic.inputs.llm-agents, so one numtide
+    # pin serves everything instead of two that drift apart.
+    #
+    # Its claude-code wrap points CLAUDE_CODE_SHELL at a bash whose BASH_ENV
+    # carries the shell aliases with the ones claude runs constantly
+    # (cat/ls/rm/...) removed, which replaces the in-claude-else script this
+    # repo used to dispatch on $CLAUDECODE at runtime. Deliberately not
+    # following our nixpkgs: the wrap is a symlinkJoin over llm-agents'
+    # package, and llm-agents builds against its own pin, which is what
+    # cache.numtide.com serves.
     #
     # github: rather than a path: input, which would copy the whole working
     # tree (desktop.qcow2 included) into the store. Local dendritic edits
@@ -81,28 +80,34 @@
   outputs = { nixpkgs, home-manager, ... }@inputs:
     let
       system = "x86_64-linux";
+      dendritic-pkgs = inputs.dendritic.packages.${system};
+      # Reached through dendritic's input graph rather than as a second
+      # top-level llm-agents input, so there is exactly one numtide pin and
+      # our flake.lock records it (as dendritic's "llm-agents" node).
+      llm-agents-pkgs = inputs.dendritic.inputs.llm-agents.packages.${system};
       pkgs = import nixpkgs {
         inherit system;
         overlays = [
-          # Upstream dropped its overlays.default output (blueprint removal),
-          # so re-inject the package set as pkgs.llm-agents. Downstream refs
-          # (final.llm-agents.* here and in claude-desktop-keyring.nix) keep
-          # working. These build against llm-agents' own pinned nixpkgs, which
-          # the numtide binary cache serves.
-          (final: prev: { llm-agents = inputs.llm-agents.packages.${system}; })
-          # Also override the top-level attrs so anything referencing
-          # pkgs.claude-code / pkgs.codex (e.g. wrappers or other apps that
-          # launch them) gets the llm-agents version, not the nixpkgs one.
-          # Both come from dendritic rather than straight off llm-agents:
-          # claude-code because dendritic wraps it (see the input comment),
-          # codex because taking it from the same place keeps the two agents on
-          # one llm-agents pin instead of two that drift apart.
+          # Upstream's overlays.default is gone (blueprint removal) and its
+          # remaining overlays.shared-nixpkgs would rebuild everything against
+          # our nixpkgs, missing cache.numtide.com. So inject the package set
+          # verbatim as pkgs.llm-agents, an escape hatch for the ~200 agents
+          # not named below, and hoist the ones we install to the top level so
+          # every consumer resolves to one instance rather than whichever
+          # llm-agents attr path it happened to use.
+          #
+          # Not dendritic.overlays.default: that one also carries dendritic's
+          # neovim-with-tools, nsxiv, zsh, fzf, tmux, yazi, zathura and btop,
+          # which would displace this repo's own versions of all of those.
+          #
+          # claude-desktop carries dendritic's HYPRLAND_INSTANCE_SIGNATURE-
+          # gated --password-store=gnome-libsecret flag, which replaces this
+          # repo's old unconditional keyring wrapper overlay.
           (final: prev: {
-            claude-code = inputs.dendritic.packages.${system}.claude-code;
-            codex = inputs.dendritic.packages.${system}.codex;
+            llm-agents = llm-agents-pkgs;
+            inherit (llm-agents-pkgs) hermes-agent hermes-desktop;
+            inherit (dendritic-pkgs) claude-code codex claude-desktop;
           })
-          # Per-package fixups on top of the llm-agents packages
-          (import ./overlays/claude-desktop-keyring.nix)
           # TEMPORARY: pylsp-mypy's test suite fails against the mypy in this
           # nixpkgs rev (mypy dropped python_version=3.9 support, but the
           # test fixtures still target 3.9). Skip checks until upstream syncs

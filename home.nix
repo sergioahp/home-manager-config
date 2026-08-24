@@ -225,12 +225,12 @@ in
      eza
      hunspell
      hunspellDicts.es-mx
-     claude-code # from llm-agents.nix via overlay
-     claude-desktop # llm-agents.nix wrapped with --password-store (overlay)
-     llm-agents.hermes-agent
-     llm-agents.hermes-desktop
+     claude-code # from dendritic via overlay
+     claude-desktop # from dendritic via overlay, --password-store fix built in
+     hermes-agent # from llm-agents.nix via overlay
+     hermes-desktop # from llm-agents.nix via overlay
      pkgs-bleeding.opencode
-     codex # from llm-agents.nix via overlay
+     codex # from dendritic via overlay
     # TODO: maybe manage with home manager
     kitty
      # jupyter-all # COLLITION
