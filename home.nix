@@ -483,11 +483,6 @@ in
     sagemath.enable = true;
     mpv.enable = true;
   };
-  # Plain aliases now. These used to route through in-claude-else, which
-  # checked $CLAUDECODE on every single invocation to decide between the stock
-  # command and the fancy one. Claude no longer sees them at all: the
-  # dendritic claude-code wrap runs its shell commands under a bash whose
-  # BASH_ENV omits exactly this set, so the fallback has nowhere left to fire.
   home.shellAliases = {
     sudo = "sudo ";
     g = "git";
