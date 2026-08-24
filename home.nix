@@ -55,7 +55,7 @@ in
       };
       # The full sage-tests suite takes hours and dominates rebuild time; skip it.
       sage = p.sage.override { requireSageTests = false; };
-      inherit (pinnedApps) bitwarden-desktop zathura;
+      inherit (pinnedApps) zathura;
     })
   ];
 
