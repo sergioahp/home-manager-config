@@ -289,18 +289,8 @@ in
       # We add the emoji family as a workarround to other font's emojis taking precedence
       # https://github.com/NixOS/nixpkgs/issues/172412
       #
-      # The CJK families are spelled out because fontconfig 2.18's
-      # 65-nonlatin.conf made "Noto * CJK KR" the preferred CJK face of every
-      # generic. An unnamed CJK slot therefore switches Han silently to Korean
-      # glyph variants; JP is what this machine rendered before that release.
       serif = [ "DejaVu Serif" "Noto Serif CJK JP" "emoji" ];
       sansSerif = [ "DejaVu Sans" "Noto Sans CJK JP" "emoji" ];
-      # Symbols 2 before emoji: text-default symbols (nh's U+23F1 stopwatch,
-      # arrows, geometric shapes) render monochrome instead of hitting the
-      # bitmap emoji font, which kitty draws as a blank cell when the char
-      # lacks VS16. VS16-qualified emoji still resolve to Noto Color Emoji.
-      # Mono CJK sits after Symbols 2 for the same reason: it also covers the
-      # box-drawing and symbol blocks and would otherwise claim them.
       monospace = [ "DejaVu Sans Mono" "Noto Sans Symbols 2" "Noto Sans Mono CJK JP" "emoji" ];
       emoji = [ "Noto Color Emoji" ];
     };
