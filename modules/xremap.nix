@@ -136,8 +136,58 @@ let
     "${pkgs.hyprland}/bin/hyprctl" "dispatch" "--" "exec"
     "${clipboardDragonDrop}/bin/clipboard-dragon-drop"
   ];
+  # Select a region and copy its text to the clipboard.
+  ocrRegion = pkgs.writeShellApplication {
+    name = "ocr-region";
+    runtimeInputs = [
+      config.programs.ocr.package
+      config.wayland.windowManager.hyprland.package
+      pkgs.coreutils
+      pkgs.gnugrep
+      pkgs.grim
+      pkgs.hyprpicker
+      pkgs.libnotify
+      pkgs.slurp
+    ];
+    text = ''
+      notify() {
+        notify-send --app-name=ocr --urgency=normal "OCR" "$1" >/dev/null 2>&1 || true
+      }
+
+      # Freeze the screen so selection and capture use the same image.
+      hyprpicker -r -z &
+      picker=$!
+      unfreeze() { kill "$picker" 2>/dev/null || true; }
+      trap unfreeze EXIT
+
+      # Wait for the frozen layer surface before capturing.
+      ready=
+      deadline=$(($(date +%s%3N) + 200))
+      while [ "$(date +%s%3N)" -lt "$deadline" ]; do
+        kill -0 "$picker" 2>/dev/null || break
+        if hyprctl layers -j | grep -q '"namespace": "hyprpicker"'; then
+          ready=1
+          break
+        fi
+        sleep 0.01
+      done
+      [ -n "$ready" ] || { notify "The screen could not be frozen."; exit 1; }
+
+      geometry="$(slurp -w 0)" || exit 1
+
+      # Let recognition run after unfreezing.
+      if ! text="$( { grim -g "$geometry" -; unfreeze; } | ocr --copy - )"; then
+        notify "The selection could not be recognised."
+        exit 1
+      fi
+
+      [ -n "$text" ] || { notify "No text in the selection."; exit 0; }
+      notify "$text"
+    '';
+  };
+  ocrRegionLaunch = [ "${ocrRegion}/bin/ocr-region" ];
   launcher = import ./rofi-launcher.nix {
-    inherit config pkgs lib inputs system clipboardDragonDropLaunch;
+    inherit config pkgs lib inputs system clipboardDragonDropLaunch ocrRegionLaunch;
   };
   launcherBin = "${launcher.script}/bin/xremap-launcher";
   rofiPowerMenu = "${inputs.rofi-power-menu}/rofi-power-menu";
@@ -380,6 +430,10 @@ in {
                         ${pkgs.coreutils}/bin/rm -f "$shot"
                       ''
                     ];
+                  };
+                  # rofi-entry include category=Utilities color=#7DCFFF emoji=🔤
+                  super-r = {
+                    launch = ocrRegionLaunch;
                   };
                   # rofi-entry include category=Monitoring color=#9ECE6A emoji=🟠
                   super-o = {

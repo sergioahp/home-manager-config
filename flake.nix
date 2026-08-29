@@ -52,6 +52,7 @@
       flake = false;
     };
     status-overlay.url = "github:sergioahp/status-overlay";
+    ocr-gui.url = "github:sergioahp/ocr-gui";
     typst-languagetool-nix.url = "github:sergioahp/typst-languagetool-nix";
     fcitx5-fzf-table = {
       url = "github:sergioahp/fcitx5-fzf-table";

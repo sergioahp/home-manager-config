@@ -1,4 +1,4 @@
-{ config, pkgs, lib, inputs, system, clipboardDragonDropLaunch }:
+{ config, pkgs, lib, inputs, system, clipboardDragonDropLaunch, ocrRegionLaunch }:
 
 let
   categoryColors = config.categoryColors;
@@ -214,6 +214,14 @@ let
           ${pkgs.coreutils}/bin/rm -f "$shot"
         ''
       ];
+    }
+    {
+      key = "super-s super-r";
+      desc = "OCR region → clipboard";
+      category = "Utilities";
+      color = categoryColors.Utilities;
+      glyph = "🔤";
+      args = ocrRegionLaunch;
     }
     {
       key = "super-s super-b";

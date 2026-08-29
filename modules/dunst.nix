@@ -44,6 +44,11 @@ in
           background = rice.color.toRgbaHex blue-38;
           frame_color = rice.color.toRgbHex colors.blue;
         };
+        # Render captured text literally.
+        rule-ocr = {
+          appname = "ocr";
+          markup = "no";
+        };
         rule-claude-code = let
           claude-warm-60 = transparentize colors.claude-warm-bg 0.3764705882352941;  # ~38% opacity (60 hex)
         in {

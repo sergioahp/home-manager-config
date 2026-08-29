@@ -62,6 +62,7 @@ in
   imports = [
     inputs.xremap.homeManagerModules.default
     inputs.hyprvoice.homeManagerModules.default
+    inputs.ocr-gui.homeModules.default
     inputs.sops-nix.homeManagerModules.sops
     ./modules/colors.nix
     ./modules/category-colors.nix
@@ -107,6 +108,7 @@ in
   programs.sergio-dunst.enable = true;
   programs.sergio-git.enable = true;
   programs.sergio-hyprvoice.enable = true;
+  programs.ocr.enable = true;
 
   home.packages = with pkgs; [
      nerd-fonts.dejavu-sans-mono
