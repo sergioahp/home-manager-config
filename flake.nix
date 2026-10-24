@@ -58,22 +58,7 @@
       url = "github:sergioahp/fcitx5-fzf-table";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    # Single source for everything llm-agents-related here: its packages
-    # provide claude-code, codex and claude-desktop, and an overlay below
-    # takes hermes-* straight off dendritic.inputs.llm-agents, so one numtide
-    # pin serves everything instead of two that drift apart.
-    #
-    # Its claude-code wrap points CLAUDE_CODE_SHELL at a bash whose BASH_ENV
-    # carries the shell aliases with the ones claude runs constantly
-    # (cat/ls/rm/...) removed, which replaces the in-claude-else script this
-    # repo used to dispatch on $CLAUDECODE at runtime. Deliberately not
-    # following our nixpkgs: the wrap is a symlinkJoin over llm-agents'
-    # package, and llm-agents builds against its own pin, which is what
-    # cache.numtide.com serves.
-    #
-    # github: rather than a path: input, which would copy the whole working
-    # tree (desktop.qcow2 included) into the store. Local dendritic edits
-    # therefore need a push plus `nix flake update dendritic` to land here.
+    # Use the agent packages from dendritic and its llm-agents input.
     dendritic.url = "github:sergioahp/dendritic-nix-config";
   };
 
@@ -81,9 +66,7 @@
     let
       system = "x86_64-linux";
       dendritic-pkgs = inputs.dendritic.packages.${system};
-      # Reached through dendritic's input graph rather than as a second
-      # top-level llm-agents input, so there is exactly one numtide pin and
-      # our flake.lock records it (as dendritic's "llm-agents" node).
+      # Reached through dendritic's input graph rather than a second pin.
       llm-agents-pkgs = inputs.dendritic.inputs.llm-agents.packages.${system};
       pkgs = import nixpkgs {
         inherit system;
