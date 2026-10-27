@@ -58,7 +58,7 @@
       url = "github:sergioahp/fcitx5-fzf-table";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    # Use the agent packages from dendritic and its llm-agents input.
+    # Agent packages; Hermes comes from dendritic's llm-agents input.
     dendritic.url = "github:sergioahp/dendritic-nix-config";
   };
 
@@ -66,32 +66,16 @@
     let
       system = "x86_64-linux";
       dendritic-pkgs = inputs.dendritic.packages.${system};
-      # Reached through dendritic's input graph rather than a second pin.
+      # Reuse dendritic's llm-agents pin for Hermes.
       llm-agents-pkgs = inputs.dendritic.inputs.llm-agents.packages.${system};
       pkgs = import nixpkgs {
         inherit system;
         overlays = [
-          # Upstream's overlays.default is gone (blueprint removal) and its
-          # remaining overlays.shared-nixpkgs would rebuild everything against
-          # our nixpkgs, missing cache.numtide.com. So inject the package set
-          # verbatim as pkgs.llm-agents, an escape hatch for the ~200 agents
-          # not named below, and hoist the ones we install to the top level so
-          # every consumer resolves to one instance rather than whichever
-          # llm-agents attr path it happened to use.
-          #
-          # Not dendritic.overlays.default: that one also carries dendritic's
-          # neovim-with-tools, nsxiv, zsh, fzf, tmux, yazi, zathura and btop,
-          # which would displace this repo's own versions of all of those.
-          #
-          # claude-desktop carries dendritic's HYPRLAND_INSTANCE_SIGNATURE-
-          # gated --password-store=gnome-libsecret flag, which replaces this
-          # repo's old unconditional keyring wrapper overlay. opencode is a
-          # straight passthrough of llm-agents' and is taken from dendritic
-          # only to keep the agents listed in one place.
+          # Use selected agent packages without dendritic's unrelated overrides.
           (final: prev: {
             llm-agents = llm-agents-pkgs;
             inherit (llm-agents-pkgs) hermes-agent hermes-desktop;
-            inherit (dendritic-pkgs) claude-code codex claude-desktop opencode;
+            inherit (dendritic-pkgs) claude-code claude-desktop codex omp opencode;
           })
           # pylsp-mypy's test suite runs mypy over the package's own
           # pyproject.toml, which pins python_version = "3.9"; current mypy

@@ -227,12 +227,13 @@ in
      eza
      hunspell
      hunspellDicts.es-mx
-     claude-code # from dendritic via overlay
-     claude-desktop # from dendritic via overlay, --password-store fix built in
-     hermes-agent # from llm-agents.nix via overlay
-     hermes-desktop # from llm-agents.nix via overlay
-     opencode # from dendritic via overlay
-     codex # from dendritic via overlay
+     claude-code
+     claude-desktop
+     codex
+     hermes-agent
+     hermes-desktop
+     omp
+     opencode
     # TODO: maybe manage with home manager
     kitty
      # jupyter-all # COLLITION
