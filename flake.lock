@@ -204,11 +204,11 @@
         "status-overlay": "status-overlay"
       },
       "locked": {
-        "lastModified": 1792705533,
-        "narHash": "sha256-NOWbX477qZTGr4A5/SRF0WLaOq2zL2Y+TdioM+RoU+E=",
+        "lastModified": 1793151836,
+        "narHash": "sha256-HgxpBLxfKKIwcZfVgq6uiSx7y3iMe4d+tO3T0Z14Tfw=",
         "owner": "sergioahp",
         "repo": "dendritic-nix-config",
-        "rev": "518c50e3861513101e362bc401643908aee753f7",
+        "rev": "ca6dc646959c256b0839b3c56d4d64213f242bb2",
         "type": "github"
       },
       "original": {
@@ -928,11 +928,11 @@
         "treefmt-nix": "treefmt-nix"
       },
       "locked": {
-        "lastModified": 1792687927,
-        "narHash": "sha256-O8JsXXPl26uxJ2nITotVnq7FAubqzsK4pWhZuh78bDA=",
+        "lastModified": 1793142375,
+        "narHash": "sha256-PKsO8cr8AfjPCGAFBn5EidUqZxJaxqlbP7lM9VggWNE=",
         "owner": "numtide",
         "repo": "llm-agents.nix",
-        "rev": "24cf271f40105749bb82ad318013c372183ef28e",
+        "rev": "959a6e37234ae40e3ae6d4c9a564ec1a8803ccf9",
         "type": "github"
       },
       "original": {
